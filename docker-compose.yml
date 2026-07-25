@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: in_hc_backend
+    restart: unless-stopped
+    working_dir: /var/www/backend
+    volumes:
+      - ./backend:/var/www/backend
+    networks:
+      - in_hc_network
+    depends_on:
+      - db
+
+  webserver:
+    image: nginx:alpine
+    container_name: in_hc_webserver
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/backend
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - in_hc_network
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15
+    container_name: in_hc_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-in_hc}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - in_hc_network
+
+  frontend:
+    image: node:20-alpine
+    container_name: in_hc_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: npm run dev -- --host
+    networks:
+      - in_hc_network
+
+networks:
+  in_hc_network:
+    driver: bridge
+
+volumes:
+  db_data:
