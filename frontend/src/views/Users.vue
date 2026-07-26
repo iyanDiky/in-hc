@@ -44,9 +44,9 @@
                 <td>{{ item.bagian_seksi?.bagian_seksi }}</td>
                 <td><span class="badge bg-primary rounded-3 fw-semibold">{{ item.level }}</span></td>
                 <td>
-                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
-                  <button class="btn btn-sm btn-warning me-2" @click="resetPasswordItem(item.id)" title="Reset Password"><i class="ti ti-key fs-5"></i></button>
-                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
+                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
+                  <button class="btn btn-sm btn-warning me-2" @click="resetPasswordItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Password"><i class="ti ti-key fs-5"></i></button>
+                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -155,6 +155,12 @@ const fetchItems = async () => {
   try {
     const res = await api.post('/users/list')
     items.value = res.data.data
+    nextTick(() => {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return window.bootstrap.Tooltip.getInstance(tooltipTriggerEl) || new window.bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    })
   } catch (error) {
     console.error(error)
   }

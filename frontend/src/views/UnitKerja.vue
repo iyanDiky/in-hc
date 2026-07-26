@@ -36,8 +36,8 @@
                 <td>{{ item.kode }}</td>
                 <td>{{ item.unit_kerja }}</td>
                 <td>
-                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
-                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
+                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
+                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -88,6 +88,12 @@ const fetchItems = async () => {
   try {
     const res = await api.post('/unit-kerja/list')
     items.value = res.data.data
+    nextTick(() => {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return window.bootstrap.Tooltip.getInstance(tooltipTriggerEl) || new window.bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    })
   } catch (error) {
     console.error(error)
   }
