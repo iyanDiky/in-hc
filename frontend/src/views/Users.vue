@@ -67,23 +67,19 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label class="form-label">NPP</label>
                 <input type="text" class="form-control" v-model="form.npp">
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label class="form-label">Nama Lengkap</label>
                 <input type="text" class="form-control" v-model="form.nama">
               </div>
-              <div class="col-md-4 mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-control" v-model="form.username">
-              </div>
             </div>
             <div class="row">
-              <div class="col-md-6 mb-3" v-show="isEdit">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" v-model="form.password" placeholder="Kosongkan jika tidak ingin mengubah password">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" v-model="form.username">
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Level</label>
