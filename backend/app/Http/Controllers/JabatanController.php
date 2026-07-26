@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\Jabatan;
 
 class JabatanController extends Controller
@@ -33,7 +34,7 @@ class JabatanController extends Controller
     public function create(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:jabatan,kode',
+            'kode' => ['required', 'string', 'max:10', Rule::unique('jabatan', 'kode')->whereNull('delete_at')],
             'jabatan' => 'required|string|max:255',
         ]);
 
@@ -48,7 +49,7 @@ class JabatanController extends Controller
         $jabatan = Jabatan::findOrFail($request->id);
 
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:jabatan,kode,' . $jabatan->id,
+            'kode' => ['required', 'string', 'max:10', Rule::unique('jabatan', 'kode')->ignore($jabatan->id)->whereNull('delete_at')],
             'jabatan' => 'required|string|max:255',
         ]);
 

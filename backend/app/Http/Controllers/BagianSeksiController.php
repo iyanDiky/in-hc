@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\BagianSeksi;
 
 class BagianSeksiController extends Controller
@@ -33,7 +34,7 @@ class BagianSeksiController extends Controller
     public function create(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:bagian_seksi,kode',
+            'kode' => ['required', 'string', 'max:10', Rule::unique('bagian_seksi', 'kode')->whereNull('delete_at')],
             'bagian_seksi' => 'required|string|max:255',
             'unit_kerja_id' => 'required|uuid|exists:unit_kerja,id',
         ]);
@@ -49,7 +50,7 @@ class BagianSeksiController extends Controller
         $bagian_seksi = BagianSeksi::findOrFail($request->id);
 
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:bagian_seksi,kode,' . $bagian_seksi->id,
+            'kode' => ['required', 'string', 'max:10', Rule::unique('bagian_seksi', 'kode')->ignore($bagian_seksi->id)->whereNull('delete_at')],
             'bagian_seksi' => 'required|string|max:255',
             'unit_kerja_id' => 'required|uuid|exists:unit_kerja,id',
         ]);

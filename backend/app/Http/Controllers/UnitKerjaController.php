@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\UnitKerja;
 
 class UnitKerjaController extends Controller
@@ -33,7 +34,7 @@ class UnitKerjaController extends Controller
     public function create(Request $request)
     {
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:unit_kerja,kode',
+            'kode' => ['required', 'string', 'max:10', Rule::unique('unit_kerja', 'kode')->whereNull('delete_at')],
             'unit_kerja' => 'required|string|max:255',
         ]);
 
@@ -48,7 +49,7 @@ class UnitKerjaController extends Controller
         $unit_kerja = UnitKerja::findOrFail($request->id);
 
         $validated = $request->validate([
-            'kode' => 'required|string|max:10|unique:unit_kerja,kode,' . $unit_kerja->id,
+            'kode' => ['required', 'string', 'max:10', Rule::unique('unit_kerja', 'kode')->ignore($unit_kerja->id)->whereNull('delete_at')],
             'unit_kerja' => 'required|string|max:255',
         ]);
 
