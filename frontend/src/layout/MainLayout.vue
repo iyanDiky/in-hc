@@ -44,6 +44,16 @@
                 <span class="hide-menu">Bagian Seksi</span>
               </router-link>
             </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Pengaturan</span>
+            </li>
+            <li class="sidebar-item" :class="{ 'selected': route.path === '/users' }">
+              <router-link class="sidebar-link" to="/users" aria-expanded="false">
+                <span><i class="ti ti-user-circle"></i></span>
+                <span class="hide-menu">Users</span>
+              </router-link>
+            </li>
           </ul>
         </nav>
       </div>

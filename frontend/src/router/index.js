@@ -25,6 +25,11 @@ const routes = [
         path: 'bagian-seksi',
         name: 'BagianSeksi',
         component: () => import('../views/BagianSeksi.vue')
+      },
+      {
+        path: 'users',
+        name: 'Users',
+        component: () => import('../views/Users.vue')
       }
     ]
   }
