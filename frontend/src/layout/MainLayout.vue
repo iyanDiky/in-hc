@@ -98,7 +98,8 @@
                       </div>
                     </div>
                     <div class="message-body">
-                      <div class="d-grid py-4 px-7 pt-8">
+                      <div class="d-grid py-4 px-7 pt-8 gap-3">
+                        <button @click="showChangePasswordModal = true" class="btn btn-primary">Ubah Password</button>
                         <button @click="handleLogout" class="btn btn-outline-primary">Log Out</button>
                       </div>
                     </div>
@@ -116,6 +117,36 @@
       </div>
     </div>
   </div>
+
+  <!-- Change Password Modal -->
+  <div v-if="showChangePasswordModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ubah Password</h5>
+          <button type="button" class="btn-close" @click="showChangePasswordModal = false"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Password Lama</label>
+            <input type="password" class="form-control" v-model="changePasswordForm.old_password" placeholder="Masukkan password lama">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password Baru</label>
+            <input type="password" class="form-control" v-model="changePasswordForm.new_password" placeholder="Masukkan password baru">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Konfirmasi Password Baru</label>
+            <input type="password" class="form-control" v-model="changePasswordForm.confirm_password" placeholder="Ketik ulang password baru">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" @click="showChangePasswordModal = false">Batal</button>
+          <button type="button" class="btn btn-primary" @click="submitChangePassword">Yakin</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -130,6 +161,13 @@ const user = ref(null)
 
 const isSidebarMini = ref(false)
 const isSidebarShow = ref(false)
+
+const showChangePasswordModal = ref(false)
+const changePasswordForm = ref({
+  old_password: '',
+  new_password: '',
+  confirm_password: ''
+})
 
 const toggleSidebar = () => {
   // Check if screen is small
@@ -162,6 +200,44 @@ const handleLogout = async () => {
     localStorage.removeItem('auth_token')
     localStorage.removeItem('user_data')
     router.push('/login')
+  }
+}
+
+const submitChangePassword = async () => {
+  if (changePasswordForm.value.new_password !== changePasswordForm.value.confirm_password) {
+    window.Swal.fire({
+      icon: 'error',
+      title: 'Validasi Gagal',
+      text: 'Konfirmasi password salah'
+    })
+    return
+  }
+
+  try {
+    const res = await api.post('/change-password', {
+      old_password: changePasswordForm.value.old_password,
+      new_password: changePasswordForm.value.new_password
+    })
+    
+    if (res.data.success) {
+      window.Swal.fire({
+        icon: 'success',
+        title: 'Berhasil',
+        text: 'Password berhasil diubah, silakan login kembali',
+        timer: 1500,
+        showConfirmButton: false
+      }).then(() => {
+        showChangePasswordModal.value = false
+        changePasswordForm.value = { old_password: '', new_password: '', confirm_password: '' }
+        handleLogout()
+      })
+    }
+  } catch (error) {
+    window.Swal.fire({
+      icon: 'error',
+      title: 'Gagal',
+      text: error.response?.data?.message || 'Terjadi kesalahan'
+    })
   }
 }
 

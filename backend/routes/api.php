@@ -25,6 +25,7 @@ Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
+    Route::post('/change-password', [App\Http\Controllers\AuthController::class, 'changePassword']);
 
     // Unit Kerja
     Route::prefix('unit-kerja')->group(function () {
