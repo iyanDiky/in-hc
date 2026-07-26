@@ -45,3 +45,12 @@ Route::prefix('bagian-seksi')->group(function () {
     Route::post('/update', [BagianSeksiController::class, 'update']);
     Route::post('/delete', [BagianSeksiController::class, 'delete']);
 });
+
+Route::prefix('users')->group(function () {
+    Route::post('/list', [App\Http\Controllers\UserController::class, 'list']);
+    Route::post('/detail', [App\Http\Controllers\UserController::class, 'detail']);
+    Route::post('/create', [App\Http\Controllers\UserController::class, 'create']);
+    Route::post('/update', [App\Http\Controllers\UserController::class, 'update']);
+    Route::post('/delete', [App\Http\Controllers\UserController::class, 'delete']);
+    Route::post('/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword']);
+});
