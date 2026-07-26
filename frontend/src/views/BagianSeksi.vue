@@ -49,7 +49,7 @@
     </div>
 
     <!-- Modal Form -->
-    <div v-if="showModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
+    <div v-if="showModal" id="formModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -67,7 +67,7 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Unit Kerja</label>
-              <select class="form-select" v-model="form.unit_kerja_id">
+              <select class="select2 form-control" v-model="form.unit_kerja_id" style="width: 100%; height: 36px">
                 <option value="">Pilih Unit Kerja...</option>
                 <option v-for="uk in unitKerjaList" :key="uk.id" :value="uk.id">
                   {{ uk.unit_kerja }}
@@ -86,7 +86,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import axios from 'axios'
 
 const api = axios.create({ baseURL: 'http://localhost:8000/api' })
@@ -115,7 +115,7 @@ const fetchUnitKerja = async () => {
   }
 }
 
-const openModal = (item = null) => {
+const openModal = async (item = null) => {
   if (item) {
     isEdit.value = true
     form.value = { ...item }
@@ -124,6 +124,22 @@ const openModal = (item = null) => {
     form.value = { id: '', kode: '', bagian_seksi: '', unit_kerja_id: '' }
   }
   showModal.value = true
+
+  await nextTick()
+  // Small delay to ensure modal is fully rendered before select2 binds to it
+  setTimeout(() => {
+    $('.select2').select2({
+      dropdownParent: $('#formModal')
+    })
+    
+    // Set initial value in select2
+    $('.select2').val(form.value.unit_kerja_id).trigger('change.select2')
+
+    // Update vue state when select2 changes
+    $('.select2').on('change', function() {
+      form.value.unit_kerja_id = $(this).val()
+    })
+  }, 50)
 }
 
 const closeModal = () => {
@@ -137,7 +153,7 @@ const saveData = async () => {
     } else {
       await api.post('/bagian-seksi/create', form.value)
     }
-    closeModal()
+    showModal.value = false
     fetchItems()
   } catch (error) {
     alert(error.response?.data?.message || 'Error saving data')

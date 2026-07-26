@@ -131,6 +131,8 @@ onMounted(() => {
       
       // We skip app.min.js because we handle sidebar state natively in Vue now
       await loadScript('/dist/js/app-style-switcher.js')
+      await loadScript('/dist/libs/select2/dist/js/select2.full.min.js')
+      await loadScript('/dist/libs/select2/dist/js/select2.min.js')
       await loadScript('/dist/js/custom.js')
     } catch (e) {
       console.error('Failed to load template scripts', e)
