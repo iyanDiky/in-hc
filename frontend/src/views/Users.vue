@@ -45,6 +45,7 @@
                 <td><span class="badge bg-primary rounded-3 fw-semibold">{{ item.level }}</span></td>
                 <td>
                   <button class="btn btn-sm btn-info me-2" @click="openModal(item)">Edit</button>
+                  <button class="btn btn-sm btn-warning me-2" @click="resetPasswordItem(item.id)">Reset Pass</button>
                   <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)">Hapus</button>
                 </td>
               </tr>
@@ -74,9 +75,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 mb-3">
+              <div class="col-md-6 mb-3" v-show="isEdit">
                 <label class="form-label">Password</label>
-                <input type="password" class="form-control" v-model="form.password" :placeholder="isEdit ? 'Kosongkan jika tidak ingin mengubah password' : ''">
+                <input type="password" class="form-control" v-model="form.password" placeholder="Kosongkan jika tidak ingin mengubah password">
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Level</label>
@@ -249,6 +250,28 @@ const deleteItem = (id) => {
         window.Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success')
       } catch (error) {
         window.Swal.fire('Gagal!', error.response?.data?.message || 'Terjadi kesalahan saat menghapus data', 'error')
+      }
+    }
+  })
+}
+
+const resetPasswordItem = (id) => {
+  window.Swal.fire({
+    title: 'Reset Password?',
+    text: "Password akan dikembalikan ke default (Bankkalsel1*)",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ffae1f',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, reset!',
+    cancelButtonText: 'Batal'
+  }).then(async (result) => {
+    if (result.isConfirmed || result.value) {
+      try {
+        await api.post('/users/reset-password', { id })
+        window.Swal.fire('Berhasil!', 'Password berhasil direset ke default.', 'success')
+      } catch (error) {
+        window.Swal.fire('Gagal!', error.response?.data?.message || 'Terjadi kesalahan saat mereset password', 'error')
       }
     }
   })

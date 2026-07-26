@@ -44,11 +44,10 @@ class UserController extends Controller
             'jabatan_id' => 'required|uuid|exists:jabatan,id',
             'bagian_seksi_id' => 'required|uuid|exists:bagian_seksi,id',
             'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->whereNull('delete_at')],
-            'password' => 'required|string|max:255',
             'level' => 'required|in:admin,user',
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        $validated['password'] = Hash::make('Bankkalsel1*');
 
         $user = User::create($validated);
 
@@ -90,5 +89,17 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'Deleted successfully']);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate(['id' => 'required|uuid']);
+        $user = User::findOrFail($request->id);
+        
+        $user->update([
+            'password' => Hash::make('Bankkalsel1*')
+        ]);
+
+        return response()->json(['message' => 'Password reset successfully']);
     }
 }

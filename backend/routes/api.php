@@ -52,4 +52,5 @@ Route::prefix('users')->group(function () {
     Route::post('/create', [App\Http\Controllers\UserController::class, 'create']);
     Route::post('/update', [App\Http\Controllers\UserController::class, 'update']);
     Route::post('/delete', [App\Http\Controllers\UserController::class, 'delete']);
+    Route::post('/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword']);
 });
