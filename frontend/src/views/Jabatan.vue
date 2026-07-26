@@ -76,9 +76,9 @@
 
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
-import axios from 'axios'
+import api from '../utils/api'
 
-const api = axios.create({ baseURL: 'http://localhost:8000/api' })
+
 const items = ref([])
 const showModal = ref(false)
 const isEdit = ref(false)

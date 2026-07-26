@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'jabatan_id' => $jabatan->id,
             'bagian_seksi_id' => $bagianSeksi->id,
             'username' => 'admin',
-            'password' => Hash::make('divisihc**'),
+            'password' => Hash::make('Bankkalsel1*'),
             'level' => 'admin',
         ]);
     }

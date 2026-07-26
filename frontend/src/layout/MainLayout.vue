@@ -72,6 +72,41 @@
               </a>
             </li>
           </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link pe-0" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="d-flex align-items-center">
+                    <div class="user-profile-img">
+                      <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="35" height="35" alt="user" />
+                    </div>
+                  </div>
+                </a>
+                <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="profile-dropdown position-relative" data-simplebar>
+                    <div class="py-3 px-7 pb-0">
+                      <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
+                    </div>
+                    <div class="d-flex align-items-center py-9 mx-7 border-bottom">
+                      <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="80" height="80" alt="user" />
+                      <div class="ms-3">
+                        <h5 class="mb-1 fs-4">{{ user?.nama || 'User' }}</h5>
+                        <span class="mb-1 d-block text-dark">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
+                        <p class="mb-0 d-flex text-dark align-items-center gap-2">
+                          <i class="ti ti-id fs-4"></i> {{ user?.npp || '-' }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="message-body">
+                      <div class="d-grid py-4 px-7 pt-8">
+                        <button @click="handleLogout" class="btn btn-outline-primary">Log Out</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </nav>
       </header>
       <!--  Header End -->
@@ -85,9 +120,13 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterView, RouterLink, useRoute } from 'vue-router'
+import { RouterView, RouterLink, useRoute, useRouter } from 'vue-router'
+import api from '../utils/api'
 
 const route = useRoute()
+const router = useRouter()
+
+const user = ref(null)
 
 const isSidebarMini = ref(false)
 const isSidebarShow = ref(false)
@@ -114,10 +153,28 @@ const handleResize = () => {
   }
 }
 
+const handleLogout = async () => {
+  try {
+    await api.post('/logout')
+  } catch (error) {
+    console.error('Logout error:', error)
+  } finally {
+    localStorage.removeItem('auth_token')
+    localStorage.removeItem('user_data')
+    router.push('/login')
+  }
+}
+
 onMounted(() => {
   // Set initial state
   handleResize()
   window.addEventListener('resize', handleResize)
+
+  // Load user data
+  const userData = localStorage.getItem('user_data')
+  if (userData) {
+    user.value = JSON.parse(userData)
+  }
 
   const loadScript = (src) => {
     return new Promise((resolve, reject) => {
