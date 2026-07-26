@@ -38,8 +38,8 @@
                 <td>{{ item.bagian_seksi }}</td>
                 <td>{{ item.unit_kerja?.unit_kerja }}</td>
                 <td>
-                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)">Edit</button>
-                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)">Hapus</button>
+                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
+                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
                 </td>
               </tr>
             </tbody>
