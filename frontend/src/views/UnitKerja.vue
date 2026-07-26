@@ -117,20 +117,33 @@ const saveData = async () => {
     }
     closeModal()
     fetchItems()
+    window.Swal.fire('Berhasil!', 'Data berhasil disimpan.', 'success')
   } catch (error) {
-    alert(error.response?.data?.message || 'Error saving data')
+    window.Swal.fire('Gagal!', error.response?.data?.message || 'Terjadi kesalahan saat menyimpan data', 'error')
   }
 }
 
-const deleteItem = async (id) => {
-  if (confirm('Hapus data ini?')) {
-    try {
-      await api.post('/unit-kerja/delete', { id })
-      fetchItems()
-    } catch (error) {
-      console.error(error)
+const deleteItem = (id) => {
+  window.Swal.fire({
+    title: 'Apakah Anda yakin?',
+    text: "Data yang dihapus tidak dapat dikembalikan!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, hapus!',
+    cancelButtonText: 'Batal'
+  }).then(async (result) => {
+    if (result.isConfirmed || result.value) {
+      try {
+        await api.post('/unit-kerja/delete', { id })
+        fetchItems()
+        window.Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success')
+      } catch (error) {
+        window.Swal.fire('Gagal!', error.response?.data?.message || 'Terjadi kesalahan saat menghapus data', 'error')
+      }
     }
-  }
+  })
 }
 
 onMounted(() => {
