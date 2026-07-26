@@ -17,6 +17,7 @@ class UserController extends Controller
             $search = strtolower($request->search);
             $query->where(function($q) use ($search) {
                 $q->whereRaw('LOWER(npp) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(nama) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(username) LIKE ?', ["%{$search}%"]);
             });
         }
@@ -39,6 +40,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'npp' => ['required', 'string', 'max:16', Rule::unique('users', 'npp')->whereNull('delete_at')],
+            'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jabatan_id' => 'required|uuid|exists:jabatan,id',
@@ -61,6 +63,7 @@ class UserController extends Controller
 
         $validated = $request->validate([
             'npp' => ['required', 'string', 'max:16', Rule::unique('users', 'npp')->ignore($user->id)->whereNull('delete_at')],
+            'nama' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'jabatan_id' => 'required|uuid|exists:jabatan,id',

@@ -27,6 +27,7 @@
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">NPP</h6></th>
+                <th><h6 class="fs-4 fw-semibold mb-0">Nama</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Username</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Tempat/Tgl Lahir</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Jabatan</h6></th>
@@ -38,6 +39,7 @@
             <tbody>
               <tr v-for="item in items" :key="item.id">
                 <td>{{ item.npp }}</td>
+                <td>{{ item.nama }}</td>
                 <td>{{ item.username }}</td>
                 <td>{{ item.tempat_lahir }}, {{ item.tanggal_lahir }}</td>
                 <td>{{ item.jabatan?.jabatan }}</td>
@@ -65,11 +67,15 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-6 mb-3">
+              <div class="col-md-4 mb-3">
                 <label class="form-label">NPP</label>
                 <input type="text" class="form-control" v-model="form.npp">
               </div>
-              <div class="col-md-6 mb-3">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control" v-model="form.nama">
+              </div>
+              <div class="col-md-4 mb-3">
                 <label class="form-label">Username</label>
                 <input type="text" class="form-control" v-model="form.username">
               </div>
@@ -142,6 +148,7 @@ const isEdit = ref(false)
 const form = ref({ 
   id: '', 
   npp: '', 
+  nama: '',
   username: '', 
   password: '', 
   level: '', 
@@ -191,7 +198,7 @@ const openModal = async (item = null) => {
   } else {
     isEdit.value = false
     form.value = { 
-      id: '', npp: '', username: '', password: '', level: '', 
+      id: '', npp: '', nama: '', username: '', password: '', level: '', 
       tempat_lahir: '', tanggal_lahir: '', jabatan_id: '', bagian_seksi_id: '' 
     }
   }

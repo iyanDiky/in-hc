@@ -40,6 +40,7 @@ class UserSeeder extends Seeder
 
         User::create([
             'npp' => 'admin-001',
+            'nama' => 'Administrator',
             'tempat_lahir' => 'Jakarta',
             'tanggal_lahir' => '1990-01-01',
             'jabatan_id' => $jabatan->id,
