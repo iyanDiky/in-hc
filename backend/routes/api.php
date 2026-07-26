@@ -21,36 +21,46 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Since auth is not yet implemented, we expose them directly or you can wrap them in a mock auth middleware later.
-Route::prefix('jabatan')->group(function () {
-    Route::post('/list', [JabatanController::class, 'list']);
-    Route::post('/detail', [JabatanController::class, 'detail']);
-    Route::post('/create', [JabatanController::class, 'create']);
-    Route::post('/update', [JabatanController::class, 'update']);
-    Route::post('/delete', [JabatanController::class, 'delete']);
-});
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 
-Route::prefix('unit-kerja')->group(function () {
-    Route::post('/list', [UnitKerjaController::class, 'list']);
-    Route::post('/detail', [UnitKerjaController::class, 'detail']);
-    Route::post('/create', [UnitKerjaController::class, 'create']);
-    Route::post('/update', [UnitKerjaController::class, 'update']);
-    Route::post('/delete', [UnitKerjaController::class, 'delete']);
-});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
+    Route::post('/change-password', [App\Http\Controllers\AuthController::class, 'changePassword']);
 
-Route::prefix('bagian-seksi')->group(function () {
-    Route::post('/list', [BagianSeksiController::class, 'list']);
-    Route::post('/detail', [BagianSeksiController::class, 'detail']);
-    Route::post('/create', [BagianSeksiController::class, 'create']);
-    Route::post('/update', [BagianSeksiController::class, 'update']);
-    Route::post('/delete', [BagianSeksiController::class, 'delete']);
-});
+    // Unit Kerja
+    Route::prefix('unit-kerja')->group(function () {
+        Route::post('/list', [UnitKerjaController::class, 'list']);
+        Route::post('/detail', [UnitKerjaController::class, 'detail']);
+        Route::post('/create', [UnitKerjaController::class, 'create']);
+        Route::post('/update', [UnitKerjaController::class, 'update']);
+        Route::post('/delete', [UnitKerjaController::class, 'delete']);
+    });
 
-Route::prefix('users')->group(function () {
-    Route::post('/list', [App\Http\Controllers\UserController::class, 'list']);
-    Route::post('/detail', [App\Http\Controllers\UserController::class, 'detail']);
-    Route::post('/create', [App\Http\Controllers\UserController::class, 'create']);
-    Route::post('/update', [App\Http\Controllers\UserController::class, 'update']);
-    Route::post('/delete', [App\Http\Controllers\UserController::class, 'delete']);
-    Route::post('/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword']);
+    // Jabatan
+    Route::prefix('jabatan')->group(function () {
+        Route::post('/list', [JabatanController::class, 'list']);
+        Route::post('/detail', [JabatanController::class, 'detail']);
+        Route::post('/create', [JabatanController::class, 'create']);
+        Route::post('/update', [JabatanController::class, 'update']);
+        Route::post('/delete', [JabatanController::class, 'delete']);
+    });
+
+    // Bagian Seksi
+    Route::prefix('bagian-seksi')->group(function () {
+        Route::post('/list', [BagianSeksiController::class, 'list']);
+        Route::post('/detail', [BagianSeksiController::class, 'detail']);
+        Route::post('/create', [BagianSeksiController::class, 'create']);
+        Route::post('/update', [BagianSeksiController::class, 'update']);
+        Route::post('/delete', [BagianSeksiController::class, 'delete']);
+    });
+
+    // Users
+    Route::prefix('users')->group(function () {
+        Route::post('/list', [App\Http\Controllers\UserController::class, 'list']);
+        Route::post('/detail', [App\Http\Controllers\UserController::class, 'detail']);
+        Route::post('/create', [App\Http\Controllers\UserController::class, 'create']);
+        Route::post('/update', [App\Http\Controllers\UserController::class, 'update']);
+        Route::post('/delete', [App\Http\Controllers\UserController::class, 'delete']);
+        Route::post('/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword']);
+    });
 });
