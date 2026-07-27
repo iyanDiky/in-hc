@@ -63,4 +63,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/delete', [App\Http\Controllers\UserController::class, 'delete']);
         Route::post('/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword']);
     });
+    // Surat Masuk
+    Route::prefix('surat-masuk')->group(function () {
+        Route::post('/list', [\App\Http\Controllers\SuratMasukController::class, 'list']);
+        Route::post('/detail', [\App\Http\Controllers\SuratMasukController::class, 'detail']);
+        Route::post('/create', [\App\Http\Controllers\SuratMasukController::class, 'create']);
+        Route::post('/update', [\App\Http\Controllers\SuratMasukController::class, 'update']);
+        Route::post('/delete', [\App\Http\Controllers\SuratMasukController::class, 'delete']);
+    });
 });
