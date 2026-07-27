@@ -34,21 +34,6 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items.data" :key="item.id">
-                <td>{{ item.tanggal_surat }}</td>
-                <td>{{ item.nomor_surat }}</td>
-                <td>{{ item.pengirim }}</td>
-                <td>
-                  <p class="mb-0 text-truncate" style="max-width: 200px;" :title="item.perihal">
-                    {{ item.perihal }}
-                  </p>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-secondary me-2" @click="openDetail(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-eye fs-5"></i></button>
-                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
-                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -179,13 +164,33 @@ const handleFileUpload = (event) => {
 
 let tableInstance = null
 
-const initDataTable = () => {
-  if (tableInstance) {
-    tableInstance.destroy()
-  }
-  nextTick(() => {
-    if (window.$ && window.$.fn.dataTable) {
+const initDataTable = (dataList) => {
+  if (window.$ && window.$.fn.dataTable) {
+    if (!tableInstance) {
       tableInstance = window.$('#suratMasukTable').DataTable({
+        data: dataList,
+        columns: [
+          { data: 'tanggal_surat' },
+          { data: 'nomor_surat' },
+          { data: 'pengirim' },
+          { 
+            data: 'perihal',
+            render: function(data) {
+              return `<p class="mb-0 text-truncate" style="max-width: 200px;" title="${data || ''}">${data || ''}</p>`
+            }
+          },
+          {
+            data: null,
+            orderable: false,
+            render: function(data, type, row) {
+              return `
+                <button class="btn btn-sm btn-secondary me-2 btn-detail" data-id="${row.id}" title="Detail"><i class="ti ti-eye fs-5"></i></button>
+                <button class="btn btn-sm btn-info me-2 btn-edit" data-id="${row.id}" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
+                <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id}" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
+              `
+            }
+          }
+        ],
         destroy: true,
         language: {
             search: "Cari:",
@@ -201,24 +206,35 @@ const initDataTable = () => {
             }
         }
       })
+
+      // Event delegation for action buttons
+      window.$('#suratMasukTable tbody').on('click', '.btn-detail', function() {
+          const id = window.$(this).data('id')
+          const item = items.value.data.find(i => i.id === id)
+          if (item) openDetail(item)
+      })
+      window.$('#suratMasukTable tbody').on('click', '.btn-edit', function() {
+          const id = window.$(this).data('id')
+          const item = items.value.data.find(i => i.id === id)
+          if (item) openModal(item)
+      })
+      window.$('#suratMasukTable tbody').on('click', '.btn-delete', function() {
+          const id = window.$(this).data('id')
+          deleteItem(id)
+      })
+    } else {
+      tableInstance.clear().rows.add(dataList).draw()
     }
-  })
+  }
 }
 
 const fetchItems = async () => {
   try {
     const res = await api.post('/surat-masuk/list', { limit: 1000 })
-    
-    // Hancurkan datatable lama sebelum DOM di-update oleh Vue
-    if (tableInstance) {
-        tableInstance.destroy()
-        tableInstance = null
-    }
-
     items.value = res.data
 
     nextTick(() => {
-      initDataTable()
+      initDataTable(items.value.data)
       
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
       tooltipTriggerList.map(function (tooltipTriggerEl) {
