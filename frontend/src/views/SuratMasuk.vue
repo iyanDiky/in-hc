@@ -96,7 +96,7 @@
                 <label class="form-label">Evidence (Opsional) <small v-if="isEdit && form.evidence" class="text-info">- Berkas tersimpan. Unggah untuk mengganti.</small></label>
                 <input type="file" class="form-control" @change="handleFileUpload" accept=".pdf,image/png,image/jpeg,image/jpg">
                 <div v-if="isEdit && form.evidence" class="mt-1">
-                    <a :href="'/storage/' + form.evidence" target="_blank" class="btn btn-sm btn-outline-primary">Lihat Berkas Saat Ini</a>
+                    <a :href="getFileUrl(form.evidence)" target="_blank" class="btn btn-sm btn-outline-primary">Lihat Berkas Saat Ini</a>
                 </div>
                 </div>
                 <div class="col-md-12 mb-3">
@@ -134,10 +134,10 @@
             </table>
             <h6>Preview Evidence</h6>
             <div v-if="detailItem.evidence" class="border rounded p-2 text-center" style="background: #f8f9fa;">
-                <object :data="'/storage/' + detailItem.evidence" type="application/pdf" width="100%" height="400px" v-if="detailItem.evidence.endsWith('.pdf')">
-                    <p>Browser Anda tidak mendukung preview PDF. <a :href="'/storage/' + detailItem.evidence" target="_blank">Download di sini</a>.</p>
+                <object :data="getFileUrl(detailItem.evidence)" type="application/pdf" width="100%" height="400px" v-if="detailItem.evidence.endsWith('.pdf')">
+                    <p>Browser Anda tidak mendukung preview PDF. <a :href="getFileUrl(detailItem.evidence)" target="_blank">Download di sini</a>.</p>
                 </object>
-                <img v-else :src="'/storage/' + detailItem.evidence" alt="Evidence Preview" class="img-fluid" style="max-height: 400px;">
+                <img v-else :src="getFileUrl(detailItem.evidence)" alt="Evidence Preview" class="img-fluid" style="max-height: 400px;">
             </div>
             <div v-else class="alert alert-secondary text-center">
                 Tidak ada file evidence yang diunggah.
@@ -172,6 +172,10 @@ const form = ref({
     evidence: '', 
     catatan: '' 
 })
+
+const getFileUrl = (path) => {
+  return `http://localhost:8000/storage/${path}`
+}
 
 const evidenceFile = ref(null)
 
