@@ -23,7 +23,7 @@
       </div>
       <div class="card-body p-4">
         <div class="table-responsive rounded-2 mb-4">
-          <table id="suratMasukTable" class="table table-striped border table-bordered display text-nowrap" style="width: 100%">
+          <table class="table border text-nowrap customize-table mb-0 align-middle">
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">Tgl Surat</h6></th>
@@ -49,10 +49,16 @@
                   <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
                 </td>
               </tr>
+              <tr v-if="!items.data || items.data.length === 0">
+                <td colspan="6" class="text-center text-muted py-4">Tidak ada data</td>
+              </tr>
             </tbody>
           </table>
         </div>
-
+        <!-- Simple Pagination (if needed later) -->
+        <div class="d-flex justify-content-between align-items-center" v-if="items.total > 0">
+            <small class="text-muted">Menampilkan {{ items.from }} - {{ items.to }} dari {{ items.total }} data</small>
+        </div>
       </div>
     </div>
 
@@ -177,62 +183,11 @@ const handleFileUpload = (event) => {
   evidenceFile.value = event.target.files[0]
 }
 
-let tableInstance = null
-
-const initDataTable = () => {
-  if (tableInstance) {
-    tableInstance.destroy()
-  }
-  nextTick(() => {
-    if (window.$ && window.$.fn.dataTable) {
-      tableInstance = window.$('#suratMasukTable').DataTable({
-        destroy: true,
-        columnDefs: [
-          {
-            targets: [0],
-            orderData: [0, 1]
-          },
-          {
-            targets: [1],
-            orderData: [1, 0]
-          },
-          {
-            targets: [4],
-            orderable: false
-          }
-        ],
-        language: {
-            search: "Cari:",
-            lengthMenu: "Tampilkan _MENU_ data",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
-            infoFiltered: "(disaring dari _MAX_ total data)",
-            paginate: {
-                first: "Awal",
-                last: "Akhir",
-                next: "Selanjutnya",
-                previous: "Sebelumnya"
-            }
-        }
-      })
-    }
-  })
-}
-
 const fetchItems = async () => {
   try {
-    const res = await api.post('/surat-masuk/list', { limit: 1000 })
-    // Hancurkan datatable lama sebelum DOM di-update oleh Vue
-    if (tableInstance) {
-        tableInstance.destroy()
-        tableInstance = null
-    }
-
+    const res = await api.post('/surat-masuk/list', { limit: 15 })
     items.value = res.data
-
     nextTick(() => {
-      initDataTable()
-      
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return window.bootstrap.Tooltip.getInstance(tooltipTriggerEl) || new window.bootstrap.Tooltip(tooltipTriggerEl)
