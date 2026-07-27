@@ -41,9 +41,16 @@ class SuratMasukController extends Controller
             'pengirim' => 'required|string|max:255',
             'tujuan' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
-            'evidence' => 'nullable|string|max:255',
+            'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'catatan' => 'nullable|string|max:255',
         ]);
+
+        if ($request->hasFile('evidence')) {
+            $file = $request->file('evidence');
+            $filename = date('YmdHis') . '-' . \Illuminate\Support\Facades\Auth::id() . '.' . $file->extension();
+            $path = $file->storeAs('evidence', $filename, 'public');
+            $validated['evidence'] = $path;
+        }
 
         $suratMasuk = SuratMasuk::create($validated);
 
@@ -61,9 +68,19 @@ class SuratMasukController extends Controller
             'pengirim' => 'required|string|max:255',
             'tujuan' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
-            'evidence' => 'nullable|string|max:255',
+            'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'catatan' => 'nullable|string|max:255',
         ]);
+
+        if ($request->hasFile('evidence')) {
+            $file = $request->file('evidence');
+            $filename = date('YmdHis') . '-' . \Illuminate\Support\Facades\Auth::id() . '.' . $file->extension();
+            $path = $file->storeAs('evidence', $filename, 'public');
+            $validated['evidence'] = $path;
+        } else {
+            // Keep the old evidence if no new file is uploaded
+            unset($validated['evidence']);
+        }
 
         $suratMasuk->update($validated);
 

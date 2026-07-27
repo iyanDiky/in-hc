@@ -94,8 +94,11 @@
                 <input type="text" class="form-control" v-model="form.perihal" placeholder="Perihal / Judul surat">
                 </div>
                 <div class="col-md-12 mb-3">
-                <label class="form-label">Evidence (Opsional)</label>
-                <input type="text" class="form-control" v-model="form.evidence" placeholder="Link dokumen/evidence">
+                <label class="form-label">Evidence (Opsional) <small v-if="isEdit && form.evidence" class="text-info">- Berkas tersimpan. Unggah untuk mengganti.</small></label>
+                <input type="file" class="form-control" @change="handleFileUpload" accept=".pdf,image/png,image/jpeg,image/jpg">
+                <div v-if="isEdit && form.evidence" class="mt-1">
+                    <a :href="'/storage/' + form.evidence" target="_blank" class="btn btn-sm btn-outline-primary">Lihat Berkas Saat Ini</a>
+                </div>
                 </div>
                 <div class="col-md-12 mb-3">
                 <label class="form-label">Catatan (Opsional)</label>
@@ -132,6 +135,12 @@ const form = ref({
     catatan: '' 
 })
 
+const evidenceFile = ref(null)
+
+const handleFileUpload = (event) => {
+  evidenceFile.value = event.target.files[0]
+}
+
 const fetchItems = async () => {
   try {
     const res = await api.post('/surat-masuk/list', { limit: 15 })
@@ -164,6 +173,7 @@ const openModal = (item = null) => {
         catatan: '' 
     }
   }
+  evidenceFile.value = null
   showModal.value = true
 }
 
@@ -173,10 +183,20 @@ const closeModal = () => {
 
 const saveData = async () => {
   try {
+    const formData = new FormData()
+    for (const key in form.value) {
+      if (form.value[key] !== null && form.value[key] !== undefined) {
+        formData.append(key, form.value[key])
+      }
+    }
+    if (evidenceFile.value) {
+      formData.append('evidence', evidenceFile.value)
+    }
+
     if (isEdit.value) {
-      await api.post('/surat-masuk/update', form.value)
+      await api.post('/surat-masuk/update', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
     } else {
-      await api.post('/surat-masuk/create', form.value)
+      await api.post('/surat-masuk/create', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
     }
     closeModal()
     fetchItems()
