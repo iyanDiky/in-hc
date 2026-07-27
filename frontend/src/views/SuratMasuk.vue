@@ -23,7 +23,7 @@
       </div>
       <div class="card-body p-4">
         <div class="table-responsive rounded-2 mb-4">
-          <table id="suratMasukTable" class="table border text-nowrap customize-table mb-0 align-middle">
+          <table id="suratMasukTable" class="table table-striped border table-bordered display text-nowrap" style="width: 100%">
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">Tgl Surat</h6></th>
@@ -48,10 +48,6 @@
                   <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
                   <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
                 </td>
-              </tr>
-              <tr v-if="!items.data || items.data.length === 0">
-                <td colspan="6" class="text-center text-muted py-4">Tidak ada data</td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -211,13 +207,14 @@ const initDataTable = () => {
 const fetchItems = async () => {
   try {
     const res = await api.post('/surat-masuk/list', { limit: 1000 })
-    items.value = res.data
     
     // Hancurkan datatable lama sebelum DOM di-update oleh Vue
     if (tableInstance) {
         tableInstance.destroy()
         tableInstance = null
     }
+
+    items.value = res.data
 
     nextTick(() => {
       initDataTable()
