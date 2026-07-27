@@ -29,7 +29,6 @@
                 <th><h6 class="fs-4 fw-semibold mb-0">Tgl Surat</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Nomor Surat</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Pengirim</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Tujuan</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Perihal</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Aksi</h6></th>
               </tr>
@@ -39,13 +38,13 @@
                 <td>{{ item.tanggal_surat }}</td>
                 <td>{{ item.nomor_surat }}</td>
                 <td>{{ item.pengirim }}</td>
-                <td>{{ item.tujuan }}</td>
                 <td>
                   <p class="mb-0 text-truncate" style="max-width: 200px;" :title="item.perihal">
                     {{ item.perihal }}
                   </p>
                 </td>
                 <td>
+                  <button class="btn btn-sm btn-secondary me-2" @click="openDetail(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-eye fs-5"></i></button>
                   <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
                   <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
                 </td>
@@ -113,6 +112,43 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Detail -->
+    <div v-if="showDetailModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detail Surat Masuk</h5>
+            <button type="button" class="btn-close" @click="closeDetail()"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered mb-4">
+              <tbody>
+                <tr><th style="width: 30%">Tanggal Surat</th><td>{{ detailItem.tanggal_surat }}</td></tr>
+                <tr><th>Nomor Surat</th><td>{{ detailItem.nomor_surat }}</td></tr>
+                <tr><th>Pengirim</th><td>{{ detailItem.pengirim }}</td></tr>
+                <tr><th>Tujuan</th><td>{{ detailItem.tujuan }}</td></tr>
+                <tr><th>Perihal</th><td>{{ detailItem.perihal }}</td></tr>
+                <tr><th>Catatan</th><td>{{ detailItem.catatan || '-' }}</td></tr>
+              </tbody>
+            </table>
+            <h6>Preview Evidence</h6>
+            <div v-if="detailItem.evidence" class="border rounded p-2 text-center" style="background: #f8f9fa;">
+                <object :data="'/storage/' + detailItem.evidence" type="application/pdf" width="100%" height="400px" v-if="detailItem.evidence.endsWith('.pdf')">
+                    <p>Browser Anda tidak mendukung preview PDF. <a :href="'/storage/' + detailItem.evidence" target="_blank">Download di sini</a>.</p>
+                </object>
+                <img v-else :src="'/storage/' + detailItem.evidence" alt="Evidence Preview" class="img-fluid" style="max-height: 400px;">
+            </div>
+            <div v-else class="alert alert-secondary text-center">
+                Tidak ada file evidence yang diunggah.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" @click="closeDetail()">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -123,7 +159,9 @@ import api from '../utils/api'
 
 const items = ref({ data: [], total: 0, from: 0, to: 0 })
 const showModal = ref(false)
+const showDetailModal = ref(false)
 const isEdit = ref(false)
+const detailItem = ref({})
 const form = ref({ 
     id: '', 
     tanggal_surat: '', 
@@ -179,6 +217,15 @@ const openModal = (item = null) => {
 
 const closeModal = () => {
   showModal.value = false
+}
+
+const openDetail = (item) => {
+  detailItem.value = { ...item }
+  showDetailModal.value = true
+}
+
+const closeDetail = () => {
+  showDetailModal.value = false
 }
 
 const saveData = async () => {
