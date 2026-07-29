@@ -202,7 +202,7 @@ const initDataTable = () => {
       { 
         data: 'tanggal_surat',
         render: function(data) {
-          return `<p class="fs-4 fw-semibold mb-0">${formatDate(data)}</p>`;
+          return `<p class="mb-0 fw-normal">${formatDate(data)}</p>`;
         }
       },
       { 
