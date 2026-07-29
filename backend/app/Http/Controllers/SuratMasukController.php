@@ -7,6 +7,61 @@ use App\Models\SuratMasuk;
 
 class SuratMasukController extends Controller
 {
+    public function datatables(Request $request)
+    {
+        $query = SuratMasuk::query();
+
+        // Count total records without filtering
+        $recordsTotal = $query->count();
+
+        // Apply global search if present
+        $searchValue = $request->input('search.value');
+        if (!empty($searchValue)) {
+            $search = strtolower($searchValue);
+            $query->where(function($q) use ($search) {
+                $q->whereRaw('LOWER(nomor_surat) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(pengirim) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
+            });
+        }
+
+        // Count filtered records
+        $recordsFiltered = $query->count();
+
+        // Apply sorting
+        $order = $request->input('order');
+        $columns = $request->input('columns');
+        if (!empty($order) && !empty($columns)) {
+            foreach ($order as $o) {
+                $columnIndex = $o['column'];
+                $dir = $o['dir'];
+                $columnName = $columns[$columnIndex]['data'];
+                if ($columnName && $columnName !== 'null') {
+                    $query->orderBy($columnName, $dir);
+                }
+            }
+        } else {
+            $query->orderBy('tanggal_surat', 'desc');
+        }
+
+        // Apply pagination (offset and limit)
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        if ($length > 0) {
+            $query->offset($start)->limit($length);
+        }
+
+        $data = $query->get();
+
+        return response()->json([
+            'draw' => intval($request->input('draw', 1)),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data
+        ]);
+    }
+
     public function list(Request $request)
     {
         $query = SuratMasuk::query();

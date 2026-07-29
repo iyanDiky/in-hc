@@ -65,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // Surat Masuk
     Route::prefix('surat-masuk')->group(function () {
+        Route::post('/datatables', [\App\Http\Controllers\SuratMasukController::class, 'datatables']);
         Route::post('/list', [\App\Http\Controllers\SuratMasukController::class, 'list']);
         Route::post('/detail', [\App\Http\Controllers\SuratMasukController::class, 'detail']);
         Route::post('/create', [\App\Http\Controllers\SuratMasukController::class, 'create']);

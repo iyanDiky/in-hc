@@ -34,21 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items.data" :key="item.id">
-                <td>{{ item.tanggal_surat }}</td>
-                <td>{{ item.nomor_surat }}</td>
-                <td>{{ item.pengirim }}</td>
-                <td>
-                  <p class="mb-0 text-truncate" style="max-width: 200px;" :title="item.perihal">
-                    {{ item.perihal }}
-                  </p>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-secondary me-2" @click="openDetail(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-eye fs-5"></i></button>
-                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
-                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
-                </td>
-              </tr>
+              <!-- DataTables will populate this automatically -->
             </tbody>
           </table>
         </div>
@@ -177,57 +163,125 @@ const handleFileUpload = (event) => {
   evidenceFile.value = event.target.files[0]
 }
 
-let tableInstance = null
+let dataTableInstance = null
 
 const initDataTable = () => {
-  if (tableInstance) {
-    tableInstance.destroy()
+  if (dataTableInstance) {
+    dataTableInstance.destroy()
   }
-  nextTick(() => {
-    if (window.$ && window.$.fn.dataTable) {
-      tableInstance = window.$('#suratMasukTable').DataTable({
-        destroy: true,
-        order: [[0, "desc"]],
-        language: {
-            search: "Cari:",
-            lengthMenu: "Tampilkan _MENU_ data",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
-            infoFiltered: "(disaring dari _MAX_ total data)",
-            paginate: {
-                first: "Awal",
-                last: "Akhir",
-                next: "Selanjutnya",
-                previous: "Sebelumnya"
-            }
+  
+  dataTableInstance = $('#suratMasukTable').DataTable({
+    serverSide: true,
+    processing: true,
+    ajax: async function (data, callback, settings) {
+      try {
+        const response = await api.post('/surat-masuk/datatables', data)
+        callback({
+          draw: response.data.draw,
+          recordsTotal: response.data.recordsTotal,
+          recordsFiltered: response.data.recordsFiltered,
+          data: response.data.data
+        })
+      } catch (error) {
+        console.error('Error fetching datatables data', error)
+        callback({
+          draw: data.draw,
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        })
+      }
+    },
+    columns: [
+      { 
+        data: 'tanggal_surat',
+        render: function(data) {
+          return `<p class="fs-4 fw-semibold mb-0">${formatDate(data)}</p>`;
         }
-      })
-    }
-  })
-}
-
-const fetchItems = async () => {
-  try {
-    const res = await api.post('/surat-masuk/list', { limit: 1000 })
-    
-    // Hancurkan datatable lama sebelum DOM di-update oleh Vue
-    if (tableInstance) {
-        tableInstance.destroy()
-        tableInstance = null
-    }
-
-    items.value = res.data
-
-    nextTick(() => {
-      initDataTable()
-      
+      },
+      { 
+        data: 'nomor_surat',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data}</p>`;
+        }
+      },
+      { 
+        data: 'pengirim',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data}</p>`;
+        }
+      },
+      { 
+        data: 'perihal',
+        render: function(data) {
+          return `<p class="mb-0 text-truncate" style="max-width: 200px;" title="${data}">${data}</p>`;
+        }
+      },
+      { 
+        data: null, 
+        orderable: false,
+        render: function(data, type, row) {
+          return `
+            <button class="btn btn-sm btn-secondary me-2 btn-detail" data-id="${row.id}" data-bs-toggle="tooltip" title="Detail">
+              <i class="ti ti-eye fs-5"></i>
+            </button>
+            <button class="btn btn-sm btn-info me-2 btn-edit" data-id="${row.id}" data-bs-toggle="tooltip" title="Edit">
+              <i class="ti ti-pencil fs-5"></i>
+            </button>
+            <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id}" data-bs-toggle="tooltip" title="Hapus">
+              <i class="ti ti-trash fs-5"></i>
+            </button>
+          `;
+        }
+      }
+    ],
+    order: [[0, "desc"]],
+    language: {
+      search: "Cari:",
+      lengthMenu: "Tampilkan _MENU_ data",
+      info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+      infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+      infoFiltered: "(disaring dari _MAX_ total data)",
+      paginate: {
+        first: "Awal",
+        last: "Akhir",
+        next: "Selanjutnya",
+        previous: "Sebelumnya"
+      }
+    },
+    drawCallback: function() {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return window.bootstrap.Tooltip.getInstance(tooltipTriggerEl) || new window.bootstrap.Tooltip(tooltipTriggerEl)
       })
-    })
-  } catch (error) {
-    console.error(error)
+    }
+  })
+
+  // Bind events for dynamically created buttons
+  $('#suratMasukTable tbody').off('click', '.btn-detail')
+  $('#suratMasukTable tbody').on('click', '.btn-detail', function() {
+    const data = dataTableInstance.row($(this).parents('tr')).data()
+    openDetail(data)
+  })
+
+  $('#suratMasukTable tbody').off('click', '.btn-edit')
+  $('#suratMasukTable tbody').on('click', '.btn-edit', function() {
+    const data = dataTableInstance.row($(this).parents('tr')).data()
+    openModal(data)
+  })
+
+  $('#suratMasukTable tbody').off('click', '.btn-delete')
+  $('#suratMasukTable tbody').on('click', '.btn-delete', function() {
+    const data = dataTableInstance.row($(this).parents('tr')).data()
+    deleteItem(data.id)
+  })
+}
+
+const fetchItems = async () => {
+  if (!dataTableInstance) {
+    initDataTable()
+  } else {
+    dataTableInstance.ajax.reload(null, false)
   }
 }
 
