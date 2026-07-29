@@ -317,3 +317,12 @@ onMounted(() => {
   fetchItems()
 })
 </script>
+
+<style>
+/* Hilangkan border dan kurangi padding pada pagination DataTables */
+.dataTables_paginate .page-item .page-link {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 4px !important;
+}
+</style>
