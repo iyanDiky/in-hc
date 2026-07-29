@@ -325,6 +325,11 @@ onMounted(() => {
     padding-right: 0.75rem !important;
     padding-left: 0.75rem !important;
 }
+/* Matikan border & padding ganda dari class bawaan template pada elemen <li> */
+.table-responsive .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 !important;
+    border: none !important;
+}
 </style>
 
 
