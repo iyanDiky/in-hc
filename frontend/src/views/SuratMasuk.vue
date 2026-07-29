@@ -22,7 +22,7 @@
         <button class="btn btn-primary" @click="openModal()">Tambah Data</button>
       </div>
       <div class="card-body p-4">
-        <div class="table-responsive rounded-2 mb-4">
+        <div class="table-responsive">
           <table id="suratMasukTable" class="table table-striped border table-bordered display text-nowrap" style="width: 100%">
             <thead class="text-dark fs-4">
               <tr>
