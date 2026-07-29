@@ -123,13 +123,23 @@ const initDataTable = () => {
       }
     },
     columns: [
-      { data: 'kode' },
-      { data: 'bagian_seksi' },
+      { 
+        data: 'kode',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
+      { 
+        data: 'bagian_seksi',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
       { 
         data: 'unit_kerja.unit_kerja', 
         defaultContent: '-',
         render: function(data, type, row) {
-          return data ? data : '-';
+          return `<p class="mb-0 fw-normal">${data ? data : '-'}</p>`;
         }
       },
       { 

@@ -112,8 +112,18 @@ const initDataTable = () => {
       }
     },
     columns: [
-      { data: 'kode' },
-      { data: 'jabatan' },
+      { 
+        data: 'kode',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
+      { 
+        data: 'jabatan',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
       { 
         data: null, 
         orderable: false,
