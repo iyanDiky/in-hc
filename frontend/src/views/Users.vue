@@ -145,6 +145,10 @@
                   <td>{{ detailData?.jabatan?.jabatan || '-' }}</td>
                 </tr>
                 <tr>
+                  <th>Unit Kerja</th>
+                  <td>{{ detailData?.bagian_seksi?.unit_kerja?.unit_kerja || '-' }}</td>
+                </tr>
+                <tr>
                   <th>Bagian Seksi</th>
                   <td>{{ detailData?.bagian_seksi?.bagian_seksi || '-' }}</td>
                 </tr>
