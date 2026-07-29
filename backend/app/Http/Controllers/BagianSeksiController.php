@@ -8,6 +8,48 @@ use App\Models\BagianSeksi;
 
 class BagianSeksiController extends Controller
 {
+    public function datatables(Request $request)
+    {
+        $query = BagianSeksi::with('unitKerja');
+
+        $recordsTotal = $query->count();
+
+        if ($request->has('search') && !empty($request->input('search.value'))) {
+            $search = strtolower($request->input('search.value'));
+            $query->whereRaw('LOWER(bagian_seksi) LIKE ?', ["%{$search}%"]);
+        }
+
+        $recordsFiltered = $query->count();
+
+        $order = $request->input('order');
+        $columns = $request->input('columns');
+        if (!empty($order) && !empty($columns)) {
+            foreach ($order as $o) {
+                $columnIndex = $o['column'];
+                $dir = $o['dir'];
+                $columnName = $columns[$columnIndex]['data'];
+                if ($columnName && $columnName !== 'null') {
+                    $query->orderBy($columnName, $dir);
+                }
+            }
+        } else {
+            $query->orderBy('bagian_seksi', 'asc');
+        }
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        if ($length > 0) {
+            $query->offset($start)->limit($length);
+        }
+
+        return response()->json([
+            'draw' => intval($request->input('draw', 1)),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $query->get()
+        ]);
+    }
+
     public function list(Request $request)
     {
         $query = BagianSeksi::with('unitKerja');

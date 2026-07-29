@@ -23,7 +23,7 @@
       </div>
       <div class="card-body p-4">
         <div class="table-responsive rounded-2 mb-4">
-          <table class="table border text-nowrap customize-table mb-0 align-middle">
+          <table id="usersTable" class="table border text-nowrap customize-table mb-0 align-middle">
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">NPP</h6></th>
@@ -37,20 +37,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items" :key="item.id">
-                <td>{{ item.npp }}</td>
-                <td>{{ item.nama }}</td>
-                <td>{{ item.username }}</td>
-                <td>{{ item.tempat_lahir }}, {{ item.tanggal_lahir }}</td>
-                <td>{{ item.jabatan?.jabatan }}</td>
-                <td>{{ item.bagian_seksi?.bagian_seksi }}</td>
-                <td><span class="badge bg-primary rounded-3 fw-semibold">{{ item.level }}</span></td>
-                <td>
-                  <button class="btn btn-sm btn-info me-2" @click="openModal(item)" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-pencil fs-5"></i></button>
-                  <button class="btn btn-sm btn-warning me-2" @click="resetPasswordItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Password"><i class="ti ti-key fs-5"></i></button>
-                  <button class="btn btn-sm btn-danger" @click="deleteItem(item.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus"><i class="ti ti-trash fs-5"></i></button>
-                </td>
-              </tr>
+              <!-- DataTables will populate this automatically -->
             </tbody>
           </table>
         </div>
@@ -154,18 +141,134 @@ const form = ref({
   bagian_seksi_id: '' 
 })
 
-const fetchItems = async () => {
-  try {
-    const res = await api.post('/users/list')
-    items.value = res.data.data
-    nextTick(() => {
+let dataTableInstance = null
+
+const initDataTable = () => {
+  if (dataTableInstance) {
+    dataTableInstance.destroy()
+  }
+
+  if (!window.$ || !window.$.fn.dataTable) {
+    setTimeout(initDataTable, 100)
+    return
+  }
+
+  dataTableInstance = window.$('#usersTable').DataTable({
+    serverSide: true,
+    processing: true,
+    ajax: async function (data, callback, settings) {
+      try {
+        const response = await api.post('/users/datatables', data)
+        callback({
+          draw: response.data.draw,
+          recordsTotal: response.data.recordsTotal,
+          recordsFiltered: response.data.recordsFiltered,
+          data: response.data.data
+        })
+      } catch (error) {
+        console.error('Error fetching datatables data', error)
+        callback({
+          draw: data.draw,
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        })
+      }
+    },
+    columns: [
+      { data: 'npp' },
+      { data: 'nama' },
+      { data: 'username' },
+      { 
+        data: null, 
+        render: function(data, type, row) {
+          return `${row.tempat_lahir}, ${row.tanggal_lahir}`
+        }
+      },
+      { 
+        data: 'jabatan.jabatan',
+        defaultContent: '-',
+        render: function(data, type, row) {
+          return data ? data : '-'
+        }
+      },
+      { 
+        data: 'bagian_seksi.bagian_seksi',
+        defaultContent: '-',
+        render: function(data, type, row) {
+          return data ? data : '-'
+        }
+      },
+      { 
+        data: 'level',
+        render: function(data, type, row) {
+          return `<span class="badge bg-primary rounded-3 fw-semibold">${data}</span>`
+        }
+      },
+      { 
+        data: null, 
+        orderable: false,
+        render: function(data, type, row) {
+          return `
+            <button class="btn btn-sm btn-info me-2 btn-edit" data-id="${row.id}" data-bs-toggle="tooltip" title="Edit">
+              <i class="ti ti-pencil fs-5"></i>
+            </button>
+            <button class="btn btn-sm btn-warning me-2 btn-reset" data-id="${row.id}" data-bs-toggle="tooltip" title="Reset Password">
+              <i class="ti ti-key fs-5"></i>
+            </button>
+            <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id}" data-bs-toggle="tooltip" title="Hapus">
+              <i class="ti ti-trash fs-5"></i>
+            </button>
+          `;
+        }
+      }
+    ],
+    order: [[1, "asc"]],
+    language: {
+      search: "Cari:",
+      lengthMenu: "Tampilkan _MENU_ data",
+      info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+      infoEmpty: "Menampilkan 0 sampai 0 dari 0 data",
+      infoFiltered: "(disaring dari _MAX_ total data)",
+      paginate: {
+        first: "Awal",
+        last: "Akhir",
+        next: "Selanjutnya",
+        previous: "Sebelumnya"
+      }
+    },
+    drawCallback: function() {
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return window.bootstrap.Tooltip.getInstance(tooltipTriggerEl) || new window.bootstrap.Tooltip(tooltipTriggerEl)
       })
-    })
-  } catch (error) {
-    console.error(error)
+    }
+  })
+
+  window.$('#usersTable tbody').off('click', '.btn-edit')
+  window.$('#usersTable tbody').on('click', '.btn-edit', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
+    openModal(data)
+  })
+
+  window.$('#usersTable tbody').off('click', '.btn-reset')
+  window.$('#usersTable tbody').on('click', '.btn-reset', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
+    resetPasswordItem(data.id)
+  })
+
+  window.$('#usersTable tbody').off('click', '.btn-delete')
+  window.$('#usersTable tbody').on('click', '.btn-delete', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
+    deleteItem(data.id)
+  })
+}
+
+const fetchItems = async () => {
+  if (!dataTableInstance) {
+    initDataTable()
+  } else {
+    dataTableInstance.ajax.reload(null, false)
   }
 }
 
