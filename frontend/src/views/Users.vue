@@ -22,8 +22,8 @@
         <button class="btn btn-primary" @click="openModal()">Tambah Data</button>
       </div>
       <div class="card-body p-4">
-        <div class="table-responsive rounded-2 mb-4">
-          <table id="usersTable" class="table border text-nowrap customize-table mb-0 align-middle">
+        <div class="table-responsive">
+          <table id="usersTable" class="table table-striped border table-bordered display" style="width: 100%">
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">NPP</h6></th>
@@ -176,27 +176,42 @@ const initDataTable = () => {
       }
     },
     columns: [
-      { data: 'npp' },
-      { data: 'nama' },
-      { data: 'username' },
+      { 
+        data: 'npp',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
+      { 
+        data: 'nama',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
+      { 
+        data: 'username',
+        render: function(data) {
+          return `<p class="mb-0 fw-normal">${data || '-'}</p>`;
+        }
+      },
       { 
         data: null, 
         render: function(data, type, row) {
-          return `${row.tempat_lahir}, ${row.tanggal_lahir}`
+          return `<p class="mb-0 fw-normal">${row.tempat_lahir}, ${row.tanggal_lahir}</p>`
         }
       },
       { 
         data: 'jabatan.jabatan',
         defaultContent: '-',
         render: function(data, type, row) {
-          return data ? data : '-'
+          return `<p class="mb-0 fw-normal">${data ? data : '-'}</p>`
         }
       },
       { 
         data: 'bagian_seksi.bagian_seksi',
         defaultContent: '-',
         render: function(data, type, row) {
-          return data ? data : '-'
+          return `<p class="mb-0 fw-normal">${data ? data : '-'}</p>`
         }
       },
       { 
