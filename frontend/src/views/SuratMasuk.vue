@@ -291,6 +291,16 @@ const fetchItems = async () => {
   }
 }
 
+const formatDate = (dateStr) => {
+  if (!dateStr) return '-'
+  const date = new Date(dateStr)
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date)
+}
+
 const openModal = (item = null) => {
   if (item) {
     isEdit.value = true
