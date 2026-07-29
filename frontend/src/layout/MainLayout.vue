@@ -46,6 +46,16 @@
             </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Persuratan</span>
+            </li>
+            <li class="sidebar-item" :class="{ 'selected': route.path === '/surat-masuk' }">
+              <router-link class="sidebar-link" to="/surat-masuk" aria-expanded="false">
+                <span><i class="ti ti-mail"></i></span>
+                <span class="hide-menu">Surat Masuk</span>
+              </router-link>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Pengaturan</span>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/users' }">
@@ -276,6 +286,8 @@ onMounted(() => {
       await loadScript('/dist/js/app-style-switcher.js')
       await loadScript('/dist/libs/select2/dist/js/select2.full.min.js')
       await loadScript('/dist/libs/select2/dist/js/select2.min.js')
+      await loadScript('/dist/libs/datatables.net/js/jquery.dataTables.min.js')
+      await loadScript('/dist/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js')
       await loadScript('/dist/js/custom.js')
     } catch (e) {
       console.error('Failed to load template scripts', e)
