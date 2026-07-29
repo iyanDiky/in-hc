@@ -170,7 +170,13 @@ const initDataTable = () => {
     dataTableInstance.destroy()
   }
   
-  dataTableInstance = $('#suratMasukTable').DataTable({
+  // Tunggu sampai jQuery dan DataTables ter-load
+  if (!window.$ || !window.$.fn.dataTable) {
+    setTimeout(initDataTable, 100)
+    return
+  }
+
+  dataTableInstance = window.$('#suratMasukTable').DataTable({
     serverSide: true,
     processing: true,
     ajax: async function (data, callback, settings) {
@@ -258,21 +264,21 @@ const initDataTable = () => {
   })
 
   // Bind events for dynamically created buttons
-  $('#suratMasukTable tbody').off('click', '.btn-detail')
-  $('#suratMasukTable tbody').on('click', '.btn-detail', function() {
-    const data = dataTableInstance.row($(this).parents('tr')).data()
+  window.$('#suratMasukTable tbody').off('click', '.btn-detail')
+  window.$('#suratMasukTable tbody').on('click', '.btn-detail', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
     openDetail(data)
   })
 
-  $('#suratMasukTable tbody').off('click', '.btn-edit')
-  $('#suratMasukTable tbody').on('click', '.btn-edit', function() {
-    const data = dataTableInstance.row($(this).parents('tr')).data()
+  window.$('#suratMasukTable tbody').off('click', '.btn-edit')
+  window.$('#suratMasukTable tbody').on('click', '.btn-edit', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
     openModal(data)
   })
 
-  $('#suratMasukTable tbody').off('click', '.btn-delete')
-  $('#suratMasukTable tbody').on('click', '.btn-delete', function() {
-    const data = dataTableInstance.row($(this).parents('tr')).data()
+  window.$('#suratMasukTable tbody').off('click', '.btn-delete')
+  window.$('#suratMasukTable tbody').on('click', '.btn-delete', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
     deleteItem(data.id)
   })
 }
