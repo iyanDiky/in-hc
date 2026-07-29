@@ -75,5 +75,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/create', [\App\Http\Controllers\SuratMasukController::class, 'create']);
         Route::post('/update', [\App\Http\Controllers\SuratMasukController::class, 'update']);
         Route::post('/delete', [\App\Http\Controllers\SuratMasukController::class, 'delete']);
+        
+        // Disposisi
+        Route::get('/{id}/disposisi', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'index']);
+        Route::post('/{id}/disposisi', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'store']);
     });
 });

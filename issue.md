@@ -1,75 +1,97 @@
-# Rencana Pengembangan (Planning): CRUD Surat Masuk
+# Planning: Implementasi Fitur Disposisi Surat Masuk
 
-Dokumen ini berisi panduan dan spesifikasi untuk mengimplementasikan fitur CRUD (Create, Read, Update, Delete) pengelolaan data **Surat Masuk**. Panduan ini ditujukan bagi programmer atau AI agent agar dapat melakukan implementasi secara terstruktur.
+Dokumen ini berisi rancangan dan langkah-langkah implementasi (CRUD) untuk fitur "Disposisi Surat Masuk" pada aplikasi In-HC. Dokumen ini dibuat agar dapat langsung dieksekusi oleh programmer.
 
-## 1. Spesifikasi Database
+## 1. Rancangan Database (Skema Migration)
 
-Berikut adalah rancangan tabel `surat_masuk` yang harus dibuat di dalam database.
+Terdapat 2 tabel baru yang perlu dibuat menggunakan Laravel Migration.
 
-```dbml
-table surat_masuk {
-  id varchar(36) [pk, not null] // WAJIB menggunakan UUID v7
-  tanggal_surat date
-  nomor_surat varchar(255)
-  pengirim varchar(255)
-  tujuan varchar(255)
-  perihal varchar(255)
-  evidence varchar(255)
-  catatan varchar(255)
-  user_input varchar(36) [ref: > users.id] // Diisi otomatis sesuai dengan user login yang menambahkan data
+### 1.1 Tabel `surat_masuk_disposisi`
+Tabel ini menyimpan data utama setiap kali sebuah disposisi dilakukan.
+- `id` : `uuid` (Primary Key, Not Null)
+- `surat_masuk_id` : `uuid` (Foreign Key ke `surat_masuk.id`)
+- `disposisi_oleh` : `uuid` (Foreign Key ke `users.id`)
+- `disposisi_waktu` : `datetime`
+- `catatan` : `text` (Tambahan disarankan: untuk menyimpan teks keterangan disposisi hasil inputan komentar)
+- `evidence` : `varchar(255)` (Opsional, untuk melampirkan berkas)
+- **Audit Trail**:
+  - `created_at` : `timestamp` (default: `now()`)
+  - `created_by` : `varchar(255)` (Format: `users_id,bagian_seksi_id,unit_kerja_id`)
+  - `updated_at` : `timestamp` (default: `now()`)
+  - `updated_by` : `varchar(255)` (Format: `users_id,bagian_seksi_id,unit_kerja_id`)
+  - `delete_at` : `datetime` (default: `null`)
+  - `delete_by` : `varchar(255)` (Format: `users_id,bagian_seksi_id,unit_kerja_id`)
 
-  // Fitur: Audit Trail
-  created_at timestamp [default: `now()`]
-  created_by varchar(64) // Value: generate kombinasi dari users_id, bagian_seksi_id, unit_kerja_id
-  
-  updated_at timestamp [default: `now()`]
-  updated_by varchar(64) // Value: generate kombinasi dari users_id, bagian_seksi_id, unit_kerja_id
-  
-  delete_at datetime [default: null] // Implementasi Soft Delete
-  delete_by varchar(64) // Value: generate kombinasi dari users_id, bagian_seksi_id, unit_kerja_id
-}
-```
+### 1.2 Tabel `surat_masuk_disposisi_tujuan`
+Tabel relasi (pivot) karena satu kali disposisi bisa ditujukan ke banyak Bagian Seksi di unit kerja.
+- `id` : `uuid` (Primary Key, Not Null)
+- `surat_masuk_disposisi_id` : `uuid` (Foreign Key ke `surat_masuk_disposisi.id`)
+- `tujuan_disposisi` : `uuid` (Foreign Key ke `bagian_seksi.id`)
+- **Audit Trail**:
+  - `created_at` : `timestamp` (default: `now()`)
+  - `created_by` : `varchar(255)` (Format: `users_id,bagian_seksi_id,unit_kerja_id`)
+  - `updated_at` : `timestamp` (default: `now()`)
+  - `updated_by` : `varchar(255)` (Format: `users_id,bagian_seksi_id,unit_kerja_id`)
+  - `delete_at` : `datetime` (default: `null`)
+  - `delete_by` : `varchar(255)` (Format: `users_id,bagian_seksi_id,unit_kerja_id`)
 
-### Ketentuan Khusus Backend & Database:
-1. **Primary Key (ID):** Kolom `id` **wajib** digenerate menggunakan format **UUID v7** (berbasis waktu) untuk performa indeks yang lebih baik dan keunikan.
-2. **Relasi User:** Kolom `user_input` harus merelasikan data surat dengan user yang sedang login saat itu (diisi otomatis oleh sistem di backend, bukan inputan manual dari form frontend).
-3. **Audit Trail:** Kolom `*_by` (`created_by`, `updated_by`, `delete_by`) harus digenerate berdasarkan identitas user yang melakukan aksi, yang mencakup kombinasi dari: `users_id`, `bagian_seksi_id`, dan `unit_kerja_id`.
-4. **Soft Delete:** Saat menghapus, data tidak dihapus permanen dari database, melainkan mengupdate kolom `delete_at` menjadi waktu saat itu, dan `delete_by` dengan data user yang menghapus.
-
-## 2. Spesifikasi Frontend & UI/UX
-
-1. **Slicing dari Template:** Antarmuka (UI) untuk CRUD Surat Masuk **wajib** menggunakan referensi dan melakukan slicing dari template frontend yang sudah ada di dalam folder `template_frontend/`. 
-2. **Konsistensi Desain:** Pastikan penggunaan class CSS, komponen tabel, form, tombol, dan modal konsisten dengan struktur yang ada pada `template_frontend/`.
-3. **Fungsionalitas Halaman:**
-   - **Tabel / List Data:** Tampilkan daftar surat masuk dengan kolom penting seperti Tanggal, Nomor Surat, Pengirim, Tujuan, dan Perihal. Harus mendukung pagination atau pencarian.
-   - **Form Tambah (Create) & Edit (Update):** Buat form yang rapi untuk mengisi data-data terkait. Khusus input `evidence` mungkin berupa upload file atau link (sesuaikan dengan tipe varchar). Form *tidak perlu* menyertakan input untuk `id`, `user_input`, atau data audit trail, karena ini akan ditangani backend.
-   - **Aksi Delete:** Tambahkan tombol hapus dengan konfirmasi (untuk mencegah salah klik) yang akan mentrigger API soft delete.
-
-## 3. Langkah-Langkah Implementasi (Task Breakdown)
-
-Bagi programmer/AI model, silakan ikuti tahapan berikut secara berurutan:
-
-- [ ] **Langkah 1: Database & Model**
-  - Buat migration file untuk tabel `surat_masuk` sesuai skema di atas.
-  - Implementasikan library pembuat **UUID v7**.
-  - Buat Model/Entity untuk `SuratMasuk` dengan mengaktifkan fitur Soft Delete dan konfigurasi auto-fill untuk `user_input` dan kolom Audit Trail.
-
-- [ ] **Langkah 2: Backend API (Controller & Service)**
-  - Buat endpoint `GET /api/surat-masuk` untuk menampilkan daftar (pastikan data yang memiliki `delete_at` terisi tidak ikut tertampil).
-  - Buat endpoint `POST /api/surat-masuk` untuk Create. Otomatisasi pengisian ID (UUID v7), `user_input`, `created_by`, dan `created_at`.
-  - Buat endpoint `PUT /api/surat-masuk/:id` untuk Update. Otomatisasi pengisian `updated_by` dan `updated_at`.
-  - Buat endpoint `DELETE /api/surat-masuk/:id` untuk Soft Delete. Otomatisasi pengisian `delete_by` dan `delete_at`.
-
-- [ ] **Langkah 3: Frontend UI Slicing**
-  - Eksplorasi folder `template_frontend/` untuk menemukan layout, tabel, dan form komponen yang tepat.
-  - Buat halaman List Surat Masuk dan hubungkan dengan API `GET`.
-  - Buat halaman/modal untuk Form Tambah & Edit, pastikan desain rapi sesuai template.
-  - Tambahkan interaksi konfirmasi saat menghapus data.
-
-- [ ] **Langkah 4: Integrasi & Testing**
-  - Hubungkan semua antarmuka (Create, Update, Delete) ke endpoint API.
-  - Lakukan uji coba dengan akun dummy, pastikan `user_input` dan `audit_trail` (created/updated/deleted_by) terisi dengan format yang benar.
-  - Validasi bahwa UUID v7 sukses digenerate di primary key.
+> **Catatan Penting untuk Programmer**: 
+> Pada skema awal, tidak ada kolom untuk menampung teks keterangan (komentar) disposisi secara eksplisit. Kami menyarankan penambahan kolom `catatan` bertipe `text` pada tabel `surat_masuk_disposisi` untuk menyimpan teks keterangan tersebut secara utuh.
 
 ---
-*Dokumen ini dibuat secara otomatis. Gunakan ini sebagai acuan (prompt/issue) utama saat melakukan coding.*
+
+## 2. Backend (Laravel API)
+
+### 2.1 Model & Relasi
+Buat Model `SuratMasukDisposisi` dan `SuratMasukDisposisiTujuan` dengan relasi:
+- `SuratMasuk` *hasMany* `SuratMasukDisposisi`
+- `SuratMasukDisposisi` *belongsTo* `SuratMasuk` dan `User` (`disposisi_oleh`)
+- `SuratMasukDisposisi` *hasMany* `SuratMasukDisposisiTujuan`
+- `SuratMasukDisposisiTujuan` *belongsTo* `BagianSeksi` (`tujuan_disposisi`)
+
+**Trait Audit Trail**:
+Pastikan logika pada *Model Boot* (seperti `creating`, `updating`, `deleting`) mengisi nilai `created_by`, `updated_by`, dan `delete_by` dengan format string yang berisikan parameter session atau token pengguna (contohnya di-generate menjadi gabungan `"{users_id},{bagian_seksi_id},{unit_kerja_id}"`).
+
+### 2.2 Controller `SuratMasukDisposisiController`
+Buat *endpoint* API baru:
+- `GET /surat-masuk/{id}/disposisi` : Mengambil daftar riwayat disposisi (termasuk relasi `disposisi_oleh` dan `tujuan` dari bagian seksi terkait).
+- `POST /surat-masuk/disposisi` : Menyimpan data disposisi baru.
+  - *Payload* yang diterima: `surat_masuk_id`, teks komentar (`catatan`), array berisi kumpulan ID `bagian_seksi_id` yang menjadi tujuan disposisi (hasil parsing dari @mention), dan parameter `evidence` jika ada.
+  - Peringatan: Gunakan *Database Transaction* ketika melakukan Create data karena melibatkan dua tabel sekaligus (Tabel utama disposisi dan tabel pivot tujuan).
+
+---
+
+## 3. Frontend (Vue 3)
+
+### 3.1 Penyesuaian Halaman Surat Masuk (`SuratMasuk.vue`)
+- Cari *render function* untuk kolom **Aksi** pada DataTables.
+- Ubah *event* tombol "Detail" (`.btn-detail`).
+- **Sebelumnya**: Membuka modal pop-up detail (`showDetailModal`).
+- **Sekarang**: Arahkan navigasi halaman (menggunakan `vue-router` seperti `router.push()`) ke halaman rute baru, misalnya `/surat-masuk/:id/detail`.
+
+### 3.2 Pembuatan Halaman Baru (`SuratMasukDetail.vue`)
+Buat *file* komponen Vue baru ini yang memiliki 2 area antarmuka utama:
+
+#### Bagian Atas: Detail Surat Masuk
+- Mengambil data surat masuk via API `GET /surat-masuk/detail/{id}`.
+- Menampilkan seluruh informasi detail surat masuk dengan desain kartu (*card*).
+
+#### Bagian Bawah: Kolom Disposisi & Riwayat
+- **List Riwayat Disposisi**: Menampilkan semua disposisi yang sudah pernah dibuat. Setiap item di *timeline* menampilkan nama yang men-disposisi, waktu, list tag tujuan (bagian seksi), dan isi teks komentarnya.
+- **Form Input Disposisi (Mention UI)**:
+  - Buat desain menyerupai kotak komentar sosial media.
+  - Implementasikan fitur interaktif: Ketika pengguna mengetik lambang `@`, maka *dropdown* berisikan opsi/daftar semua `Bagian Seksi` akan muncul.
+  - Pengguna dapat me-mention (*tag*) banyak Bagian Seksi sekaligus.
+  - Setelah menyebut/men-*tag* nama bagian, teks yang diketik setelahnya adalah *keterangan disposisinya* (yang akan ter-save ke database bersamaan).
+  - Siapkan fungsi `submit` / "Kirim" yang mengekstrak ID-ID Bagian Seksi dari sistem tag tersebut dan membungkusnya sebagai array, dan memisahkannya dari teks deskripsi utamanya, lalu dikirim via API *POST* ke backend.
+
+## 4. Rencana Kerja (Checklist)
+
+- [ ] **DB**: Buat file migration untuk `surat_masuk_disposisi` & `surat_masuk_disposisi_tujuan` sesuai ketentuan audit trail unik.
+- [ ] **Model**: Susun class Model, relasi, beserta Observer / *boot trait* untuk custom value Audit Trail.
+- [ ] **API**: Bangun `SuratMasukDisposisiController` (Fungsi List & Store Transaksional).
+- [ ] **Router Frontend**: Daftarkan *route* `/surat-masuk/:id/detail` pada router Vue.
+- [ ] **UI Surat Masuk**: Modifikasi `.btn-detail` agar menjadi link navigasi.
+- [ ] **UI Detail Surat Masuk**: Implementasi struktur utama halaman `SuratMasukDetail.vue`.
+- [ ] **UI Input Mention**: Pasang/Coding fitur interaktif `@mention` untuk memilih Bagian Seksi dalam textarea komentar disposisi.
+- [ ] **Testing & Quality Assurance**.
