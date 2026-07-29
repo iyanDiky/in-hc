@@ -319,13 +319,6 @@ onMounted(() => {
 </script>
 
 <style>
-/* Hilangkan border dan padding pada pagination DataTables */
-.dataTables_paginate .page-item .page-link {
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 4px !important;
-    background-color: transparent !important;
-}
 /* Hilangkan icon panah yang nabrak angka di select length */
 .dataTables_length .form-select {
     background-image: none !important;
