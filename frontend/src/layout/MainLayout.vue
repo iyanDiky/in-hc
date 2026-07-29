@@ -287,7 +287,6 @@ onMounted(() => {
       await loadScript('/dist/libs/select2/dist/js/select2.full.min.js')
       await loadScript('/dist/libs/select2/dist/js/select2.min.js')
       await loadScript('/dist/libs/datatables.net/js/jquery.dataTables.min.js')
-      await loadScript('/dist/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js')
       await loadScript('/dist/js/custom.js')
     } catch (e) {
       console.error('Failed to load template scripts', e)
