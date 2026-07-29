@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Unit Kerja
     Route::prefix('unit-kerja')->group(function () {
+        Route::post('/datatables', [UnitKerjaController::class, 'datatables']);
         Route::post('/list', [UnitKerjaController::class, 'list']);
         Route::post('/detail', [UnitKerjaController::class, 'detail']);
         Route::post('/create', [UnitKerjaController::class, 'create']);
@@ -38,6 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Jabatan
     Route::prefix('jabatan')->group(function () {
+        Route::post('/datatables', [JabatanController::class, 'datatables']);
         Route::post('/list', [JabatanController::class, 'list']);
         Route::post('/detail', [JabatanController::class, 'detail']);
         Route::post('/create', [JabatanController::class, 'create']);
@@ -47,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Bagian Seksi
     Route::prefix('bagian-seksi')->group(function () {
+        Route::post('/datatables', [BagianSeksiController::class, 'datatables']);
         Route::post('/list', [BagianSeksiController::class, 'list']);
         Route::post('/detail', [BagianSeksiController::class, 'detail']);
         Route::post('/create', [BagianSeksiController::class, 'create']);
@@ -56,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Users
     Route::prefix('users')->group(function () {
+        Route::post('/datatables', [App\Http\Controllers\UserController::class, 'datatables']);
         Route::post('/list', [App\Http\Controllers\UserController::class, 'list']);
         Route::post('/detail', [App\Http\Controllers\UserController::class, 'detail']);
         Route::post('/create', [App\Http\Controllers\UserController::class, 'create']);

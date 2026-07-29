@@ -9,6 +9,53 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function datatables(Request $request)
+    {
+        $query = User::with(['jabatan', 'bagianSeksi']);
+
+        $recordsTotal = $query->count();
+
+        if ($request->has('search') && !empty($request->input('search.value'))) {
+            $search = strtolower($request->input('search.value'));
+            $query->where(function($q) use ($search) {
+                $q->whereRaw('LOWER(npp) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(nama) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(username) LIKE ?', ["%{$search}%"]);
+            });
+        }
+
+        $recordsFiltered = $query->count();
+
+        $order = $request->input('order');
+        $columns = $request->input('columns');
+        if (!empty($order) && !empty($columns)) {
+            foreach ($order as $o) {
+                $columnIndex = $o['column'];
+                $dir = $o['dir'];
+                $columnName = $columns[$columnIndex]['data'];
+                // Not ordering by relation name in DB
+                if ($columnName && $columnName !== 'null' && !str_contains($columnName, '.')) {
+                    $query->orderBy($columnName, $dir);
+                }
+            }
+        } else {
+            $query->orderBy('nama', 'asc');
+        }
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        if ($length > 0) {
+            $query->offset($start)->limit($length);
+        }
+
+        return response()->json([
+            'draw' => intval($request->input('draw', 1)),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $query->get()
+        ]);
+    }
+
     public function list(Request $request)
     {
         $query = User::with(['jabatan', 'bagianSeksi']);
