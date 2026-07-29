@@ -23,7 +23,7 @@
       </div>
       <div class="card-body p-4">
         <div class="table-responsive">
-          <table id="suratMasukTable" class="table table-striped border table-bordered display text-nowrap" style="width: 100%">
+          <table id="suratMasukTable" class="table table-striped border table-bordered display" style="width: 100%">
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">Tgl Surat</h6></th>
@@ -317,5 +317,21 @@ onMounted(() => {
   fetchItems()
 })
 </script>
+
+<style>
+/* Hilangkan border dan padding pada pagination DataTables */
+.dataTables_paginate .page-item .page-link {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 4px !important;
+    background-color: transparent !important;
+}
+/* Hilangkan icon panah yang nabrak angka di select length */
+.dataTables_length .form-select {
+    background-image: none !important;
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
+}
+</style>
 
 
