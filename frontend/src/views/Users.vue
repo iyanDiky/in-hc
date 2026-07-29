@@ -29,9 +29,6 @@
                 <th><h6 class="fs-4 fw-semibold mb-0">NPP</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Nama</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Username</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Tempat/Tgl Lahir</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Jabatan</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Bagian Seksi</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Level</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Aksi</h6></th>
               </tr>
@@ -115,6 +112,58 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Detail -->
+    <div v-if="showDetailModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detail User</h5>
+            <button type="button" class="btn-close" @click="closeDetail()"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th width="40%">NPP</th>
+                  <td>{{ detailData?.npp || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Nama Lengkap</th>
+                  <td>{{ detailData?.nama || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Username</th>
+                  <td>{{ detailData?.username || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Tempat, Tgl Lahir</th>
+                  <td>{{ detailData?.tempat_lahir || '-' }}, {{ detailData?.tanggal_lahir || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Jabatan</th>
+                  <td>{{ detailData?.jabatan?.jabatan || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Bagian Seksi</th>
+                  <td>{{ detailData?.bagian_seksi?.bagian_seksi || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Level</th>
+                  <td>
+                    <span v-if="detailData?.level" class="badge bg-primary rounded-3 fw-semibold">{{ detailData.level }}</span>
+                    <span v-else>-</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" @click="closeDetail()">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -127,7 +176,9 @@ const items = ref([])
 const jabatanList = ref([])
 const bagianSeksiList = ref([])
 const showModal = ref(false)
+const showDetailModal = ref(false)
 const isEdit = ref(false)
+const detailData = ref(null)
 const form = ref({ 
   id: '', 
   npp: '', 
@@ -195,26 +246,6 @@ const initDataTable = () => {
         }
       },
       { 
-        data: null, 
-        render: function(data, type, row) {
-          return `<p class="mb-0 fw-normal">${row.tempat_lahir}, ${row.tanggal_lahir}</p>`
-        }
-      },
-      { 
-        data: 'jabatan.jabatan',
-        defaultContent: '-',
-        render: function(data, type, row) {
-          return `<p class="mb-0 fw-normal">${data ? data : '-'}</p>`
-        }
-      },
-      { 
-        data: 'bagian_seksi.bagian_seksi',
-        defaultContent: '-',
-        render: function(data, type, row) {
-          return `<p class="mb-0 fw-normal">${data ? data : '-'}</p>`
-        }
-      },
-      { 
         data: 'level',
         render: function(data, type, row) {
           return `<span class="badge bg-primary rounded-3 fw-semibold">${data}</span>`
@@ -225,6 +256,9 @@ const initDataTable = () => {
         orderable: false,
         render: function(data, type, row) {
           return `
+            <button class="btn btn-sm btn-secondary me-2 btn-detail" data-id="${row.id}" data-bs-toggle="tooltip" title="Detail">
+              <i class="ti ti-eye fs-5"></i>
+            </button>
             <button class="btn btn-sm btn-info me-2 btn-edit" data-id="${row.id}" data-bs-toggle="tooltip" title="Edit">
               <i class="ti ti-pencil fs-5"></i>
             </button>
@@ -258,6 +292,12 @@ const initDataTable = () => {
         return window.bootstrap.Tooltip.getInstance(tooltipTriggerEl) || new window.bootstrap.Tooltip(tooltipTriggerEl)
       })
     }
+  })
+
+  window.$('#usersTable tbody').off('click', '.btn-detail')
+  window.$('#usersTable tbody').on('click', '.btn-detail', function() {
+    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
+    openDetail(data)
   })
 
   window.$('#usersTable tbody').off('click', '.btn-edit')
@@ -342,6 +382,16 @@ const openModal = async (item = null) => {
 
 const closeModal = () => {
   showModal.value = false
+}
+
+const openDetail = (item) => {
+  detailData.value = item
+  showDetailModal.value = true
+}
+
+const closeDetail = () => {
+  showDetailModal.value = false
+  detailData.value = null
 }
 
 const saveData = async () => {
