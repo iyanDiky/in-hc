@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function datatables(Request $request)
     {
-        $query = User::with(['jabatan', 'bagianSeksi']);
+        $query = User::with(['jabatan', 'bagianSeksi.unitKerja']);
 
         $recordsTotal = $query->count();
 
@@ -58,7 +58,7 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $query = User::with(['jabatan', 'bagianSeksi']);
+        $query = User::with(['jabatan', 'bagianSeksi.unitKerja']);
 
         if ($request->has('search')) {
             $search = strtolower($request->search);
@@ -78,7 +78,7 @@ class UserController extends Controller
     public function detail(Request $request)
     {
         $request->validate(['id' => 'required|uuid']);
-        $user = User::with(['jabatan', 'bagianSeksi'])->findOrFail($request->id);
+        $user = User::with(['jabatan', 'bagianSeksi.unitKerja'])->findOrFail($request->id);
         
         return response()->json($user);
     }
