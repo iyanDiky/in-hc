@@ -22,8 +22,8 @@
         <button class="btn btn-primary" @click="openModal()">Tambah Data</button>
       </div>
       <div class="card-body p-4">
-        <div class="table-responsive rounded-2 mb-4">
-          <table id="bagianSeksiTable" class="table border text-nowrap customize-table mb-0 align-middle">
+        <div class="table-responsive">
+          <table id="bagianSeksiTable" class="table table-striped border table-bordered display" style="width: 100%">
             <thead class="text-dark fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">Kode</h6></th>
