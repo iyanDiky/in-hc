@@ -31,8 +31,15 @@ class SuratMasukDisposisiController extends Controller
             'catatan' => 'required|string',
             'tujuan_bagian_seksi_ids' => 'required|array|min:1',
             'tujuan_bagian_seksi_ids.*' => 'uuid|exists:bagian_seksi,id',
-            'evidence' => 'nullable|string'
+            'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240'
         ]);
+
+        $evidencePath = null;
+        if ($request->hasFile('evidence')) {
+            $file = $request->file('evidence');
+            $filename = date('YmdHis') . '-disposisi-' . \Illuminate\Support\Facades\Auth::id() . '.' . $file->extension();
+            $evidencePath = $file->storeAs('evidence', $filename, 'public');
+        }
 
         $suratMasuk = SuratMasuk::findOrFail($suratMasukId);
 
@@ -42,7 +49,7 @@ class SuratMasukDisposisiController extends Controller
                 'surat_masuk_id' => $suratMasukId,
                 'disposisi_oleh' => auth()->id(),
                 'catatan' => $request->catatan,
-                'evidence' => $request->evidence
+                'evidence' => $evidencePath
             ]);
 
             foreach ($request->tujuan_bagian_seksi_ids as $bagianSeksiId) {
