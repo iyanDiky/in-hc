@@ -92,54 +92,17 @@
         </div>
       </div>
     </div>
-
-    <!-- Modal Detail -->
-    <div v-if="showDetailModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Detail Surat Masuk</h5>
-            <button type="button" class="btn-close" @click="closeDetail()"></button>
-          </div>
-          <div class="modal-body">
-            <table class="table table-bordered mb-4">
-              <tbody>
-                <tr><th style="width: 30%">Tanggal Surat</th><td>{{ detailItem.tanggal_surat }}</td></tr>
-                <tr><th>Nomor Surat</th><td>{{ detailItem.nomor_surat }}</td></tr>
-                <tr><th>Pengirim</th><td>{{ detailItem.pengirim }}</td></tr>
-                <tr><th>Tujuan</th><td>{{ detailItem.tujuan }}</td></tr>
-                <tr><th>Perihal</th><td>{{ detailItem.perihal }}</td></tr>
-                <tr><th>Catatan</th><td>{{ detailItem.catatan || '-' }}</td></tr>
-              </tbody>
-            </table>
-            <h6>Preview Evidence</h6>
-            <div v-if="detailItem.evidence" class="border rounded p-2 text-center" style="background: #f8f9fa;">
-                <object :data="getFileUrl(detailItem.evidence)" type="application/pdf" width="100%" height="400px" v-if="detailItem.evidence.endsWith('.pdf')">
-                    <p>Browser Anda tidak mendukung preview PDF. <a :href="getFileUrl(detailItem.evidence)" target="_blank">Download di sini</a>.</p>
-                </object>
-                <img v-else :src="getFileUrl(detailItem.evidence)" alt="Evidence Preview" class="img-fluid" style="max-height: 400px;">
-            </div>
-            <div v-else class="alert alert-secondary text-center">
-                Tidak ada file evidence yang diunggah.
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light" @click="closeDetail()">Tutup</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import api from '../utils/api'
 
+const router = useRouter()
 
-const items = ref({ data: [], total: 0, from: 0, to: 0 })
 const showModal = ref(false)
-const showDetailModal = ref(false)
 const isEdit = ref(false)
 const detailItem = ref({})
 const form = ref({ 
@@ -302,6 +265,7 @@ const formatDate = (dateStr) => {
 }
 
 const openModal = (item = null) => {
+  document.querySelectorAll('.tooltip').forEach(el => el.remove())
   if (item) {
     isEdit.value = true
     form.value = { ...item }
@@ -327,12 +291,12 @@ const closeModal = () => {
 }
 
 const openDetail = (item) => {
-  detailItem.value = { ...item }
-  showDetailModal.value = true
-}
-
-const closeDetail = () => {
-  showDetailModal.value = false
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+    const tooltip = window.bootstrap.Tooltip.getInstance(el)
+    if (tooltip) tooltip.hide()
+  })
+  document.querySelectorAll('.tooltip').forEach(el => el.remove())
+  router.push(`/surat-masuk/${item.id}/detail`)
 }
 
 const saveData = async () => {
@@ -361,6 +325,7 @@ const saveData = async () => {
 }
 
 const deleteItem = (id) => {
+  document.querySelectorAll('.tooltip').forEach(el => el.remove())
   window.Swal.fire({
     title: 'Apakah Anda yakin?',
     text: "Data yang dihapus tidak dapat dikembalikan!",
