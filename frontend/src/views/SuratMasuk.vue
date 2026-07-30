@@ -265,6 +265,7 @@ const formatDate = (dateStr) => {
 }
 
 const openModal = (item = null) => {
+  document.querySelectorAll('.tooltip').forEach(el => el.remove())
   if (item) {
     isEdit.value = true
     form.value = { ...item }
@@ -290,6 +291,11 @@ const closeModal = () => {
 }
 
 const openDetail = (item) => {
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+    const tooltip = window.bootstrap.Tooltip.getInstance(el)
+    if (tooltip) tooltip.hide()
+  })
+  document.querySelectorAll('.tooltip').forEach(el => el.remove())
   router.push(`/surat-masuk/${item.id}/detail`)
 }
 
@@ -319,6 +325,7 @@ const saveData = async () => {
 }
 
 const deleteItem = (id) => {
+  document.querySelectorAll('.tooltip').forEach(el => el.remove())
   window.Swal.fire({
     title: 'Apakah Anda yakin?',
     text: "Data yang dihapus tidak dapat dikembalikan!",

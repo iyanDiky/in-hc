@@ -281,16 +281,23 @@ const submitDisposisi = async () => {
   
   // Extract all valid tagged seksi from the actual text to ensure they weren't deleted
   const finalTags = []
+  let cleanCatatan = catatan.value
+
   taggedSeksi.value.forEach(tag => {
     if (catatan.value.includes(tag.name)) {
       finalTags.push(tag.id)
+      // Remove mention from catatan
+      cleanCatatan = cleanCatatan.split(tag.name).join('')
     }
   })
+  
+  // Clean up any extra spaces
+  cleanCatatan = cleanCatatan.replace(/\s+/g, ' ').trim()
   
   isSubmitting.value = true
   try {
     const formData = new FormData()
-    formData.append('catatan', catatan.value)
+    formData.append('catatan', cleanCatatan)
     
     // Add multiple arrays to FormData
     if (finalTags.length > 0) {
