@@ -77,4 +77,17 @@ class SuratMasukDisposisiController extends Controller
             ], 500);
         }
     }
+
+    public function destroy($suratMasukId, $disposisiId)
+    {
+        $disposisi = SuratMasukDisposisi::where('surat_masuk_id', $suratMasukId)
+            ->where('id', $disposisiId)
+            ->firstOrFail();
+
+        $disposisi->delete();
+
+        return response()->json([
+            'message' => 'Disposisi deleted successfully'
+        ]);
+    }
 }

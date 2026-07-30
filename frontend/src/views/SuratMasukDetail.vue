@@ -78,7 +78,12 @@
               <div class="ms-3 w-100 bg-light p-3 rounded">
                 <div class="d-flex justify-content-between align-items-center mb-1">
                   <h6 class="fw-semibold mb-0">{{ disp.disposisi_oleh?.nama || 'Unknown' }}</h6>
-                  <small class="text-muted">{{ formatDateTime(disp.disposisi_waktu) }}</small>
+                  <div class="d-flex align-items-center">
+                    <small class="text-muted me-2">{{ formatDateTime(disp.disposisi_waktu) }}</small>
+                    <button class="btn btn-sm btn-light-danger text-danger p-1 rounded d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;" @click="deleteDisposisi(disp.id)" title="Hapus Disposisi">
+                      <i class="ti ti-trash"></i>
+                    </button>
+                  </div>
                 </div>
                 <div class="mb-2">
                   <span v-for="tujuan in disp.tujuans" :key="tujuan.id" class="badge bg-secondary me-1">
@@ -333,6 +338,29 @@ const submitDisposisi = async () => {
   } finally {
     isSubmitting.value = false
   }
+}
+
+const deleteDisposisi = async (id) => {
+  window.Swal.fire({
+    title: 'Apakah Anda yakin?',
+    text: "Disposisi yang dihapus tidak dapat dikembalikan!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, hapus!',
+    cancelButtonText: 'Batal'
+  }).then(async (result) => {
+    if (result.isConfirmed || result.value) {
+      try {
+        await api.delete(`/surat-masuk/${suratMasukId}/disposisi/${id}`)
+        fetchDisposisi()
+        window.Swal.fire('Terhapus!', 'Disposisi berhasil dihapus.', 'success')
+      } catch (error) {
+        window.Swal.fire('Gagal!', error.response?.data?.message || 'Gagal menghapus disposisi', 'error')
+      }
+    }
+  })
 }
 
 onMounted(() => {

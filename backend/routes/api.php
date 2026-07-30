@@ -79,5 +79,6 @@ Route::middleware('auth:sanctum')->group(function () {
         // Disposisi
         Route::get('/{id}/disposisi', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'index']);
         Route::post('/{id}/disposisi', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'store']);
+        Route::delete('/{id}/disposisi/{disposisiId}', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'destroy']);
     });
 });

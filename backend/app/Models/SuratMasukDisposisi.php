@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class SuratMasukDisposisi extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+    
+    public const DELETED_AT = 'delete_at';
 
     protected $table = 'surat_masuk_disposisi';
     protected $primaryKey = 'id';
