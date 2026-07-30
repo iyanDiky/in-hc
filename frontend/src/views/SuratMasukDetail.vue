@@ -105,6 +105,15 @@
 
         <!-- Form Input Disposisi -->
         <h6 class="fw-semibold mb-3">Tambah Disposisi Baru</h6>
+        
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Disposisi Atas Nama</label>
+          <select class="form-select" v-model="disposisiOlehId">
+            <option v-for="user in userList" :key="user.id" :value="user.id">
+              {{ user.nama }} - {{ user.jabatan?.nama_jabatan || 'Tanpa Jabatan' }} ({{ user.bagian_seksi?.bagian_seksi || 'Tanpa Bagian' }})
+            </option>
+          </select>
+        </div>
         <div class="border rounded p-3 position-relative">
           <div class="mb-2 position-relative">
             <textarea 
@@ -168,6 +177,8 @@ const suratMasukId = route.params.id
 const detailItem = ref(null)
 const disposisiList = ref([])
 const bagianSeksiList = ref([])
+const userList = ref([])
+const disposisiOlehId = ref('')
 
 // Form state
 const catatan = ref('')
@@ -240,6 +251,22 @@ const fetchBagianSeksi = async () => {
   }
 }
 
+const fetchUsers = async () => {
+  try {
+    const res = await api.post('/users/list', { limit: 1000 })
+    userList.value = res.data.data
+    
+    // Set default value to logged in user
+    const userData = localStorage.getItem('user_data')
+    if (userData) {
+      const parsed = JSON.parse(userData)
+      disposisiOlehId.value = parsed.id
+    }
+  } catch (error) {
+    console.error('Failed to load users', error)
+  }
+}
+
 // Mention Logic
 const handleInput = (e) => {
   const cursorPosition = textareaRef.value.selectionStart
@@ -303,6 +330,9 @@ const submitDisposisi = async () => {
   try {
     const formData = new FormData()
     formData.append('catatan', cleanCatatan)
+    if (disposisiOlehId.value) {
+      formData.append('disposisi_oleh', disposisiOlehId.value)
+    }
     
     // Add multiple arrays to FormData
     if (finalTags.length > 0) {
@@ -367,6 +397,7 @@ onMounted(() => {
   fetchData()
   fetchDisposisi()
   fetchBagianSeksi()
+  fetchUsers()
 })
 </script>
 

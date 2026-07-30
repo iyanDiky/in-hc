@@ -31,7 +31,8 @@ class SuratMasukDisposisiController extends Controller
             'catatan' => 'required|string',
             'tujuan_bagian_seksi_ids' => 'required|array|min:1',
             'tujuan_bagian_seksi_ids.*' => 'uuid|exists:bagian_seksi,id',
-            'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240'
+            'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+            'disposisi_oleh' => 'nullable|uuid|exists:users,id'
         ]);
 
         $evidencePath = null;
@@ -47,7 +48,7 @@ class SuratMasukDisposisiController extends Controller
         try {
             $disposisi = SuratMasukDisposisi::create([
                 'surat_masuk_id' => $suratMasukId,
-                'disposisi_oleh' => auth()->id(),
+                'disposisi_oleh' => $request->disposisi_oleh ?? auth()->id(),
                 'catatan' => $request->catatan,
                 'evidence' => $evidencePath
             ]);
