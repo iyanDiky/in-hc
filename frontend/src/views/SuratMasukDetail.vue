@@ -77,7 +77,12 @@
               </div>
               <div class="ms-3 w-100 bg-light p-3 rounded">
                 <div class="d-flex justify-content-between align-items-center mb-1">
-                  <h6 class="fw-semibold mb-0">{{ disp.disposisi_oleh?.nama || 'Unknown' }}</h6>
+                  <h6 class="fw-semibold mb-0">
+                    {{ disp.disposisi_oleh?.nama || 'Unknown' }}
+                    <small v-if="disp.jabatan || disp.bagian_seksi" class="text-muted d-block fw-normal" style="font-size: 0.85em;">
+                      {{ disp.jabatan?.nama_jabatan || '' }} {{ disp.jabatan && disp.bagian_seksi ? '-' : '' }} {{ disp.bagian_seksi?.bagian_seksi || '' }}
+                    </small>
+                  </h6>
                   <div class="d-flex align-items-center">
                     <small class="text-muted me-2">{{ formatDateTime(disp.disposisi_waktu) }}</small>
                     <button class="btn btn-sm btn-light-danger text-danger p-1 rounded d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;" @click="deleteDisposisi(disp.id)" title="Hapus Disposisi">
@@ -106,13 +111,34 @@
         <!-- Form Input Disposisi -->
         <h6 class="fw-semibold mb-3">Tambah Disposisi Baru</h6>
         
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Disposisi Atas Nama</label>
-          <select class="form-select" v-model="disposisiOlehId">
-            <option v-for="user in userList" :key="user.id" :value="user.id">
-              {{ user.nama }} - {{ user.jabatan?.nama_jabatan || 'Tanpa Jabatan' }} ({{ user.bagian_seksi?.bagian_seksi || 'Tanpa Bagian' }})
-            </option>
-          </select>
+        <div class="row mb-3">
+          <div class="col-md-4 mb-2 mb-md-0">
+            <label class="form-label fw-semibold">Disposisi Atas Nama</label>
+            <select class="form-select" v-model="disposisiOlehId">
+              <option value="">Pilih User</option>
+              <option v-for="user in userList" :key="user.id" :value="user.id">
+                {{ user.nama }} - {{ user.jabatan?.nama_jabatan || 'Tanpa Jabatan' }} ({{ user.bagian_seksi?.bagian_seksi || 'Tanpa Bagian' }})
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-2 mb-md-0">
+            <label class="form-label fw-semibold">Jabatan</label>
+            <select class="form-select" v-model="disposisiOlehJabatanId">
+              <option value="">Pilih Jabatan</option>
+              <option v-for="jab in jabatanList" :key="jab.id" :value="jab.id">
+                {{ jab.nama_jabatan }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Bagian Seksi</label>
+            <select class="form-select" v-model="disposisiOlehBagianSeksiId">
+              <option value="">Pilih Bagian Seksi</option>
+              <option v-for="bag in bagianSeksiList" :key="bag.id" :value="bag.id">
+                {{ bag.bagian_seksi }}
+              </option>
+            </select>
+          </div>
         </div>
         <div class="border rounded p-3 position-relative">
           <div class="mb-2 position-relative">
@@ -177,8 +203,11 @@ const suratMasukId = route.params.id
 const detailItem = ref(null)
 const disposisiList = ref([])
 const bagianSeksiList = ref([])
+const jabatanList = ref([])
 const userList = ref([])
 const disposisiOlehId = ref('')
+const disposisiOlehJabatanId = ref('')
+const disposisiOlehBagianSeksiId = ref('')
 
 // Form state
 const catatan = ref('')
@@ -251,6 +280,15 @@ const fetchBagianSeksi = async () => {
   }
 }
 
+const fetchJabatan = async () => {
+  try {
+    const res = await api.post('/jabatan/list', { limit: 1000 })
+    jabatanList.value = res.data.data
+  } catch (error) {
+    console.error('Failed to load jabatan', error)
+  }
+}
+
 const fetchUsers = async () => {
   try {
     const res = await api.post('/users/list', { limit: 1000 })
@@ -261,11 +299,23 @@ const fetchUsers = async () => {
     if (userData) {
       const parsed = JSON.parse(userData)
       disposisiOlehId.value = parsed.id
+      disposisiOlehJabatanId.value = parsed.jabatan_id || ''
+      disposisiOlehBagianSeksiId.value = parsed.bagian_seksi_id || ''
     }
   } catch (error) {
     console.error('Failed to load users', error)
   }
 }
+
+watch(disposisiOlehId, (newId) => {
+  if (newId && userList.value.length > 0) {
+    const user = userList.value.find(u => u.id === newId)
+    if (user) {
+      disposisiOlehJabatanId.value = user.jabatan_id || ''
+      disposisiOlehBagianSeksiId.value = user.bagian_seksi_id || ''
+    }
+  }
+})
 
 // Mention Logic
 const handleInput = (e) => {
@@ -333,6 +383,12 @@ const submitDisposisi = async () => {
     if (disposisiOlehId.value) {
       formData.append('disposisi_oleh', disposisiOlehId.value)
     }
+    if (disposisiOlehJabatanId.value) {
+      formData.append('disposisi_oleh_jabatan', disposisiOlehJabatanId.value)
+    }
+    if (disposisiOlehBagianSeksiId.value) {
+      formData.append('disposisi_oleh_bagian_seksi', disposisiOlehBagianSeksiId.value)
+    }
     
     // Add multiple arrays to FormData
     if (finalTags.length > 0) {
@@ -397,6 +453,7 @@ onMounted(() => {
   fetchData()
   fetchDisposisi()
   fetchBagianSeksi()
+  fetchJabatan()
   fetchUsers()
 })
 </script>

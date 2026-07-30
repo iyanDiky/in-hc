@@ -14,7 +14,7 @@ class SuratMasukDisposisiController extends Controller
     {
         $suratMasuk = SuratMasuk::findOrFail($suratMasukId);
         
-        $disposisi = SuratMasukDisposisi::with(['disposisiOleh', 'tujuans.tujuan'])
+        $disposisi = SuratMasukDisposisi::with(['disposisiOleh', 'jabatan', 'bagianSeksi', 'tujuans.tujuan'])
             ->where('surat_masuk_id', $suratMasukId)
             ->orderBy('disposisi_waktu', 'asc')
             ->get();
@@ -32,7 +32,9 @@ class SuratMasukDisposisiController extends Controller
             'tujuan_bagian_seksi_ids' => 'required|array|min:1',
             'tujuan_bagian_seksi_ids.*' => 'uuid|exists:bagian_seksi,id',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'disposisi_oleh' => 'nullable|uuid|exists:users,id'
+            'disposisi_oleh' => 'nullable|uuid|exists:users,id',
+            'disposisi_oleh_jabatan' => 'nullable|uuid|exists:jabatan,id',
+            'disposisi_oleh_bagian_seksi' => 'nullable|uuid|exists:bagian_seksi,id'
         ]);
 
         $evidencePath = null;
@@ -49,6 +51,8 @@ class SuratMasukDisposisiController extends Controller
             $disposisi = SuratMasukDisposisi::create([
                 'surat_masuk_id' => $suratMasukId,
                 'disposisi_oleh' => $request->disposisi_oleh ?? auth()->id(),
+                'disposisi_oleh_jabatan' => $request->disposisi_oleh_jabatan,
+                'disposisi_oleh_bagian_seksi' => $request->disposisi_oleh_bagian_seksi,
                 'catatan' => $request->catatan,
                 'evidence' => $evidencePath
             ]);
@@ -63,7 +67,7 @@ class SuratMasukDisposisiController extends Controller
             DB::commit();
 
             // Load relations to return the complete object
-            $disposisi->load(['disposisiOleh', 'tujuans.tujuan']);
+            $disposisi->load(['disposisiOleh', 'jabatan', 'bagianSeksi', 'tujuans.tujuan']);
 
             return response()->json([
                 'message' => 'Disposisi created successfully',

@@ -26,6 +26,8 @@ class SuratMasukDisposisi extends Model
         'id',
         'surat_masuk_id',
         'disposisi_oleh',
+        'disposisi_oleh_jabatan',
+        'disposisi_oleh_bagian_seksi',
         'disposisi_waktu',
         'catatan',
         'evidence',
@@ -81,6 +83,16 @@ class SuratMasukDisposisi extends Model
     public function disposisiOleh()
     {
         return $this->belongsTo(User::class, 'disposisi_oleh', 'id');
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'disposisi_oleh_jabatan', 'id');
+    }
+
+    public function bagianSeksi()
+    {
+        return $this->belongsTo(BagianSeksi::class, 'disposisi_oleh_bagian_seksi', 'id');
     }
 
     public function tujuans()
