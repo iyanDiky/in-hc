@@ -106,7 +106,7 @@
         <!-- Form Input Disposisi -->
         <h6 class="fw-semibold mb-3">Tambah Disposisi Baru</h6>
         <div class="border rounded p-3 position-relative">
-          <div class="mb-2">
+          <div class="mb-2 position-relative">
             <textarea 
               class="form-control border-0 shadow-none" 
               rows="3" 
@@ -118,7 +118,7 @@
             ></textarea>
             
             <!-- Mention Dropdown Menu -->
-            <div v-if="showMentionMenu" class="dropdown-menu show shadow" style="position: absolute; top: 100%; left: 15px; z-index: 1000; max-height: 200px; overflow-y: auto;">
+            <div v-if="showMentionMenu" class="dropdown-menu show shadow" style="position: absolute; bottom: 100%; left: 0; z-index: 1000; max-height: 200px; overflow-y: auto; margin-bottom: 5px;">
               <a 
                 v-for="(seksi, index) in filteredBagianSeksi" 
                 :key="seksi.id" 
