@@ -135,7 +135,7 @@
             <select class="form-select" v-model="disposisiOlehBagianSeksiId">
               <option value="">Pilih Bagian Seksi</option>
               <option v-for="bag in bagianSeksiList" :key="bag.id" :value="bag.id">
-                {{ bag.bagian_seksi }}
+                {{ bag.bagian_seksi }} - {{ bag.unit_kerja?.unit_kerja || 'Tanpa Unit' }}
               </option>
             </select>
           </div>
