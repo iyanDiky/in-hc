@@ -80,7 +80,7 @@
                   <h6 class="fw-semibold mb-0">
                     {{ disp.disposisi_oleh?.nama || 'Unknown' }}
                     <small v-if="disp.jabatan || disp.bagian_seksi" class="text-muted d-block fw-normal" style="font-size: 0.85em;">
-                      {{ disp.jabatan?.nama_jabatan || '' }} {{ disp.jabatan && disp.bagian_seksi ? '-' : '' }} {{ disp.bagian_seksi?.bagian_seksi || '' }}
+                      {{ disp.jabatan?.jabatan || '' }} {{ disp.jabatan && disp.bagian_seksi ? '-' : '' }} {{ disp.bagian_seksi?.bagian_seksi || '' }}
                     </small>
                   </h6>
                   <div class="d-flex align-items-center">
@@ -117,7 +117,7 @@
             <select class="form-select" v-model="disposisiOlehId">
               <option value="">Pilih User</option>
               <option v-for="user in userList" :key="user.id" :value="user.id">
-                {{ user.nama }} - {{ user.jabatan?.nama_jabatan || 'Tanpa Jabatan' }} ({{ user.bagian_seksi?.bagian_seksi || 'Tanpa Bagian' }})
+                {{ user.nama }}
               </option>
             </select>
           </div>
@@ -126,7 +126,7 @@
             <select class="form-select" v-model="disposisiOlehJabatanId">
               <option value="">Pilih Jabatan</option>
               <option v-for="jab in jabatanList" :key="jab.id" :value="jab.id">
-                {{ jab.nama_jabatan }}
+                {{ jab.jabatan }}
               </option>
             </select>
           </div>
