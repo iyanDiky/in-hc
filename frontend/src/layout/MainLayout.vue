@@ -2,12 +2,12 @@
   <div 
     class="page-wrapper" 
     id="main-wrapper" 
-    data-theme="blue_theme" 
+    :data-theme="customizerState.themeColor" 
     data-layout="vertical" 
-    :data-sidebartype="isSidebarMini ? 'mini-sidebar' : 'full'" 
+    :data-sidebartype="customizerState.sidebarType" 
     data-sidebar-position="fixed" 
     data-header-position="fixed"
-    :class="{'mini-sidebar': isSidebarMini, 'show-sidebar': isSidebarShow}"
+    :class="{'mini-sidebar': customizerState.sidebarType === 'mini-sidebar', 'show-sidebar': isSidebarShow}"
   >
     <!-- Sidebar Start -->
     <aside class="left-sidebar">
@@ -122,7 +122,7 @@
       </header>
       <!--  Header End -->
       
-      <div class="container-fluid">
+      <div class="container-fluid" :class="{'mw-100': customizerState.containerOption === 'full'}">
         <RouterView />
       </div>
     </div>
@@ -157,19 +157,23 @@
       </div>
     </div>
   </div>
+  
+  <Customizer />
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterView, RouterLink, useRoute, useRouter } from 'vue-router'
 import api from '../utils/api'
+import Customizer from '../components/Customizer.vue'
+import { useCustomizer } from '../composables/useCustomizer'
 
 const route = useRoute()
 const router = useRouter()
 
 const user = ref(null)
 
-const isSidebarMini = ref(false)
+const { state: customizerState } = useCustomizer()
 const isSidebarShow = ref(false)
 
 const showChangePasswordModal = ref(false)
@@ -184,7 +188,7 @@ const toggleSidebar = () => {
   if (window.innerWidth < 1300) {
     isSidebarShow.value = !isSidebarShow.value
   } else {
-    isSidebarMini.value = !isSidebarMini.value
+    customizerState.sidebarType = customizerState.sidebarType === 'mini-sidebar' ? 'full' : 'mini-sidebar'
   }
 }
 
@@ -193,10 +197,7 @@ const toggleSidebarShow = () => {
 }
 
 const handleResize = () => {
-  if (window.innerWidth < 1300) {
-    isSidebarMini.value = true
-  } else {
-    isSidebarMini.value = false
+  if (window.innerWidth >= 1300) {
     isSidebarShow.value = false
   }
 }
