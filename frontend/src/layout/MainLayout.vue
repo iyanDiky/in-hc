@@ -81,49 +81,57 @@
     <div class="body-wrapper">
       <!--  Header Start -->
       <header class="app-header"> 
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link sidebartoggler nav-icon-hover ms-n3 cursor-pointer" id="headerCollapse" href="javascript:void(0)" @click.prevent="toggleSidebar">
-                <i class="ti ti-menu-2"></i>
+        <nav class="navbar navbar-light w-100 d-flex align-items-center justify-content-between px-0">
+          <!-- Left: Hamburger Menu & Mobile Brand -->
+          <div class="d-flex align-items-center gap-2">
+            <a class="nav-link sidebartoggler nav-icon-hover cursor-pointer p-2 rounded-circle" id="headerCollapse" href="javascript:void(0)" @click.prevent="toggleSidebar">
+              <i class="ti ti-menu-2 fs-6"></i>
+            </a>
+            <div class="d-block d-lg-none">
+              <span class="fw-bold fs-4 text-dark mb-0">IN-HC</span>
+            </div>
+          </div>
+
+          <!-- Right: User Profile -->
+          <div class="d-flex align-items-center">
+            <div class="dropdown">
+              <a class="nav-link cursor-pointer d-flex align-items-center gap-2 p-1 pe-0" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-none d-md-block text-end me-1 lh-sm">
+                  <span class="d-block fw-semibold text-dark fs-3">{{ user?.nama || 'User' }}</span>
+                  <span class="d-block text-muted fs-2">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
+                </div>
+                <div class="user-profile-img">
+                  <img src="/dist/images/profile/user-1.jpg" class="rounded-circle shadow-sm" width="38" height="38" alt="user" />
+                </div>
               </a>
-            </li>
-          </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <li class="nav-item dropdown">
-                <a class="nav-link pe-0" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <div class="d-flex align-items-center">
-                    <div class="user-profile-img">
-                      <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="35" height="35" alt="user" />
+              <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                <div class="profile-dropdown position-relative" data-simplebar>
+                  <div class="py-3 px-7 pb-0">
+                    <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
+                  </div>
+                  <div class="d-flex align-items-center py-9 mx-7 border-bottom">
+                    <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="70" height="70" alt="user" />
+                    <div class="ms-3">
+                      <h5 class="mb-1 fs-4 text-truncate" style="max-width: 170px;">{{ user?.nama || 'User' }}</h5>
+                      <span class="mb-1 d-block badge bg-light-primary text-primary fw-medium">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
+                      <p class="mb-0 d-flex text-muted align-items-center gap-1 fs-2">
+                        <i class="ti ti-id fs-3"></i> {{ user?.npp || '-' }}
+                      </p>
                     </div>
                   </div>
-                </a>
-                <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="profile-dropdown position-relative" data-simplebar>
-                    <div class="py-3 px-7 pb-0">
-                      <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
-                    </div>
-                    <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                      <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="80" height="80" alt="user" />
-                      <div class="ms-3">
-                        <h5 class="mb-1 fs-4">{{ user?.nama || 'User' }}</h5>
-                        <span class="mb-1 d-block text-dark">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
-                        <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                          <i class="ti ti-id fs-4"></i> {{ user?.npp || '-' }}
-                        </p>
-                      </div>
-                    </div>
-                    <div class="message-body">
-                      <div class="d-grid py-4 px-7 pt-8 gap-3">
-                        <button @click="showChangePasswordModal = true" class="btn btn-primary">Ubah Password</button>
-                        <button @click="handleLogout" class="btn btn-outline-primary">Log Out</button>
-                      </div>
+                  <div class="message-body">
+                    <div class="d-grid py-4 px-7 pt-6 gap-2">
+                      <button @click="showChangePasswordModal = true" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2">
+                        <i class="ti ti-key fs-4"></i> Ubah Password
+                      </button>
+                      <button @click="handleLogout" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center gap-2">
+                        <i class="ti ti-logout fs-4"></i> Log Out
+                      </button>
                     </div>
                   </div>
                 </div>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </nav>
       </header>
@@ -330,8 +338,58 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* Responsive Mobile Sidebar Fix */
+/* App Header & Navbar Precision Styling */
+.app-header {
+  min-height: 70px;
+  height: 70px;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.app-header .navbar {
+  min-height: 70px;
+  height: 70px;
+  flex-wrap: nowrap;
+}
+
+.app-header .user-profile-img img {
+  object-fit: cover;
+  border: 2px solid #eaeff4;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.app-header .user-profile-img img:hover {
+  border-color: var(--bs-primary);
+  transform: scale(1.05);
+}
+
+/* User Profile Dropdown Styling */
+.app-header .dropdown-menu {
+  position: absolute !important;
+  right: 0 !important;
+  left: auto !important;
+  min-width: 290px !important;
+  max-width: calc(100vw - 32px) !important;
+  margin-top: 8px !important;
+  border: 1px solid #ebf1f6;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive Mobile Sidebar & Header Fix */
 @media (max-width: 1199.98px) {
+  .app-header {
+    width: 100% !important;
+    padding: 0 16px !important;
+  }
+
   #main-wrapper .left-sidebar {
     left: -270px !important;
     position: fixed !important;
@@ -351,10 +409,6 @@ onUnmounted(() => {
 
   #main-wrapper .body-wrapper {
     margin-left: 0 !important;
-  }
-
-  #main-wrapper .app-header {
-    width: 100% !important;
   }
 
   .dark-transparent.active {
