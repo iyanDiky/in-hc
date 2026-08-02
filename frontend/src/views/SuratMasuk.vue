@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Breadcrumb Header -->
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
       <div class="card-body px-4 py-3">
         <div class="row align-items-center">
@@ -7,7 +8,7 @@
             <h4 class="fw-semibold mb-8">Surat Masuk</h4>
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-muted" href="#">Persuratan</a></li>
+                <li class="breadcrumb-item"><a class="text-muted text-decoration-none" href="#">Persuratan</a></li>
                 <li class="breadcrumb-item" aria-current="page">Surat Masuk</li>
               </ol>
             </nav>
@@ -16,22 +17,77 @@
       </div>
     </div>
 
+    <!-- Main Card Container -->
     <div class="card w-100 position-relative overflow-hidden">
-      <div class="px-4 py-3 border-bottom d-flex justify-content-between align-items-center">
-        <h5 class="card-title fw-semibold mb-0 lh-sm">Data Surat Masuk</h5>
-        <button class="btn btn-primary" @click="openModal()">Tambah Data</button>
-      </div>
       <div class="card-body p-4">
-        <div class="table-responsive">
-          <table id="suratMasukTable" class="table table-striped border table-bordered display" style="width: 100%">
-            <thead class="text-dark fs-4">
+        <!-- Top Toolbar: Search, Filter Toggle, and Add Button -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            <div class="position-relative" style="min-width: 260px;">
+              <input 
+                type="text" 
+                class="form-control py-2 ps-5" 
+                placeholder="Cari perihal, nomor, pengirim..." 
+                v-model="searchQuery"
+                @input="onSearchInput"
+              />
+              <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-muted ms-3"></i>
+            </div>
+            <button 
+              class="btn d-flex align-items-center gap-2"
+              :class="showFilter || isFilterActive ? 'btn-primary' : 'btn-outline-secondary'"
+              @click="toggleFilter"
+            >
+              <i class="ti ti-filter"></i>
+              <span>Filter</span>
+              <span v-if="isFilterActive" class="badge bg-white text-primary rounded-pill ms-1 px-2 py-1 fs-1">Aktif</span>
+            </button>
+          </div>
+          <button class="btn btn-primary d-flex align-items-center gap-2" @click="openModal()">
+            <i class="ti ti-plus fs-4"></i> Tambah Surat Masuk
+          </button>
+        </div>
+
+        <!-- Collapsible Filter Panel -->
+        <div v-show="showFilter" class="card bg-light border-0 mb-4 p-3 rounded-3 shadow-none">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-3 col-sm-6">
+              <label class="form-label fs-3 fw-semibold text-dark mb-1">Tanggal Awal</label>
+              <input type="date" class="form-control bg-white" v-model="filter.startDate" />
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <label class="form-label fs-3 fw-semibold text-dark mb-1">Tanggal Akhir</label>
+              <input type="date" class="form-control bg-white" v-model="filter.endDate" />
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <label class="form-label fs-3 fw-semibold text-dark mb-1">Status Disposisi</label>
+              <select class="form-select bg-white" v-model="filter.statusDisposisi">
+                <option value="">Semua Status</option>
+                <option value="sudah">Sudah Disposisi</option>
+                <option value="belum">Belum Disposisi</option>
+              </select>
+            </div>
+            <div class="col-md-3 col-sm-6 d-flex gap-2">
+              <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-1" @click="applyFilter">
+                <i class="ti ti-check"></i> Terapkan
+              </button>
+              <button class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-1" @click="resetFilter">
+                <i class="ti ti-rotate-clockwise"></i> Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Container (Product List Style) -->
+        <div class="table-responsive border rounded-3">
+          <table id="suratMasukTable" class="table align-middle text-nowrap mb-0 w-100">
+            <thead>
               <tr>
-                <th><h6 class="fs-4 fw-semibold mb-0">Tgl Surat</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Nomor Surat</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Pengirim</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Perihal</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Status</h6></th>
-                <th><h6 class="fs-4 fw-semibold mb-0">Aksi</h6></th>
+                <th scope="col" style="min-width: 300px;">Perihal & Nomor Surat</th>
+                <th scope="col">Tanggal Surat</th>
+                <th scope="col">Status Disposisi</th>
+                <th scope="col">Pengirim</th>
+                <th scope="col" class="text-end pe-4">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +99,7 @@
       </div>
     </div>
 
-    <!-- Modal Form -->
+    <!-- Modal Form Tambah / Edit -->
     <div v-if="showModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -97,7 +153,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../utils/api'
 
@@ -105,20 +161,42 @@ const router = useRouter()
 
 const showModal = ref(false)
 const isEdit = ref(false)
-const detailItem = ref({})
+const showFilter = ref(false)
+const searchQuery = ref('')
+
+const filter = ref({
+  startDate: '',
+  endDate: '',
+  statusDisposisi: ''
+})
+
+const isFilterActive = computed(() => {
+  return !!(filter.value.startDate || filter.value.endDate || filter.value.statusDisposisi)
+})
+
 const form = ref({ 
-    id: '', 
-    tanggal_surat: '', 
-    nomor_surat: '', 
-    pengirim: '', 
-    tujuan: '', 
-    perihal: '', 
-    evidence: '', 
-    catatan: '' 
+  id: '', 
+  tanggal_surat: '', 
+  nomor_surat: '', 
+  pengirim: '', 
+  tujuan: '', 
+  perihal: '', 
+  evidence: '', 
+  catatan: '' 
 })
 
 const getFileUrl = (path) => {
   return `http://localhost:8000/storage/${path}`
+}
+
+const escapeHtml = (unsafe) => {
+  if (!unsafe) return ''
+  return String(unsafe)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
 }
 
 const evidenceFile = ref(null)
@@ -128,6 +206,35 @@ const handleFileUpload = (event) => {
 }
 
 let dataTableInstance = null
+let searchTimeout = null
+
+const toggleFilter = () => {
+  showFilter.value = !showFilter.value
+}
+
+const onSearchInput = () => {
+  clearTimeout(searchTimeout)
+  searchTimeout = setTimeout(() => {
+    if (dataTableInstance) {
+      dataTableInstance.search(searchQuery.value).draw()
+    }
+  }, 350)
+}
+
+const applyFilter = () => {
+  if (dataTableInstance) {
+    dataTableInstance.ajax.reload()
+  }
+}
+
+const resetFilter = () => {
+  filter.value.startDate = ''
+  filter.value.endDate = ''
+  filter.value.statusDisposisi = ''
+  if (dataTableInstance) {
+    dataTableInstance.ajax.reload()
+  }
+}
 
 const initDataTable = () => {
   if (dataTableInstance) {
@@ -143,9 +250,16 @@ const initDataTable = () => {
   dataTableInstance = window.$('#suratMasukTable').DataTable({
     serverSide: true,
     processing: true,
+    dom: 'rt<"d-flex align-items-center justify-content-between flex-wrap gap-2 p-3 border-top"lip>',
     ajax: async function (data, callback, settings) {
       try {
-        const response = await api.post('/surat-masuk/datatables', data)
+        const payload = {
+          ...data,
+          start_date: filter.value.startDate || null,
+          end_date: filter.value.endDate || null,
+          status_disposisi: filter.value.statusDisposisi || null
+        }
+        const response = await api.post('/surat-masuk/datatables', payload)
         callback({
           draw: response.data.draw,
           recordsTotal: response.data.recordsTotal,
@@ -164,27 +278,27 @@ const initDataTable = () => {
     },
     columns: [
       { 
+        data: 'perihal',
+        render: function(data, type, row) {
+          const safePerihal = escapeHtml(row.perihal || '-')
+          const safeNomor = escapeHtml(row.nomor_surat || '-')
+          return `
+            <div class="d-flex align-items-center">
+              <div class="rounded-2 p-2 bg-light-primary text-primary me-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                <i class="ti ti-file-text fs-6"></i>
+              </div>
+              <div>
+                <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 340px;" title="${safePerihal}">${safePerihal}</h6>
+                <p class="mb-0 text-muted fs-3">${safeNomor}</p>
+              </div>
+            </div>
+          `;
+        }
+      },
+      { 
         data: 'tanggal_surat',
         render: function(data) {
-          return `<p class="mb-0 fw-normal">${formatDate(data)}</p>`;
-        }
-      },
-      { 
-        data: 'nomor_surat',
-        render: function(data) {
-          return `<p class="mb-0 fw-normal">${data}</p>`;
-        }
-      },
-      { 
-        data: 'pengirim',
-        render: function(data) {
-          return `<p class="mb-0 fw-normal">${data}</p>`;
-        }
-      },
-      { 
-        data: 'perihal',
-        render: function(data) {
-          return `<p class="mb-0 text-truncate" style="max-width: 200px;" title="${data}">${data}</p>`;
+          return `<p class="mb-0 text-dark fw-normal">${formatDate(data)}</p>`;
         }
       },
       {
@@ -192,31 +306,62 @@ const initDataTable = () => {
         orderable: false,
         render: function(data) {
           if (data) {
-            return `<span class="badge bg-success-subtle text-success fw-semibold fs-2">Sudah Disposisi</span>`;
+            return `
+              <div class="d-flex align-items-center">
+                <span class="bg-success p-1 rounded-circle d-inline-block me-2" style="width: 8px; height: 8px;"></span>
+                <p class="mb-0 text-success fw-medium fs-3">Sudah Disposisi</p>
+              </div>
+            `;
           } else {
-            return `<span class="badge bg-warning-subtle text-warning fw-semibold fs-2">Belum Disposisi</span>`;
+            return `
+              <div class="d-flex align-items-center">
+                <span class="bg-warning p-1 rounded-circle d-inline-block me-2" style="width: 8px; height: 8px;"></span>
+                <p class="mb-0 text-warning fw-medium fs-3">Belum Disposisi</p>
+              </div>
+            `;
           }
+        }
+      },
+      { 
+        data: 'pengirim',
+        render: function(data) {
+          return `<h6 class="mb-0 fs-4 text-dark fw-medium">${escapeHtml(data || '-')}</h6>`;
         }
       },
       { 
         data: null, 
         orderable: false,
+        className: 'text-end pe-3',
         render: function(data, type, row) {
           return `
-            <button class="btn btn-sm btn-secondary me-2 btn-detail" data-id="${row.id}" data-bs-toggle="tooltip" title="Detail">
-              <i class="ti ti-eye fs-5"></i>
-            </button>
-            <button class="btn btn-sm btn-info me-2 btn-edit" data-id="${row.id}" data-bs-toggle="tooltip" title="Edit">
-              <i class="ti ti-pencil fs-5"></i>
-            </button>
-            <button class="btn btn-sm btn-danger btn-delete" data-id="${row.id}" data-bs-toggle="tooltip" title="Hapus">
-              <i class="ti ti-trash fs-5"></i>
-            </button>
+            <div class="dropdown dropstart d-inline-block">
+              <a href="javascript:void(0)" class="text-muted fs-6 p-2 rounded-circle hover-bg d-inline-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="ti ti-dots-vertical"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2 btn-detail" data-id="${row.id}" href="javascript:void(0)">
+                    <i class="ti ti-eye fs-4 text-primary"></i> Detail Surat
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2 btn-edit" data-id="${row.id}" href="javascript:void(0)">
+                    <i class="ti ti-pencil fs-4 text-info"></i> Edit Surat
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider my-1"></li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2 text-danger btn-delete" data-id="${row.id}" href="javascript:void(0)">
+                    <i class="ti ti-trash fs-4"></i> Hapus
+                  </a>
+                </li>
+              </ul>
+            </div>
           `;
         }
       }
     ],
-    order: [[0, "desc"]],
+    order: [[1, "desc"]],
     language: {
       search: "Cari:",
       lengthMenu: "Tampilkan _MENU_ data",
@@ -238,23 +383,26 @@ const initDataTable = () => {
     }
   })
 
-  // Bind events for dynamically created buttons
+  // Bind events for dynamically created buttons inside DataTables
   window.$('#suratMasukTable tbody').off('click', '.btn-detail')
-  window.$('#suratMasukTable tbody').on('click', '.btn-detail', function() {
-    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
-    openDetail(data)
+  window.$('#suratMasukTable tbody').on('click', '.btn-detail', function(e) {
+    e.preventDefault()
+    const data = dataTableInstance.row(window.$(this).closest('tr')).data()
+    if (data) openDetail(data)
   })
 
   window.$('#suratMasukTable tbody').off('click', '.btn-edit')
-  window.$('#suratMasukTable tbody').on('click', '.btn-edit', function() {
-    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
-    openModal(data)
+  window.$('#suratMasukTable tbody').on('click', '.btn-edit', function(e) {
+    e.preventDefault()
+    const data = dataTableInstance.row(window.$(this).closest('tr')).data()
+    if (data) openModal(data)
   })
 
   window.$('#suratMasukTable tbody').off('click', '.btn-delete')
-  window.$('#suratMasukTable tbody').on('click', '.btn-delete', function() {
-    const data = dataTableInstance.row(window.$(this).parents('tr')).data()
-    deleteItem(data.id)
+  window.$('#suratMasukTable tbody').on('click', '.btn-delete', function(e) {
+    e.preventDefault()
+    const data = dataTableInstance.row(window.$(this).closest('tr')).data()
+    if (data) deleteItem(data.id)
   })
 }
 
@@ -377,6 +525,11 @@ onMounted(() => {
     padding: 0 !important;
     border: none !important;
 }
+.hover-bg:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+/* Pastikan dropdown menu tidak terpotong oleh overflow-x */
+.table-responsive {
+  min-height: 220px;
+}
 </style>
-
-
