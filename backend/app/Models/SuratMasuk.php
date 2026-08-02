@@ -26,4 +26,9 @@ class SuratMasuk extends Model
             }
         });
     }
+
+    public function disposisi()
+    {
+        return $this->hasMany(SuratMasukDisposisi::class, 'surat_masuk_id', 'id');
+    }
 }
