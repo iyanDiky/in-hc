@@ -22,38 +22,50 @@
         <h5 class="card-title fw-semibold mb-0 lh-sm">Informasi Surat</h5>
       </div>
       <div class="card-body p-4">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <h6 class="fw-semibold">Tanggal Surat</h6>
-            <p class="mb-0 text-muted">{{ formatDate(detailItem?.tanggal_surat) }}</p>
+        <div class="mb-4">
+          <h3 class="fw-semibold mb-2 text-dark">{{ detailItem?.perihal || '-' }}</h3>
+          <p class="mb-1 fw-medium text-primary fs-5">{{ detailItem?.nomor_surat || '-' }}</p>
+          <p class="text-muted mb-0 fs-3"><i class="ti ti-calendar me-1"></i> {{ formatDate(detailItem?.tanggal_surat) }}</p>
+        </div>
+        
+        <div class="row border-top pt-4">
+          <div class="col-md-6 mb-4">
+            <h6 class="fw-semibold text-uppercase text-muted fs-2 tracking-wide mb-2">Pengirim</h6>
+            <p class="mb-0 text-dark fw-medium fs-4">{{ detailItem?.pengirim || '-' }}</p>
           </div>
-          <div class="col-md-6 mb-3">
-            <h6 class="fw-semibold">Nomor Surat</h6>
-            <p class="mb-0 text-muted">{{ detailItem?.nomor_surat }}</p>
+          <div class="col-md-6 mb-4">
+            <h6 class="fw-semibold text-uppercase text-muted fs-2 tracking-wide mb-2">Tujuan</h6>
+            <p class="mb-0 text-dark fw-medium fs-4">{{ detailItem?.tujuan || '-' }}</p>
           </div>
-          <div class="col-md-6 mb-3">
-            <h6 class="fw-semibold">Pengirim</h6>
-            <p class="mb-0 text-muted">{{ detailItem?.pengirim }}</p>
-          </div>
-          <div class="col-md-6 mb-3">
-            <h6 class="fw-semibold">Tujuan</h6>
-            <p class="mb-0 text-muted">{{ detailItem?.tujuan }}</p>
-          </div>
-          <div class="col-md-12 mb-3">
-            <h6 class="fw-semibold">Perihal</h6>
-            <p class="mb-0 text-muted">{{ detailItem?.perihal }}</p>
-          </div>
-          <div class="col-md-12 mb-3" v-if="detailItem?.catatan">
-            <h6 class="fw-semibold">Catatan</h6>
-            <p class="mb-0 text-muted">{{ detailItem?.catatan }}</p>
-          </div>
-          <div class="col-md-12">
-            <h6 class="fw-semibold">Evidence</h6>
-            <div v-if="detailItem?.evidence">
-              <a :href="getFileUrl(detailItem.evidence)" target="_blank" class="btn btn-sm btn-outline-primary">Lihat Berkas Evidence</a>
+          
+          <div class="col-md-12 mb-4" v-if="detailItem?.catatan">
+            <h6 class="fw-semibold text-uppercase text-muted fs-2 tracking-wide mb-2">Catatan Tambahan</h6>
+            <div class="p-3 bg-light rounded text-dark">
+              {{ detailItem?.catatan }}
             </div>
-            <div v-else>
-              <span class="text-muted">-</span>
+          </div>
+          
+          <div class="col-md-12 mt-2">
+            <h6 class="fw-semibold text-uppercase text-muted fs-2 tracking-wide mb-3">Evidence (Lampiran)</h6>
+            <div v-if="detailItem?.evidence" class="border rounded overflow-hidden bg-light">
+              <template v-if="isImage(detailItem.evidence)">
+                <img :src="getFileUrl(detailItem.evidence)" class="img-fluid w-100 object-fit-contain" style="max-height: 600px;" alt="Evidence" />
+              </template>
+              <template v-else-if="isPdf(detailItem.evidence)">
+                <iframe :src="getFileUrl(detailItem.evidence)" class="w-100 border-0" style="height: 700px;"></iframe>
+              </template>
+              <template v-else>
+                <div class="p-5 text-center">
+                  <i class="ti ti-file-text fs-9 text-muted mb-3 d-block"></i>
+                  <a :href="getFileUrl(detailItem.evidence)" target="_blank" class="btn btn-primary">
+                    <i class="ti ti-download me-1"></i> Unduh / Buka Evidence
+                  </a>
+                </div>
+              </template>
+            </div>
+            <div v-else class="p-4 bg-light border-dashed rounded text-muted text-center">
+              <i class="ti ti-file-off fs-7 mb-2 d-block"></i>
+              Tidak ada lampiran evidence untuk surat ini.
             </div>
           </div>
         </div>
@@ -227,6 +239,18 @@ const filteredBagianSeksi = computed(() => {
   const kw = mentionKeyword.value.toLowerCase()
   return bagianSeksiList.value.filter(bs => bs.bagian_seksi.toLowerCase().includes(kw))
 })
+
+// Helpers for Evidence
+const isImage = (path) => {
+  if (!path) return false
+  const ext = path.split('.').pop().toLowerCase()
+  return ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)
+}
+
+const isPdf = (path) => {
+  if (!path) return false
+  return path.toLowerCase().endsWith('.pdf')
+}
 
 const getFileUrl = (path) => {
   return `http://localhost:8000/storage/${path}`

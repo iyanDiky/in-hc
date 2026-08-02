@@ -30,6 +30,7 @@
                 <th><h6 class="fs-4 fw-semibold mb-0">Nomor Surat</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Pengirim</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Perihal</h6></th>
+                <th><h6 class="fs-4 fw-semibold mb-0">Status</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Aksi</h6></th>
               </tr>
             </thead>
@@ -184,6 +185,17 @@ const initDataTable = () => {
         data: 'perihal',
         render: function(data) {
           return `<p class="mb-0 text-truncate" style="max-width: 200px;" title="${data}">${data}</p>`;
+        }
+      },
+      {
+        data: 'disposisi_exists',
+        orderable: false,
+        render: function(data) {
+          if (data) {
+            return `<span class="badge bg-success-subtle text-success fw-semibold fs-2">Sudah Disposisi</span>`;
+          } else {
+            return `<span class="badge bg-warning-subtle text-warning fw-semibold fs-2">Belum Disposisi</span>`;
+          }
         }
       },
       { 

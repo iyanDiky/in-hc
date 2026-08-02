@@ -9,7 +9,7 @@ class SuratMasukController extends Controller
 {
     public function datatables(Request $request)
     {
-        $query = SuratMasuk::query();
+        $query = SuratMasuk::query()->withExists('disposisi');
 
         // Count total records without filtering
         $recordsTotal = $query->count();
