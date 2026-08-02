@@ -11,10 +11,28 @@ class SuratMasukController extends Controller
     {
         $query = SuratMasuk::query()->withExists('disposisi');
 
-        // Count total records without filtering
-        $recordsTotal = $query->count();
+        // Total count before any filter
+        $recordsTotal = SuratMasuk::count();
 
-        // Apply global search if present
+        // 1. Date Range Filter
+        if ($request->filled('start_date')) {
+            $query->whereDate('tanggal_surat', '>=', $request->input('start_date'));
+        }
+        if ($request->filled('end_date')) {
+            $query->whereDate('tanggal_surat', '<=', $request->input('end_date'));
+        }
+
+        // 2. Status Disposisi Filter
+        if ($request->filled('status_disposisi')) {
+            $status = $request->input('status_disposisi');
+            if ($status === 'sudah') {
+                $query->has('disposisi');
+            } elseif ($status === 'belum') {
+                $query->doesntHave('disposisi');
+            }
+        }
+
+        // 3. Global Search
         $searchValue = $request->input('search.value');
         if (!empty($searchValue)) {
             $search = strtolower($searchValue);
@@ -29,15 +47,15 @@ class SuratMasukController extends Controller
         // Count filtered records
         $recordsFiltered = $query->count();
 
-        // Apply sorting
+        // 4. Sorting
         $order = $request->input('order');
         $columns = $request->input('columns');
         if (!empty($order) && !empty($columns)) {
             foreach ($order as $o) {
                 $columnIndex = $o['column'];
                 $dir = $o['dir'];
-                $columnName = $columns[$columnIndex]['data'];
-                if ($columnName && $columnName !== 'null') {
+                $columnName = $columns[$columnIndex]['data'] ?? null;
+                if ($columnName && $columnName !== 'null' && in_array($columnName, ['tanggal_surat', 'nomor_surat', 'perihal', 'pengirim', 'tujuan', 'created_at'])) {
                     $query->orderBy($columnName, $dir);
                 }
             }
@@ -45,7 +63,7 @@ class SuratMasukController extends Controller
             $query->orderBy('tanggal_surat', 'desc');
         }
 
-        // Apply pagination (offset and limit)
+        // 5. Pagination
         $start = $request->input('start', 0);
         $length = $request->input('length', 10);
         if ($length > 0) {
