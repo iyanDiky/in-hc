@@ -4,19 +4,19 @@
     id="main-wrapper" 
     :data-theme="customizerState.themeColor" 
     data-layout="vertical" 
-    :data-sidebartype="customizerState.sidebarType" 
+    :data-sidebartype="currentSidebarType" 
     data-sidebar-position="fixed" 
     data-header-position="fixed"
-    :class="{'mini-sidebar': customizerState.sidebarType === 'mini-sidebar', 'show-sidebar': isSidebarShow}"
+    :class="{'mini-sidebar': currentSidebarType === 'mini-sidebar', 'show-sidebar': isSidebarShow}"
   >
     <!-- Sidebar Start -->
-    <aside class="left-sidebar">
+    <aside class="left-sidebar" :class="{'sidebar-open': isSidebarShow}">
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <router-link to="/" class="text-nowrap logo-img">
+          <router-link to="/" class="text-nowrap logo-img" @click="onMenuClick">
             <h2>IN-HC</h2>
           </router-link>
-          <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse" @click="toggleSidebarShow">
+          <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse" @click="closeSidebar">
             <i class="ti ti-x fs-8 text-muted"></i>
           </div>
         </div>
@@ -27,19 +27,19 @@
               <span class="hide-menu">Master Data</span>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/jabatan' }">
-              <router-link class="sidebar-link" to="/jabatan" aria-expanded="false">
+              <router-link class="sidebar-link" to="/jabatan" aria-expanded="false" @click="onMenuClick">
                 <span><i class="ti ti-briefcase"></i></span>
                 <span class="hide-menu">Jabatan</span>
               </router-link>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/unit-kerja' }">
-              <router-link class="sidebar-link" to="/unit-kerja" aria-expanded="false">
+              <router-link class="sidebar-link" to="/unit-kerja" aria-expanded="false" @click="onMenuClick">
                 <span><i class="ti ti-building"></i></span>
                 <span class="hide-menu">Unit Kerja</span>
               </router-link>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/bagian-seksi' }">
-              <router-link class="sidebar-link" to="/bagian-seksi" aria-expanded="false">
+              <router-link class="sidebar-link" to="/bagian-seksi" aria-expanded="false" @click="onMenuClick">
                 <span><i class="ti ti-users"></i></span>
                 <span class="hide-menu">Bagian Seksi</span>
               </router-link>
@@ -48,8 +48,8 @@
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Persuratan</span>
             </li>
-            <li class="sidebar-item" :class="{ 'selected': route.path === '/surat-masuk' }">
-              <router-link class="sidebar-link" to="/surat-masuk" aria-expanded="false">
+            <li class="sidebar-item" :class="{ 'selected': route.path.startsWith('/surat-masuk') }">
+              <router-link class="sidebar-link" to="/surat-masuk" aria-expanded="false" @click="onMenuClick">
                 <span><i class="ti ti-mail"></i></span>
                 <span class="hide-menu">Surat Masuk</span>
               </router-link>
@@ -59,7 +59,7 @@
               <span class="hide-menu">Pengaturan</span>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/users' }">
-              <router-link class="sidebar-link" to="/users" aria-expanded="false">
+              <router-link class="sidebar-link" to="/users" aria-expanded="false" @click="onMenuClick">
                 <span><i class="ti ti-user-circle"></i></span>
                 <span class="hide-menu">Users</span>
               </router-link>
@@ -70,6 +70,13 @@
     </aside>
     <!--  Sidebar End -->
 
+    <!-- Mobile Backdrop Overlay -->
+    <div 
+      v-if="isSidebarShow" 
+      class="dark-transparent active" 
+      @click="closeSidebar"
+    ></div>
+
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
@@ -77,7 +84,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link sidebartoggler nav-icon-hover ms-n3" id="headerCollapse" href="javascript:void(0)" @click.prevent="toggleSidebar">
+              <a class="nav-link sidebartoggler nav-icon-hover ms-n3 cursor-pointer" id="headerCollapse" href="javascript:void(0)" @click.prevent="toggleSidebar">
                 <i class="ti ti-menu-2"></i>
               </a>
             </li>
@@ -162,7 +169,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { RouterView, RouterLink, useRoute, useRouter } from 'vue-router'
 import api from '../utils/api'
 import Customizer from '../components/Customizer.vue'
@@ -175,6 +182,14 @@ const user = ref(null)
 
 const { state: customizerState } = useCustomizer()
 const isSidebarShow = ref(false)
+const isMobile = ref(false)
+
+const currentSidebarType = computed(() => {
+  if (isMobile.value) {
+    return 'mini-sidebar'
+  }
+  return customizerState.sidebarType || 'full'
+})
 
 const showChangePasswordModal = ref(false)
 const changePasswordForm = ref({
@@ -183,24 +198,36 @@ const changePasswordForm = ref({
   confirm_password: ''
 })
 
+const checkScreenSize = () => {
+  isMobile.value = window.innerWidth < 1200
+  if (!isMobile.value) {
+    isSidebarShow.value = false
+  }
+}
+
 const toggleSidebar = () => {
-  // Check if screen is small
-  if (window.innerWidth < 1300) {
+  if (isMobile.value) {
     isSidebarShow.value = !isSidebarShow.value
   } else {
     customizerState.sidebarType = customizerState.sidebarType === 'mini-sidebar' ? 'full' : 'mini-sidebar'
   }
 }
 
-const toggleSidebarShow = () => {
-  isSidebarShow.value = !isSidebarShow.value
+const closeSidebar = () => {
+  isSidebarShow.value = false
 }
 
-const handleResize = () => {
-  if (window.innerWidth >= 1300) {
-    isSidebarShow.value = false
+const onMenuClick = () => {
+  if (isMobile.value) {
+    closeSidebar()
   }
 }
+
+watch(() => route.path, () => {
+  if (isMobile.value) {
+    closeSidebar()
+  }
+})
 
 const handleLogout = async () => {
   try {
@@ -253,9 +280,8 @@ const submitChangePassword = async () => {
 }
 
 onMounted(() => {
-  // Set initial state
-  handleResize()
-  window.addEventListener('resize', handleResize)
+  checkScreenSize()
+  window.addEventListener('resize', checkScreenSize)
 
   // Load user data
   const userData = localStorage.getItem('user_data')
@@ -299,6 +325,47 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
+  window.removeEventListener('resize', checkScreenSize)
 })
 </script>
+
+<style scoped>
+/* Responsive Mobile Sidebar Fix */
+@media (max-width: 1199.98px) {
+  #main-wrapper .left-sidebar {
+    left: -270px !important;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100vh !important;
+    z-index: 1050 !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    background-color: #fff !important;
+  }
+
+  #main-wrapper.show-sidebar .left-sidebar,
+  #main-wrapper .left-sidebar.sidebar-open {
+    left: 0 !important;
+  }
+
+  #main-wrapper .body-wrapper {
+    margin-left: 0 !important;
+  }
+
+  #main-wrapper .app-header {
+    width: 100% !important;
+  }
+
+  .dark-transparent.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    transition: opacity 0.3s ease;
+  }
+}
+</style>
