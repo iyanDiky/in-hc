@@ -46,6 +46,11 @@ const routes = [
         path: 'surat-masuk/:id/detail',
         name: 'SuratMasukDetail',
         component: () => import('../views/SuratMasukDetail.vue')
+      },
+      {
+        path: 'surat-keluar',
+        name: 'SuratKeluar',
+        component: () => import('../views/SuratKeluar.vue')
       }
     ]
   }

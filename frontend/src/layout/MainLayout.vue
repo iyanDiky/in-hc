@@ -54,6 +54,12 @@
                 <span class="hide-menu">Surat Masuk</span>
               </router-link>
             </li>
+            <li class="sidebar-item" :class="{ 'selected': route.path.startsWith('/surat-keluar') }">
+              <router-link class="sidebar-link" to="/surat-keluar" aria-expanded="false" @click="onMenuClick">
+                <span><i class="ti ti-file-export"></i></span>
+                <span class="hide-menu">Surat Keluar</span>
+              </router-link>
+            </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Pengaturan</span>

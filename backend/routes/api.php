@@ -81,4 +81,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{id}/disposisi', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'store']);
         Route::delete('/{id}/disposisi/{disposisiId}', [\App\Http\Controllers\SuratMasukDisposisiController::class, 'destroy']);
     });
+
+    // Surat Keluar
+    Route::prefix('surat-keluar')->group(function () {
+        Route::post('/datatables', [\App\Http\Controllers\SuratKeluarController::class, 'datatables']);
+        Route::post('/list', [\App\Http\Controllers\SuratKeluarController::class, 'list']);
+        Route::post('/detail', [\App\Http\Controllers\SuratKeluarController::class, 'detail']);
+        Route::post('/create', [\App\Http\Controllers\SuratKeluarController::class, 'create']);
+        Route::post('/update', [\App\Http\Controllers\SuratKeluarController::class, 'update']);
+        Route::post('/delete', [\App\Http\Controllers\SuratKeluarController::class, 'delete']);
+    });
 });
+
