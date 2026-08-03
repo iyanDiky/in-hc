@@ -14,8 +14,13 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'Home',
-        component: () => import('../views/Jabatan.vue') // default to Jabatan for now
+        name: 'Dashboard',
+        component: () => import('../views/Dashboard.vue')
+      },
+      {
+        path: 'dashboard',
+        name: 'DashboardAlias',
+        component: () => import('../views/Dashboard.vue')
       },
       {
         path: 'jabatan',

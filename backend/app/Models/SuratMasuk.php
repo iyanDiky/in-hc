@@ -31,4 +31,9 @@ class SuratMasuk extends Model
     {
         return $this->hasMany(SuratMasukDisposisi::class, 'surat_masuk_id', 'id');
     }
+
+    public function userInput()
+    {
+        return $this->belongsTo(User::class, 'user_input');
+    }
 }

@@ -1,255 +1,221 @@
-# Issue: Implementasi CRUD Pengelolaan Data Surat Keluar
+# Issue: Implementasi Halaman Dashboard Utama (Persuratan & Analytics)
 
-## 1. Deskripsi Fitur (Overview)
-Modul **Surat Keluar** merupakan bagian dari sistem persuratan pada aplikasi **IN-HC** yang digunakan untuk mencatat, mengelola, dan mengarsipkan surat-surat yang dikeluarkan oleh instansi/unit kerja.
+## 1. Deskripsi Fitur
+Halaman **Dashboard** adalah halaman landing utama yang pertama kali terbuka setelah pengguna berhasil login ke dalam sistem IN-HC. Halaman ini berfungsi sebagai pusat kontrol dan monitoring eksekutif yang menyajikan metrik statistik penting, visualisasi grafik interaktif untuk data **Surat Masuk** dan **Surat Keluar**, riwayat aktivitas persuratan terkini, serta distribusi surat berdasarkan unit/bagian seksi.
 
-Tampilan antarmuka (UI) akan mengadopsi standar modern yang telah diterapkan pada halaman **Surat Masuk** (menggunakan referensi template *eco-product-list*), dengan penyesuaian khusus: **Surat Keluar tidak memiliki alur disposisi**.
-
----
-
-## 2. Rancangan Basis Data (Database Design)
-
-### 2.1 Skema Tabel `surat_keluars` (atau `surat_keluar`)
-Berikut adalah struktur tabel yang akan dibuat melalui migrasi Laravel:
-
-| Nama Kolom | Tipe Data | Keterangan / Atribut |
-| :--- | :--- | :--- |
-| `id` | `VARCHAR(36)` / UUID | **Primary Key**, UUIDv7, Not Null |
-| `tanggal_surat` | `DATE` | Tanggal resmi surat dikeluarkan |
-| `nomor_surat` | `INTEGER` | Nomor urut surat keluar (bilangan bulat, otomatis bertambah 1 dan reset per tahun) |
-| `tujuan` | `VARCHAR(255)` | Pihak/instansi/unit tujuan surat |
-| `perihal` | `VARCHAR(255)` | Perihal / subjek isi surat |
-| `evidence` | `VARCHAR(255)` | Path file berkas lampiran surat (PDF/Gambar), *Nullable* |
-| `catatan` | `VARCHAR(255)` | Catatan tambahan, *Nullable* |
-| `user_input` | `VARCHAR(36)` / UUID | Foreign Key -> `users.id` (User yang menginput data ke sistem) |
-| `user_request` | `VARCHAR(36)` / UUID | Foreign Key -> `users.id` (User/pegawai pemohon surat keluar) |
-| `bagian_seksi_request` | `VARCHAR(36)` / UUID | Foreign Key -> `bagian_seksi.id` (Unit/Bagian Seksi pemohon surat) |
-| `created_at` | `TIMESTAMP` | Default: `now()` |
-| `created_by` | `VARCHAR(255)` | Audit Trail: format `users_id,bagian_seksi_id,unit_kerja_id`, *Nullable* |
-| `updated_at` | `TIMESTAMP` | Default: `now()`, on update `now()` |
-| `updated_by` | `VARCHAR(255)` | Audit Trail: format `users_id,bagian_seksi_id,unit_kerja_id`, *Nullable* |
-| `delete_at` | `DATETIME` | Soft Delete: timestamp waktu penghapusan, *Nullable* |
-| `delete_by` | `VARCHAR(255)` | Audit Trail: format `users_id,bagian_seksi_id,unit_kerja_id`, *Nullable* |
+Desain antarmuka dan visualisasi grafik mengadopsi layout modern dari template **Modernize** (`template_frontend/package/html/main/index5.html`), yang mencakup komponen *Line Chart Analytics*, *Gradient Area Chart*, *RadialBar Distribution*, *Activity Stream*, dan *Tabbed Recent Letters Table*.
 
 ---
 
-## 3. Panduan Implementasi Backend (Laravel)
+## 2. Analisis Komponen & Tata Letak Antarmuka (Berdasarkan `index5.html`)
 
-### 3.1 Migration
-Buat migration baru: `database/migrations/xxxx_xx_xx_create_surat_keluars_table.php`
-- Gunakan `$table->uuid('id')->primary();`
-- Gunakan `$table->dateTime('delete_at')->nullable();` untuk soft delete
-- Tambahkan index pada `user_input`, `user_request`, `bagian_seksi_request`, `tanggal_surat`, `nomor_surat`.
+### 2.1 Kartu Sambutan Pengguna (User Greeting Header)
+- **Komponen**: Banner ringkas di bagian atas dashboard.
+- **Elemen**:
+  - Foto profil avatar pengguna dengan border aksen tema.
+  - Sapaan ramah dinamis: *"Halo, **[Nama Pengguna]**!"*.
+  - Subteks keterangan waktu dinamis: *"Selamat datang di Sistem Informasi Persuratan IN-HC — [Hari, Tanggal Bulan Tahun]"*.
 
+### 2.2 Kartu Utama: Analisis Tren Persuratan Bulanan (*Financial Income Chart*)
+Mengadopsi layout kartu utama dari `index5.html` baris 1953–2031:
+- **Sisi Kiri (Ringkasan Metrik)**:
+  - Judul: **Statistik & Tren Persuratan**.
+  - Total volume seluruh surat (Surat Masuk + Surat Keluar) dalam tahun berjalan.
+  - Indikator persentase pertumbuhan volume surat dibandingkan bulan sebelumnya (badge hijau/merah).
+- **Sisi Kanan (ApexCharts Line / Smooth Area Chart)**:
+  - Filter tahun (Dropdown Select Tahun, default: tahun aktif).
+  - Grafik multi-series ApexCharts:
+    - **Series 1 (Surat Masuk)**: Garis warna Oranye / Amber (`#fa896b`).
+    - **Series 2 (Surat Keluar)**: Garis warna Biru Modern (`#615dff`).
+    - **Series 3 (Disposisi Selesai)**: Garis warna Cyan / Teal (`#3dd9eb`).
+  - Sumbu X: 12 Bulan (Januari – Desember) atau rentang periode per dasawarsa.
+  - Tooltip interaktif yang mendukung tema *Light Mode* dan *Dark Mode*.
+- **Footer Kartu (3 Kolom Ringkasan Bordered)**:
+  - **Kolom 1**: Total **Surat Masuk** (dengan bullet point warna merah/oranye).
+  - **Kolom 2**: Total **Surat Keluar** (dengan bullet point warna biru).
+  - **Kolom 3**: Total **Disposisi Terlaksana** (dengan bullet point warna info/teal).
+
+### 2.3 Kartu Volume Aktivitas Mingguan (*Sales Hourly / Gradient Area Chart*)
+Mengadopsi layout kartu dari `index5.html` baris 2102–2123:
+- **Karakteristik**: Card dengan aksen warna `bg-light-primary` elegan dan rounded corner.
+- **Visualisasi**:
+  - Judul: **Aktivitas Surat 7 Hari Terakhir**.
+  - Subteks: *"Volume surat masuk & keluar harian (Senin – Minggu)"*.
+  - Grafik ApexCharts Area dengan efek *gradient fill* dan *smooth curve*.
+  - Tombol aksi cepat: Navigasi cepat ke rekapitulasi data.
+
+### 2.4 Kartu Alur Aktivitas Terbaru (*Upcoming Activity Stream*)
+Mengadopsi layout dari `index5.html` baris 2033–2100:
+- **Komponen**: Timeline vertikal transaksi persuratan terbaru (5 aktivitas terakhir).
+- **Format Item**:
+  - Ikon penanda warna-warni bulat:
+    - Surat Masuk Baru: `<i class="ti ti-mail-plus fs-6 text-primary"></i>` dengan `bg-light-primary`.
+    - Surat Keluar Dibuat: `<i class="ti ti-file-export fs-6 text-success"></i>` dengan `bg-light-success`.
+    - Disposisi Diteruskan: `<i class="ti ti-arrow-forward-up fs-6 text-warning"></i>` dengan `bg-light-warning`.
+    - Penghapusan / Pembatalan: `<i class="ti ti-trash fs-6 text-danger"></i>` dengan `bg-light-danger`.
+  - Judul ringkas: Perihal / Nomor surat.
+  - Subteks: Nama pembuat / pengirim surat.
+  - Waktu transaksi (format jam:menit atau relative time: *"5 menit yang lalu"*).
+
+### 2.5 Kartu Distribusi & Kinerja Bagian/Seksi (*Team Performance / RadialBar*)
+Mengadopsi layout dari `index5.html` baris 2509–2587:
+- **Visualisasi**:
+  - Judul: **Distribusi Surat per Bagian / Seksi**.
+  - ApexCharts RadialBar atau Donut Chart yang memperlihatkan proporsi permintaan nomor surat keluar dan disposisi surat masuk per Bagian/Seksi.
+  - Ringkasan statistik persentase surat yang telah terselesaikan/terdisposisi.
+
+### 2.6 Kartu Tabel Tabular Surat Terkini (*Order Status / Tabbed Table*)
+Mengadopsi layout dari `index5.html` baris 2124–2253:
+- **Tab Navigasi**:
+  - Tab 1: **Semua Surat**
+  - Tab 2: **Surat Masuk Terbaru**
+  - Tab 3: **Surat Keluar Terbaru**
+- **Kolom Tabel**:
+  - **Surat / Perihal**: Avatar inisial/ikon, nomor surat, dan perihal.
+  - **Pengirim / Tujuan**: Asal pengirim surat masuk atau instansi tujuan surat keluar.
+  - **Tanggal**: Tanggal surat.
+  - **Status / Kategori**: Badge pill (`bg-light-primary`, `bg-light-success`, `bg-light-warning`).
+  - **Aksi**: Tombol direct view ke detail surat.
+
+---
+
+## 3. Rencana Arsitektur & Spesifikasi Backend (Laravel)
+
+### 3.1 Controller Baru: `backend/app/Http/Controllers/DashboardController.php`
+Controller ini bertugas menyediakan data agregasi dan analitik untuk dashboard.
+
+#### Method yang Dibutuhkan:
+1. **`summary(Request $request)`**:
+   - Menghitung total akumulasi data:
+     - `total_surat_masuk`: Total data surat masuk aktif (`delete_at IS NULL`).
+     - `total_surat_keluar`: Total data surat keluar aktif (`delete_at IS NULL`).
+     - `total_disposisi`: Total catatan disposisi surat masuk.
+     - `surat_masuk_bulan_ini`: Total surat masuk pada bulan berjalan.
+     - `surat_keluar_bulan_ini`: Total surat keluar pada bulan berjalan.
+     - `persentase_kenaikan`: Perbandingan total surat bulan ini vs bulan lalu.
+
+2. **`chartMonthly(Request $request)`**:
+   - Menerima parameter opsional: `year` (Default: tahun saat ini `Y`).
+   - Melakukan agregasi count per bulan (Bulan 1 s/d 12) untuk:
+     - Volume Surat Masuk per bulan.
+     - Volume Surat Keluar per bulan.
+     - Volume Disposisi per bulan.
+   - Response berupa array 12 data point per series untuk ApexCharts.
+
+3. **`chartWeekly(Request $request)`**:
+   - Menghitung volume transaksi persuratan per hari selama 7 hari terakhir (atau Senin s/d Minggu minggu berjalan).
+   - Menghasilkan categories hari (`['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']`) dan series angka.
+
+4. **`chartDistribution(Request $request)`**:
+   - Agregasi volume surat keluar berdasarkan `bagian_seksi_request`.
+   - Mengambil 4–5 bagian/seksi teratas dan grup 'Lainnya'.
+   - Menghasilkan series persentase dan label untuk RadialBar/Donut chart.
+
+5. **`recentActivities(Request $request)`**:
+   - Mengambil 5–10 log aktivitas / data persuratan terbaru (kombinasi surat masuk, disposisi, dan surat keluar terbaru diurutkan berdasarkan `created_at DESC`).
+
+6. **`recentSurat(Request $request)`**:
+   - Mengambil 5 surat masuk terbaru dan 5 surat keluar terbaru beserta relasi pembuat dan bagian seksi.
+
+### 3.2 Pendaftaran Route API: `backend/routes/api.php`
 ```php
-Schema::create('surat_keluars', function (Blueprint $table) {
-    $table->uuid('id')->primary();
-    $table->date('tanggal_surat');
-    $table->string('nomor_surat');
-    $table->string('tujuan');
-    $table->string('perihal');
-    $table->string('evidence')->nullable();
-    $table->string('catatan')->nullable();
-    $table->uuid('user_input')->index();
-    $table->uuid('user_request')->index()->nullable();
-    $table->uuid('bagian_seksi_request')->index()->nullable();
-
-    $table->timestamp('created_at')->useCurrent();
-    $table->string('created_by', 255)->nullable();
-    $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-    $table->string('updated_by', 255)->nullable();
-    $table->dateTime('delete_at')->nullable();
-    $table->string('delete_by', 255)->nullable();
-});
-```
-
-### 3.2 Eloquent Model: `App\Models\SuratKeluar`
-File: `backend/app/Models/SuratKeluar.php`
-- Gunakan trait: `HasFactory`, `UuidV7`, `SoftDeletes`, `AuditTrail`.
-- Tentukan konstanta soft delete: `public const DELETED_AT = 'delete_at';`
-- Tambahkan relasi Eloquent:
-  - `userInput()`: `belongsTo(User::class, 'user_input')`
-  - `userRequest()`: `belongsTo(User::class, 'user_request')`
-  - `bagianSeksiRequest()`: `belongsTo(BagianSeksi::class, 'bagian_seksi_request')`
-- Otomatisasi `user_input` pada event model `booted()` saat create jika belum terisi:
-```php
-protected static function booted()
-{
-    static::creating(function ($model) {
-        if (!$model->user_input && Auth::check()) {
-            $model->user_input = Auth::id();
-        }
-    });
-}
-```
-
-### 3.3 Controller: `App\Http\Controllers\SuratKeluarController`
-File: `backend/app/Http/Controllers/SuratKeluarController.php`
-Wajib mengimplementasikan method-method berikut:
-
-1. **`datatables(Request $request)`**:
-   - Menghandle request DataTables (Server-side processing).
-   - Eager loading relasi: `with(['userRequest:id,nama,npp', 'bagianSeksiRequest:id,bagian_seksi,kode', 'userInput:id,nama,npp'])`.
-   - **Filter Tanggal**: Filter `start_date` (`tanggal_surat >= start_date`) dan `end_date` (`tanggal_surat <= end_date`).
-   - **Filter Bagian Seksi**: Filter `bagian_seksi_request` jika disediakan.
-   - **Pencarian Global (`search.value`)**: Mencari kecocokan kata kunci pada `nomor_surat`, `perihal`, `tujuan`, nama `userRequest`, atau `bagianSeksiRequest`.
-   - **Sorting**: Mengurutkan berdasarkan kolom (`tanggal_surat`, `nomor_surat`, `perihal`, `tujuan`, `created_at`). Default: `tanggal_surat DESC`.
-   - **Pagination**: Menerapkan `start` & `length` untuk pagination.
-   - Mengembalikan response JSON standar DataTables (`draw`, `recordsTotal`, `recordsFiltered`, `data`).
-
-2. **`list(Request $request)`**:
-   - Mengembalikan daftar surat keluar dalam bentuk pagination standar Laravel.
-
-3. **`detail(Request $request)`**:
-   - Menerima parameter `id` (UUID).
-   - Mengambil data surat keluar beserta relasi pemohon, bagian seksi, dan penginput.
-
-4. **`create(Request $request)`**:
-   - Validasi input:
-     - `tanggal_surat`: `required|date`
-     - `nomor_surat`: `required|string|max:255`
-     - `tujuan`: `required|string|max:255`
-     - `perihal`: `required|string|max:255`
-     - `user_request`: `nullable|uuid|exists:users,id`
-     - `bagian_seksi_request`: `nullable|uuid|exists:bagian_seksi,id`
-     - `evidence`: `nullable|file|mimes:pdf,jpg,jpeg,png|max:10240` (Maksimal 10MB)
-     - `catatan`: `nullable|string|max:255`
-   - Upload file lampiran (`evidence`) ke storage publik: `storage/app/public/evidence_keluar/` atau `storage/app/public/evidence/`.
-   - Simpan data ke database dan kembalikan response 201.
-
-5. **`update(Request $request)`**:
-   - Menerima parameter `id` (UUID).
-   - Validasi data serupa dengan method `create`.
-   - Jika ada upload file `evidence` baru, simpan file baru; jika tidak ada, pertahankan file lama.
-   - Update data ke database.
-
-6. **`delete(Request $request)`**:
-   - Menerima parameter `id` (UUID).
-   - Menjalankan soft delete (`$suratKeluar->delete()`), trait `AuditTrail` akan otomatis mengisi `delete_by`.
-
-### 3.4 API Routes: `backend/routes/api.php`
-Tambahkan route endpoint di dalam group middleware `auth:sanctum`:
-```php
-// Surat Keluar
-Route::prefix('surat-keluar')->group(function () {
-    Route::post('/datatables', [\App\Http\Controllers\SuratKeluarController::class, 'datatables']);
-    Route::post('/list', [\App\Http\Controllers\SuratKeluarController::class, 'list']);
-    Route::post('/detail', [\App\Http\Controllers\SuratKeluarController::class, 'detail']);
-    Route::post('/create', [\App\Http\Controllers\SuratKeluarController::class, 'create']);
-    Route::post('/update', [\App\Http\Controllers\SuratKeluarController::class, 'update']);
-    Route::post('/delete', [\App\Http\Controllers\SuratKeluarController::class, 'delete']);
+// Dashboard Analytics
+Route::prefix('dashboard')->group(function () {
+    Route::post('/summary', [\App\Http\Controllers\DashboardController::class, 'summary']);
+    Route::post('/chart-monthly', [\App\Http\Controllers\DashboardController::class, 'chartMonthly']);
+    Route::post('/chart-weekly', [\App\Http\Controllers\DashboardController::class, 'chartWeekly']);
+    Route::post('/chart-distribution', [\App\Http\Controllers\DashboardController::class, 'chartDistribution']);
+    Route::post('/recent-activities', [\App\Http\Controllers\DashboardController::class, 'recentActivities']);
+    Route::post('/recent-surat', [\App\Http\Controllers\DashboardController::class, 'recentSurat']);
 });
 ```
 
 ---
 
-## 4. Panduan Implementasi Frontend (Vue 3 + Vite)
+## 4. Rencana Implementasi Frontend (Vue 3 + Vite)
 
-### 4.1 Tampilan Utama: `frontend/src/views/SuratKeluar.vue`
-Halaman ini mengadopsi struktur tampilan yang sama persis dengan `SuratMasuk.vue` (gaya *eco-product-list* template Modernize):
+### 4.1 Pembuatan Komponen View: `frontend/src/views/Dashboard.vue`
+- Menggunakan `ref`, `onMounted`, `watch`, dan `computed` dari Vue 3 Composition API.
+- Mengintegrasikan ApexCharts via `window.ApexCharts` (sudah tersedia di template library) atau `apexcharts` package.
+- Menghubungkan setiap widget ke endpoint API backend dengan animasi loading state (skeleton / spinner halus).
+- Mendukung dynamic theme listener (beradaptasi mulus saat tombol Dark/Light mode di-toggle).
 
-1. **Header Breadcrumb**:
-   - Judul: `Surat Keluar`
-   - Breadcrumb: `Persuratan / Surat Keluar`
-
-2. **Top Toolbar**:
-   - Input Pencarian instan (debounce 350ms).
-   - Tombol Toggle **Filter** (dengan indikator status aktif).
-   - Tombol **+ Tambah Surat Keluar** (membuka modal form).
-
-3. **Collapsible Filter Panel**:
-   - Input **Tanggal Awal** (`filter.startDate`).
-   - Input **Tanggal Akhir** (`filter.endDate`).
-   - Dropdown **Bagian / Seksi Pemohon** (`filter.bagianSeksiId`).
-   - Tombol **Terapkan** & **Reset**.
-
-4. **Tabel Data (Server-Side DataTables)**:
-   - **Kolom 1: Perihal & Nomor Surat**
-     - Ikon surat keluar (misal: `<i class="ti ti-file-export"></i>` dengan warna `bg-light-info text-info`).
-     - Judul perihal (bold & truncate).
-     - Nomor surat di bawah perihal (text muted).
-   - **Kolom 2: Tanggal Surat** (format tanggal Indonesia: `DD MMMM YYYY`).
-   - **Kolom 3: Tujuan** (Nama instansi/penerima surat).
-   - **Kolom 4: Pemohon & Bagian Seksi**
-     - Menampilkan nama pemohon (`user_request.nama`) dan kode/nama bagian seksi (`bagian_seksi_request.bagian_seksi`).
-   - **Kolom 5: Aksi (Dropdown Menu)**
-     - Detail Surat (membuka modal preview detail atau navigasi ke halaman detail).
-     - Edit Surat (membuka modal edit form).
-     - Hapus Surat (konfirmasi SweetAlert2).
-     - Unduh / Lihat Evidence (jika berkas tersedia).
-
-5. **Modal Form Tambah / Edit**:
-   - Form input reaktif:
-     - `tanggal_surat` (Input Date, Required)
-     - `nomor_surat` (Input Text, Required)
-     - `tujuan` (Input Text, Required)
-     - `perihal` (Input Text, Required)
-     - `user_request` (Dropdown Select User / Pegawai Pemohon, Opsional/Required)
-     - `bagian_seksi_request` (Dropdown Select Bagian Seksi, Opsional/Required - otomatis terisi jika user dipilih)
-     - `evidence` (File upload PDF / Gambar)
-     - `catatan` (Textarea, Opsional)
-
-6. **Modal Detail / Preview Surat Keluar**:
-   - Menampilkan detail informasi lengkap surat keluar.
-   - Preview lampiran evidence (PDF Viewer bawaan `<embed>` / `<iframe>` atau Image Preview) jika terdapat file bukti lampiran.
-
-### 4.2 Router Navigation: `frontend/src/router/index.js`
-Tambahkan route untuk surat keluar:
+### 4.2 Pembaruan Router: `frontend/src/router/index.js`
+- Mengubah rute root `/` agar memuat `Dashboard.vue` (bukan lagi placeholder `Jabatan.vue`).
+- Menambahkan rute `/dashboard` sebagai alias resmi:
 ```javascript
 {
-  path: 'surat-keluar',
-  name: 'SuratKeluar',
-  component: () => import('../views/SuratKeluar.vue')
+  path: '',
+  name: 'Dashboard',
+  component: () => import('../views/Dashboard.vue')
+},
+{
+  path: 'dashboard',
+  name: 'DashboardAlias',
+  component: () => import('../views/Dashboard.vue')
 }
 ```
 
-### 4.3 Sidebar Menu: `frontend/src/layout/MainLayout.vue`
-Tambahkan menu `Surat Keluar` di sidebar menu persuratan tepat di bawah menu `Surat Masuk`:
+### 4.3 Penambahan Menu Navigasi: `frontend/src/layout/MainLayout.vue`
+Menambahkan grup menu **Home / Dashboard** di posisi paling atas sidebar navigasi:
 ```html
-<li class="sidebar-item" :class="{ 'selected': route.path.startsWith('/surat-keluar') }">
-  <router-link class="sidebar-link" to="/surat-keluar" aria-expanded="false" @click="onMenuClick">
-    <span><i class="ti ti-file-export"></i></span>
-    <span class="hide-menu">Surat Keluar</span>
+<li class="nav-small-cap">
+  <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+  <span class="hide-menu">Home</span>
+</li>
+<li class="sidebar-item" :class="{ 'selected': route.path === '/' || route.path === '/dashboard' }">
+  <router-link class="sidebar-link" to="/" aria-expanded="false" @click="onMenuClick">
+    <span><i class="ti ti-dashboard"></i></span>
+    <span class="hide-menu">Dashboard</span>
   </router-link>
 </li>
+```
+
+### 4.4 Script Library ApexCharts: `frontend/index.html`
+Memastikan script ApexCharts template dimuat pada halaman utama:
+```html
+<script src="/dist/libs/apexcharts/dist/apexcharts.min.js"></script>
 ```
 
 ---
 
 ## 5. Checklist Tahapan Eksekusi
 
-### Fase 1: Backend
-- [ ] Buat file migrasi database untuk tabel `surat_keluars` dengan skema yang telah ditentukan.
-- [ ] Jalankan migrasi `php artisan migrate`.
-- [ ] Buat Eloquent Model `SuratKeluar` lengkap dengan Trait `UuidV7`, `SoftDeletes`, `AuditTrail`, dan relasi ke `User` & `BagianSeksi`.
-- [ ] Buat Controller `SuratKeluarController` yang mengimplementasikan method `datatables`, `list`, `detail`, `create`, `update`, `delete`.
-- [ ] Daftarkan API routes di `backend/routes/api.php`.
-- [ ] Uji endpoint API menggunakan Postman/cURL (Create, Datatables, Filter, Update, Delete).
+### Fase 1: Backend Development
+- [ ] Buat Controller `DashboardController.php` di `backend/app/Http/Controllers/`.
+- [ ] Implementasikan query agregasi untuk method `summary()`.
+- [ ] Implementasikan query bulanan (12 bulan) untuk method `chartMonthly()` dengan filter tahun.
+- [ ] Implementasikan query mingguan (7 hari terakhir) untuk method `chartWeekly()`.
+- [ ] Implementasikan query distribusi bagian seksi untuk method `chartDistribution()`.
+- [ ] Implementasikan query data & aktivitas terbaru untuk `recentActivities()` dan `recentSurat()`.
+- [ ] Daftarkan seluruh route dashboard di `backend/routes/api.php`.
+- [ ] Validasi respon JSON backend menggunakan Postman / curl.
 
-### Fase 2: Frontend
-- [ ] Tambahkan menu Surat Keluar pada sidebar di `frontend/src/layout/MainLayout.vue`.
-- [ ] Daftarkan route `/surat-keluar` di `frontend/src/router/index.js`.
-- [ ] Buat komponen `frontend/src/views/SuratKeluar.vue` dengan tampilan menyerupai `SuratMasuk.vue` (tanpa fitur disposisi).
-- [ ] Implementasikan DataTables server-side dengan filter rentang tanggal dan bagian seksi pemohon.
-- [ ] Implementasikan Modal Form Tambah dan Edit lengkap dengan upload file evidence.
-- [ ] Implementasikan Modal Detail & Preview file evidence.
-- [ ] Implementasikan konfirmasi hapus data dengan SweetAlert2.
+### Fase 2: Frontend Development
+- [ ] Daftarkan script `apexcharts.min.js` di `frontend/index.html` jika belum aktif.
+- [ ] Buat file tampilan utama `frontend/src/views/Dashboard.vue`.
+- [ ] Susun struktur layout grid HTML sesuai referensi `index5.html`.
+- [ ] Integrasikan grafik ApexCharts Line (Monthly Trend Surat Masuk vs Keluar).
+- [ ] Integrasikan grafik ApexCharts Area (Weekly Trend 7 Hari).
+- [ ] Integrasikan grafik ApexCharts RadialBar (Distribusi Seksi).
+- [ ] Hubungkan komponen Activity Stream dan Recent Letters Table ke API backend.
+- [ ] Perbarui routing di `frontend/src/router/index.js` agar default landing page mengarah ke Dashboard.
+- [ ] Tambahkan menu Dashboard pada Sidebar `frontend/src/layout/MainLayout.vue`.
+- [ ] Pastikan kompatibilitas Dark Mode pada semua chart dan text card.
 
 ### Fase 3: Pengujian & Validasi
-- [ ] Uji tambah data surat keluar baru dengan & tanpa lampiran file.
-- [ ] Uji filter rentang tanggal pada tabel surat keluar.
-- [ ] Uji fitur pencarian global.
-- [ ] Uji edit data dan penggantian lampiran file.
-- [ ] Uji hapus data (soft delete) dan pastikan kolom `delete_at` & `delete_by` terisi.
-- [ ] Uji responsive layout pada layar handphone/mobile.
-- [ ] Jalankan build frontend `npm run build` untuk memastikan tidak ada error kompilasi.
+- [ ] Uji responsivitas dashboard pada tampilan Desktop, Tablet, dan Mobile.
+- [ ] Uji performa render grafik saat data bernilai 0 (empty state) maupun banyak data.
+- [ ] Uji toggle Dark Mode dan pastikan warna chart & teks menyesuaikan otomatis.
+- [ ] Jalankan `npm run build` untuk memverifikasi tidak ada kesalahan kompilasi frontend.
 
 ---
 
 ## 6. Kriteria Keberhasilan (Acceptance Criteria)
-1. User dapat melihat daftar surat keluar dengan layout tabel modern yang rapi dan responsif.
-2. Filter rentang tanggal dan pencarian berfungsi cepat melalui server-side DataTables.
-3. User dapat menambahkan, memperbarui, melihat detail, dan menghapus data surat keluar.
-4. File evidence (PDF/Gambar) dapat diunggah, diunduh, dan dipratinjau langsung di aplikasi.
-5. Seluruh aktivitas pencatatan dan penghapusan data tercatat pada kolom Audit Trail (`created_by`, `updated_by`, `delete_by`).
-6. Tidak ada error build frontend maupun backend.
+1. Setelah login berhasil, pengguna langsung diarahkan ke halaman Dashboard (`/`).
+2. Terdapat menu Dashboard aktif di urutan teratas sidebar navigasi.
+3. Statistik ringkasan (Total Surat Masuk, Surat Keluar, Disposisi) tampil akurat sesuai data database.
+4. Grafik tren bulanan menampilkan perbandingan visual antara Surat Masuk dan Surat Keluar secara interaktif.
+5. Grafik tren harian/mingguan dan distribusi bagian/seksi ter-render rapi dan responsif.
+6. Riwayat surat terbaru dapat ditinjau langsung melalui tab tabel di dashboard.
+7. Desain antarmuka harmonis dengan tema Modernize dan mendukung mode Dark/Light secara sempurna.
