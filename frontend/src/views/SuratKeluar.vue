@@ -472,13 +472,8 @@ const initDataTable = () => {
         render: function(data, type, row) {
           const safePerihal = escapeHtml(row.perihal || '-')
           return `
-            <div class="d-flex align-items-center">
-              <div class="rounded-2 p-2 bg-light-info text-info me-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 36px; height: 36px;">
-                <i class="ti ti-file-text fs-5"></i>
-              </div>
-              <div>
-                <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 280px;" title="${safePerihal}">${safePerihal}</h6>
-              </div>
+            <div>
+              <h6 class="fw-semibold mb-0 fs-4 text-dark text-truncate" style="max-width: 320px;" title="${safePerihal}">${safePerihal}</h6>
             </div>
           `;
         }
