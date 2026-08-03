@@ -1,343 +1,255 @@
-# Planning: Penyesuaian Halaman Surat Masuk Berdasarkan Template `eco-product-list`
+# Issue: Implementasi CRUD Pengelolaan Data Surat Keluar
 
-Dokumen ini berisi rancangan dan panduan teknis implementasi untuk memperbarui tampilan halaman **Surat Masuk** pada aplikasi **In-HC** dengan mengadopsi layout dan gaya visual dari template:
-`template_frontend/package/html/main/eco-product-list.html`.
+## 1. Deskripsi Fitur (Overview)
+Modul **Surat Keluar** merupakan bagian dari sistem persuratan pada aplikasi **IN-HC** yang digunakan untuk mencatat, mengelola, dan mengarsipkan surat-surat yang dikeluarkan oleh instansi/unit kerja.
 
----
-
-## 1. Ringkasan Kebutuhan & Perubahan
-
-1. **Adopsi Tampilan Baris Tabel (`eco-product-list.html`)**:
-   - Mengubah layout baris tabel Surat Masuk dari tabel standar menjadi desain modern ala *Product List*.
-   - **Perihal & Nomor Surat**: Menggantikan kolom *Products*. Menampilkan ikon dokumen di kiri, judul **Perihal** (teks tebal/fs-4), dan **Nomor Surat** di bawahnya (teks sekunder/fs-3).
-   - **Tanggal Surat**: Menggantikan kolom *Date*. Menampilkan tanggal surat yang diformat rapi (`DD MMMM YYYY`).
-   - **Status Disposisi**: Menggantikan kolom *Status*. Menggunakan indikator dot / badge status (*Sudah Disposisi* warna hijau, *Belum Disposisi* warna kuning/oranye).
-   - **Pengirim**: Menggantikan kolom *Price*. Menampilkan identitas pengirim surat.
-   - **Aksi**: Menggantikan kolom *Actions*. Menggunakan tombol dropdown / action menu dengan ikon `ti ti-dots-vertical` atau tombol aksi praktis (Detail, Edit, Hapus).
-
-2. **Fitur Filter Lanjutan**:
-   - **Rentang Tanggal (`Date Range`)**: Filter data berdasarkan `tanggal_surat` (Tanggal Awal & Tanggal Akhir).
-   - **Status Disposisi**: Filter data berdasarkan status (*Semua*, *Sudah Disposisi*, *Belum Disposisi*).
-   - **Pencarian Cepat**: Input search real-time terintegrasi di atas tabel.
-
-3. **Integrasi Server-Side (Backend)**:
-   - Seluruh data tabel, pagination, pencarian, dan filter dieksekusi secara server-side melalui endpoint `POST /api/surat-masuk/datatables`.
+Tampilan antarmuka (UI) akan mengadopsi standar modern yang telah diterapkan pada halaman **Surat Masuk** (menggunakan referensi template *eco-product-list*), dengan penyesuaian khusus: **Surat Keluar tidak memiliki alur disposisi**.
 
 ---
 
-## 2. Struktur Desain UI (Berdasarkan `eco-product-list.html`)
+## 2. Rancangan Basis Data (Database Design)
 
-### 2.1 Header & Filter Bar
-```html
-<div class="card">
-  <div class="card-body p-4">
-    <!-- Header: Search, Filter Toggle, dan Tambah Data -->
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-      <div class="d-flex flex-wrap align-items-center gap-2">
-        <div class="position-relative">
-          <input type="text" class="form-control py-2 ps-5" placeholder="Cari surat..." v-model="searchQuery" @input="onSearchInput" />
-          <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
-        </div>
-        <button class="btn btn-outline-secondary d-flex align-items-center gap-1" @click="toggleFilter">
-          <i class="ti ti-filter"></i> Filter
-        </button>
-      </div>
-      <button class="btn btn-primary d-flex align-items-center gap-1" @click="openModal()">
-        <i class="ti ti-plus"></i> Tambah Surat Masuk
-      </button>
-    </div>
+### 2.1 Skema Tabel `surat_keluars` (atau `surat_keluar`)
+Berikut adalah struktur tabel yang akan dibuat melalui migrasi Laravel:
 
-    <!-- Collapsible Filter Panel -->
-    <div v-if="showFilter" class="card bg-light border-0 mb-4 p-3 rounded-3">
-      <div class="row g-3 align-items-end">
-        <div class="col-md-3">
-          <label class="form-label fs-3 fw-semibold">Tanggal Awal</label>
-          <input type="date" class="form-control" v-model="filter.startDate" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label fs-3 fw-semibold">Tanggal Akhir</label>
-          <input type="date" class="form-control" v-model="filter.endDate" />
-        </div>
-        <div class="col-md-3">
-          <label class="form-label fs-3 fw-semibold">Status Disposisi</label>
-          <select class="form-select" v-model="filter.statusDisposisi">
-            <option value="">Semua Status</option>
-            <option value="sudah">Sudah Disposisi</option>
-            <option value="belum">Belum Disposisi</option>
-          </select>
-        </div>
-        <div class="col-md-3 d-flex gap-2">
-          <button class="btn btn-primary w-100" @click="applyFilter">Terapkan</button>
-          <button class="btn btn-outline-dark w-100" @click="resetFilter">Reset</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tabel Surat Masuk -->
-    <div class="table-responsive border rounded">
-      <table id="suratMasukTable" class="table align-middle text-nowrap mb-0 w-100">
-        <thead>
-          <tr>
-            <th scope="col">Perihal & Nomor Surat</th>
-            <th scope="col">Tanggal Surat</th>
-            <th scope="col">Status Disposisi</th>
-            <th scope="col">Pengirim</th>
-            <th scope="col" class="text-end">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- DataTables Server-Side Rendering -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-```
+| Nama Kolom | Tipe Data | Keterangan / Atribut |
+| :--- | :--- | :--- |
+| `id` | `VARCHAR(36)` / UUID | **Primary Key**, UUIDv7, Not Null |
+| `tanggal_surat` | `DATE` | Tanggal resmi surat dikeluarkan |
+| `nomor_surat` | `INTEGER` | Nomor urut surat keluar (bilangan bulat, otomatis bertambah 1 dan reset per tahun) |
+| `tujuan` | `VARCHAR(255)` | Pihak/instansi/unit tujuan surat |
+| `perihal` | `VARCHAR(255)` | Perihal / subjek isi surat |
+| `evidence` | `VARCHAR(255)` | Path file berkas lampiran surat (PDF/Gambar), *Nullable* |
+| `catatan` | `VARCHAR(255)` | Catatan tambahan, *Nullable* |
+| `user_input` | `VARCHAR(36)` / UUID | Foreign Key -> `users.id` (User yang menginput data ke sistem) |
+| `user_request` | `VARCHAR(36)` / UUID | Foreign Key -> `users.id` (User/pegawai pemohon surat keluar) |
+| `bagian_seksi_request` | `VARCHAR(36)` / UUID | Foreign Key -> `bagian_seksi.id` (Unit/Bagian Seksi pemohon surat) |
+| `created_at` | `TIMESTAMP` | Default: `now()` |
+| `created_by` | `VARCHAR(255)` | Audit Trail: format `users_id,bagian_seksi_id,unit_kerja_id`, *Nullable* |
+| `updated_at` | `TIMESTAMP` | Default: `now()`, on update `now()` |
+| `updated_by` | `VARCHAR(255)` | Audit Trail: format `users_id,bagian_seksi_id,unit_kerja_id`, *Nullable* |
+| `delete_at` | `DATETIME` | Soft Delete: timestamp waktu penghapusan, *Nullable* |
+| `delete_by` | `VARCHAR(255)` | Audit Trail: format `users_id,bagian_seksi_id,unit_kerja_id`, *Nullable* |
 
 ---
 
-## 3. Spesifikasi Kolom DataTables
+## 3. Panduan Implementasi Backend (Laravel)
 
-| No | Kolom | Properti Data | Render Output (Template Style) |
-|---|---|---|---|
-| 1 | **Perihal & Nomor Surat** | `perihal`, `nomor_surat` | Icon dokumen dalam box rounded + Judul Perihal (`fw-semibold fs-4`) + Nomor Surat (`text-muted fs-3`) di baris kedua. |
-| 2 | **Tanggal Surat** | `tanggal_surat` | Format lokal Indonesia (contoh: `12 Januari 2026`). |
-| 3 | **Status Disposisi** | `disposisi_exists` | Dot status warna + Teks: <br>• **Sudah Disposisi**: `<span class="bg-success p-1 rounded-circle d-inline-block me-2"></span> Sudah Disposisi`<br>• **Belum Disposisi**: `<span class="bg-warning p-1 rounded-circle d-inline-block me-2"></span> Belum Disposisi` |
-| 4 | **Pengirim** | `pengirim` | `<h6 class="mb-0 fs-4 fw-medium text-dark">${pengirim}</h6>` |
-| 5 | **Aksi** | `id` | Dropdown action button (`ti ti-dots-vertical`) atau group tombol aksi (Detail, Edit, Hapus). |
-
----
-
-## 4. Penyesuaian Backend (Laravel API)
-
-### File: `backend/app/Http/Controllers/SuratMasukController.php`
-
-Update method `datatables(Request $request)` untuk mendukung parameter filter tanggal dan status disposisi:
+### 3.1 Migration
+Buat migration baru: `database/migrations/xxxx_xx_xx_create_surat_keluars_table.php`
+- Gunakan `$table->uuid('id')->primary();`
+- Gunakan `$table->dateTime('delete_at')->nullable();` untuk soft delete
+- Tambahkan index pada `user_input`, `user_request`, `bagian_seksi_request`, `tanggal_surat`, `nomor_surat`.
 
 ```php
-public function datatables(Request $request)
+Schema::create('surat_keluars', function (Blueprint $table) {
+    $table->uuid('id')->primary();
+    $table->date('tanggal_surat');
+    $table->string('nomor_surat');
+    $table->string('tujuan');
+    $table->string('perihal');
+    $table->string('evidence')->nullable();
+    $table->string('catatan')->nullable();
+    $table->uuid('user_input')->index();
+    $table->uuid('user_request')->index()->nullable();
+    $table->uuid('bagian_seksi_request')->index()->nullable();
+
+    $table->timestamp('created_at')->useCurrent();
+    $table->string('created_by', 255)->nullable();
+    $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+    $table->string('updated_by', 255)->nullable();
+    $table->dateTime('delete_at')->nullable();
+    $table->string('delete_by', 255)->nullable();
+});
+```
+
+### 3.2 Eloquent Model: `App\Models\SuratKeluar`
+File: `backend/app/Models/SuratKeluar.php`
+- Gunakan trait: `HasFactory`, `UuidV7`, `SoftDeletes`, `AuditTrail`.
+- Tentukan konstanta soft delete: `public const DELETED_AT = 'delete_at';`
+- Tambahkan relasi Eloquent:
+  - `userInput()`: `belongsTo(User::class, 'user_input')`
+  - `userRequest()`: `belongsTo(User::class, 'user_request')`
+  - `bagianSeksiRequest()`: `belongsTo(BagianSeksi::class, 'bagian_seksi_request')`
+- Otomatisasi `user_input` pada event model `booted()` saat create jika belum terisi:
+```php
+protected static function booted()
 {
-    $query = SuratMasuk::query()->withExists('disposisi');
-
-    // 1. Filter Rentang Tanggal Surat
-    if ($request->filled('start_date')) {
-        $query->whereDate('tanggal_surat', '>=', $request->input('start_date'));
-    }
-    if ($request->filled('end_date')) {
-        $query->whereDate('tanggal_surat', '<=', $request->input('end_date'));
-    }
-
-    // 2. Filter Status Disposisi
-    if ($request->filled('status_disposisi')) {
-        $status = $request->input('status_disposisi');
-        if ($status === 'sudah') {
-            $query->has('disposisi');
-        } elseif ($status === 'belum') {
-            $query->doesntHave('disposisi');
+    static::creating(function ($model) {
+        if (!$model->user_input && Auth::check()) {
+            $model->user_input = Auth::id();
         }
-    }
-
-    // Count total records
-    $recordsTotal = SuratMasuk::count();
-    
-    // 3. Global Search
-    $searchValue = $request->input('search.value');
-    if (!empty($searchValue)) {
-        $search = strtolower($searchValue);
-        $query->where(function($q) use ($search) {
-            $q->whereRaw('LOWER(nomor_surat) LIKE ?', ["%{$search}%"])
-              ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
-              ->orWhereRaw('LOWER(pengirim) LIKE ?', ["%{$search}%"])
-              ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
-        });
-    }
-
-    $recordsFiltered = $query->count();
-
-    // 4. Sorting & Pagination
-    $order = $request->input('order');
-    $columns = $request->input('columns');
-    if (!empty($order) && !empty($columns)) {
-        foreach ($order as $o) {
-            $columnIndex = $o['column'];
-            $dir = $o['dir'];
-            $columnName = $columns[$columnIndex]['data'] ?? null;
-            if ($columnName && $columnName !== 'null') {
-                $query->orderBy($columnName, $dir);
-            }
-        }
-    } else {
-        $query->orderBy('tanggal_surat', 'desc');
-    }
-
-    $start = $request->input('start', 0);
-    $length = $request->input('length', 10);
-    if ($length > 0) {
-        $query->offset($start)->limit($length);
-    }
-
-    $data = $query->get();
-
-    return response()->json([
-        'draw' => intval($request->input('draw', 1)),
-        'recordsTotal' => $recordsTotal,
-        'recordsFiltered' => $recordsFiltered,
-        'data' => $data
-    ]);
+    });
 }
 ```
 
----
+### 3.3 Controller: `App\Http\Controllers\SuratKeluarController`
+File: `backend/app/Http/Controllers/SuratKeluarController.php`
+Wajib mengimplementasikan method-method berikut:
 
-## 5. Penyesuaian Frontend (Vue 3)
+1. **`datatables(Request $request)`**:
+   - Menghandle request DataTables (Server-side processing).
+   - Eager loading relasi: `with(['userRequest:id,nama,npp', 'bagianSeksiRequest:id,bagian_seksi,kode', 'userInput:id,nama,npp'])`.
+   - **Filter Tanggal**: Filter `start_date` (`tanggal_surat >= start_date`) dan `end_date` (`tanggal_surat <= end_date`).
+   - **Filter Bagian Seksi**: Filter `bagian_seksi_request` jika disediakan.
+   - **Pencarian Global (`search.value`)**: Mencari kecocokan kata kunci pada `nomor_surat`, `perihal`, `tujuan`, nama `userRequest`, atau `bagianSeksiRequest`.
+   - **Sorting**: Mengurutkan berdasarkan kolom (`tanggal_surat`, `nomor_surat`, `perihal`, `tujuan`, `created_at`). Default: `tanggal_surat DESC`.
+   - **Pagination**: Menerapkan `start` & `length` untuk pagination.
+   - Mengembalikan response JSON standar DataTables (`draw`, `recordsTotal`, `recordsFiltered`, `data`).
 
-### File: `frontend/src/views/SuratMasuk.vue`
+2. **`list(Request $request)`**:
+   - Mengembalikan daftar surat keluar dalam bentuk pagination standar Laravel.
 
-1. **State Reactive untuk Filter**:
-   ```javascript
-   const showFilter = ref(false)
-   const filter = ref({
-     startDate: '',
-     endDate: '',
-     statusDisposisi: ''
-   })
-   ```
+3. **`detail(Request $request)`**:
+   - Menerima parameter `id` (UUID).
+   - Mengambil data surat keluar beserta relasi pemohon, bagian seksi, dan penginput.
 
-2. **Payload AJAX DataTables**:
-   Kirim parameter filter ke backend saat DataTables memanggil API:
-   ```javascript
-   ajax: async function (data, callback, settings) {
-     const payload = {
-       ...data,
-       start_date: filter.value.startDate,
-       end_date: filter.value.endDate,
-       status_disposisi: filter.value.statusDisposisi
-     }
-     const response = await api.post('/surat-masuk/datatables', payload)
-     callback({
-       draw: response.data.draw,
-       recordsTotal: response.data.recordsTotal,
-       recordsFiltered: response.data.recordsFiltered,
-       data: response.data.data
-     })
-   }
-   ```
+4. **`create(Request $request)`**:
+   - Validasi input:
+     - `tanggal_surat`: `required|date`
+     - `nomor_surat`: `required|string|max:255`
+     - `tujuan`: `required|string|max:255`
+     - `perihal`: `required|string|max:255`
+     - `user_request`: `nullable|uuid|exists:users,id`
+     - `bagian_seksi_request`: `nullable|uuid|exists:bagian_seksi,id`
+     - `evidence`: `nullable|file|mimes:pdf,jpg,jpeg,png|max:10240` (Maksimal 10MB)
+     - `catatan`: `nullable|string|max:255`
+   - Upload file lampiran (`evidence`) ke storage publik: `storage/app/public/evidence_keluar/` atau `storage/app/public/evidence/`.
+   - Simpan data ke database dan kembalikan response 201.
 
-3. **Render Kolom Bergaya `eco-product-list`**:
-   - Kolom 1 (*Perihal & Nomor Surat*):
-     ```javascript
-     {
-       data: 'perihal',
-       render: function(data, type, row) {
-         return `
-           <div class="d-flex align-items-center">
-             <div class="rounded-2 p-2 bg-light-primary text-primary me-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
-               <i class="ti ti-file-text fs-6"></i>
-             </div>
-             <div>
-               <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 320px;" title="${row.perihal || ''}">${row.perihal || '-'}</h6>
-               <p class="mb-0 text-muted fs-3">${row.nomor_surat || '-'}</p>
-             </div>
-           </div>
-         `;
-       }
-     }
-     ```
-   - Kolom 2 (*Tanggal Surat*):
-     ```javascript
-     {
-       data: 'tanggal_surat',
-       render: function(data) {
-         return `<p class="mb-0 text-dark fw-normal">${formatDate(data)}</p>`;
-       }
-     }
-     ```
-   - Kolom 3 (*Status Disposisi*):
-     ```javascript
-     {
-       data: 'disposisi_exists',
-       orderable: false,
-       render: function(data) {
-         if (data) {
-           return `
-             <div class="d-flex align-items-center">
-               <span class="bg-success p-1 rounded-circle me-2" style="width: 8px; height: 8px;"></span>
-               <span class="text-success fw-medium">Sudah Disposisi</span>
-             </div>
-           `;
-         }
-         return `
-           <div class="d-flex align-items-center">
-             <span class="bg-warning p-1 rounded-circle me-2" style="width: 8px; height: 8px;"></span>
-             <span class="text-warning fw-medium">Belum Disposisi</span>
-           </div>
-         `;
-       }
-     }
-     ```
-   - Kolom 4 (*Pengirim*):
-     ```javascript
-     {
-       data: 'pengirim',
-       render: function(data) {
-         return `<h6 class="mb-0 fs-4 text-dark fw-medium">${data || '-'}</h6>`;
-       }
-     }
-     ```
-   - Kolom 5 (*Aksi*):
-     ```javascript
-     {
-       data: null,
-       orderable: false,
-       className: 'text-end',
-       render: function(data, type, row) {
-         return `
-           <div class="dropdown dropstart">
-             <a href="javascript:void(0)" class="text-muted fs-6" data-bs-toggle="dropdown" aria-expanded="false">
-               <i class="ti ti-dots-vertical"></i>
-             </a>
-             <ul class="dropdown-menu">
-               <li>
-                 <a class="dropdown-item d-flex align-items-center gap-2 btn-detail" data-id="${row.id}" href="javascript:void(0)">
-                   <i class="ti ti-eye fs-4 text-primary"></i> Detail Surat
-                 </a>
-               </li>
-               <li>
-                 <a class="dropdown-item d-flex align-items-center gap-2 btn-edit" data-id="${row.id}" href="javascript:void(0)">
-                   <i class="ti ti-pencil fs-4 text-info"></i> Edit Surat
-                 </a>
-               </li>
-               <li><hr class="dropdown-divider"></li>
-               <li>
-                 <a class="dropdown-item d-flex align-items-center gap-2 text-danger btn-delete" data-id="${row.id}" href="javascript:void(0)">
-                   <i class="ti ti-trash fs-4"></i> Hapus
-                 </a>
-               </li>
-             </ul>
-           </div>
-         `;
-       }
-     }
-     ```
+5. **`update(Request $request)`**:
+   - Menerima parameter `id` (UUID).
+   - Validasi data serupa dengan method `create`.
+   - Jika ada upload file `evidence` baru, simpan file baru; jika tidak ada, pertahankan file lama.
+   - Update data ke database.
+
+6. **`delete(Request $request)`**:
+   - Menerima parameter `id` (UUID).
+   - Menjalankan soft delete (`$suratKeluar->delete()`), trait `AuditTrail` akan otomatis mengisi `delete_by`.
+
+### 3.4 API Routes: `backend/routes/api.php`
+Tambahkan route endpoint di dalam group middleware `auth:sanctum`:
+```php
+// Surat Keluar
+Route::prefix('surat-keluar')->group(function () {
+    Route::post('/datatables', [\App\Http\Controllers\SuratKeluarController::class, 'datatables']);
+    Route::post('/list', [\App\Http\Controllers\SuratKeluarController::class, 'list']);
+    Route::post('/detail', [\App\Http\Controllers\SuratKeluarController::class, 'detail']);
+    Route::post('/create', [\App\Http\Controllers\SuratKeluarController::class, 'create']);
+    Route::post('/update', [\App\Http\Controllers\SuratKeluarController::class, 'update']);
+    Route::post('/delete', [\App\Http\Controllers\SuratKeluarController::class, 'delete']);
+});
+```
 
 ---
 
-## 6. Rencana Kerja (Checklist Implementasi)
+## 4. Panduan Implementasi Frontend (Vue 3 + Vite)
 
-- [ ] **Backend**:
-  - [ ] Tambahkan parameter filter `start_date`, `end_date`, dan `status_disposisi` pada method `datatables` di `SuratMasukController.php`.
-  - [ ] Pastikan query `withExists('disposisi')`, `has('disposisi')`, dan `doesntHave('disposisi')` berjalan optimal dengan database PostgreSQL.
-  - [ ] Uji respon JSON API datatables dengan berbagai kombinasi filter.
+### 4.1 Tampilan Utama: `frontend/src/views/SuratKeluar.vue`
+Halaman ini mengadopsi struktur tampilan yang sama persis dengan `SuratMasuk.vue` (gaya *eco-product-list* template Modernize):
 
-- [ ] **Frontend**:
-  - [ ] Perbarui template HTML pada `SuratMasuk.vue` untuk memuat Filter Bar (Rentang Tanggal & Status Disposisi) dan tombol Search.
-  - [ ] Sesuaikan definisi kolom DataTables (`columns`) agar menampilkan Perihal + Nomor Surat, Tanggal Surat, Status Disposisi (dot indicator), Pengirim, dan Dropdown Aksi.
-  - [ ] Hubungkan form filter dengan fungsi reload DataTable (`dataTableInstance.ajax.reload()`).
-  - [ ] Implementasikan event listener untuk tombol aksi (*Detail*, *Edit*, *Hapus*) dari dropdown menu.
-  - [ ] Perbaiki styling CSS agar sesuai dengan class template Modernize (`table align-middle text-nowrap`, rounded container, dsb).
+1. **Header Breadcrumb**:
+   - Judul: `Surat Keluar`
+   - Breadcrumb: `Persuratan / Surat Keluar`
 
-- [ ] **Testing & Validasi**:
-  - [ ] Uji filter tanggal surat (hanya tanggal tertentu, rentang tanggal).
-  - [ ] Uji filter status disposisi (*Sudah Disposisi* vs *Belum Disposisi*).
-  - [ ] Uji kombinasi search text dan filter.
-  - [ ] Pastikan navigasi ke halaman detail (`/surat-masuk/:id/detail`), modal edit, dan hapus data tetap berjalan normal.
+2. **Top Toolbar**:
+   - Input Pencarian instan (debounce 350ms).
+   - Tombol Toggle **Filter** (dengan indikator status aktif).
+   - Tombol **+ Tambah Surat Keluar** (membuka modal form).
+
+3. **Collapsible Filter Panel**:
+   - Input **Tanggal Awal** (`filter.startDate`).
+   - Input **Tanggal Akhir** (`filter.endDate`).
+   - Dropdown **Bagian / Seksi Pemohon** (`filter.bagianSeksiId`).
+   - Tombol **Terapkan** & **Reset**.
+
+4. **Tabel Data (Server-Side DataTables)**:
+   - **Kolom 1: Perihal & Nomor Surat**
+     - Ikon surat keluar (misal: `<i class="ti ti-file-export"></i>` dengan warna `bg-light-info text-info`).
+     - Judul perihal (bold & truncate).
+     - Nomor surat di bawah perihal (text muted).
+   - **Kolom 2: Tanggal Surat** (format tanggal Indonesia: `DD MMMM YYYY`).
+   - **Kolom 3: Tujuan** (Nama instansi/penerima surat).
+   - **Kolom 4: Pemohon & Bagian Seksi**
+     - Menampilkan nama pemohon (`user_request.nama`) dan kode/nama bagian seksi (`bagian_seksi_request.bagian_seksi`).
+   - **Kolom 5: Aksi (Dropdown Menu)**
+     - Detail Surat (membuka modal preview detail atau navigasi ke halaman detail).
+     - Edit Surat (membuka modal edit form).
+     - Hapus Surat (konfirmasi SweetAlert2).
+     - Unduh / Lihat Evidence (jika berkas tersedia).
+
+5. **Modal Form Tambah / Edit**:
+   - Form input reaktif:
+     - `tanggal_surat` (Input Date, Required)
+     - `nomor_surat` (Input Text, Required)
+     - `tujuan` (Input Text, Required)
+     - `perihal` (Input Text, Required)
+     - `user_request` (Dropdown Select User / Pegawai Pemohon, Opsional/Required)
+     - `bagian_seksi_request` (Dropdown Select Bagian Seksi, Opsional/Required - otomatis terisi jika user dipilih)
+     - `evidence` (File upload PDF / Gambar)
+     - `catatan` (Textarea, Opsional)
+
+6. **Modal Detail / Preview Surat Keluar**:
+   - Menampilkan detail informasi lengkap surat keluar.
+   - Preview lampiran evidence (PDF Viewer bawaan `<embed>` / `<iframe>` atau Image Preview) jika terdapat file bukti lampiran.
+
+### 4.2 Router Navigation: `frontend/src/router/index.js`
+Tambahkan route untuk surat keluar:
+```javascript
+{
+  path: 'surat-keluar',
+  name: 'SuratKeluar',
+  component: () => import('../views/SuratKeluar.vue')
+}
+```
+
+### 4.3 Sidebar Menu: `frontend/src/layout/MainLayout.vue`
+Tambahkan menu `Surat Keluar` di sidebar menu persuratan tepat di bawah menu `Surat Masuk`:
+```html
+<li class="sidebar-item" :class="{ 'selected': route.path.startsWith('/surat-keluar') }">
+  <router-link class="sidebar-link" to="/surat-keluar" aria-expanded="false" @click="onMenuClick">
+    <span><i class="ti ti-file-export"></i></span>
+    <span class="hide-menu">Surat Keluar</span>
+  </router-link>
+</li>
+```
+
+---
+
+## 5. Checklist Tahapan Eksekusi
+
+### Fase 1: Backend
+- [ ] Buat file migrasi database untuk tabel `surat_keluars` dengan skema yang telah ditentukan.
+- [ ] Jalankan migrasi `php artisan migrate`.
+- [ ] Buat Eloquent Model `SuratKeluar` lengkap dengan Trait `UuidV7`, `SoftDeletes`, `AuditTrail`, dan relasi ke `User` & `BagianSeksi`.
+- [ ] Buat Controller `SuratKeluarController` yang mengimplementasikan method `datatables`, `list`, `detail`, `create`, `update`, `delete`.
+- [ ] Daftarkan API routes di `backend/routes/api.php`.
+- [ ] Uji endpoint API menggunakan Postman/cURL (Create, Datatables, Filter, Update, Delete).
+
+### Fase 2: Frontend
+- [ ] Tambahkan menu Surat Keluar pada sidebar di `frontend/src/layout/MainLayout.vue`.
+- [ ] Daftarkan route `/surat-keluar` di `frontend/src/router/index.js`.
+- [ ] Buat komponen `frontend/src/views/SuratKeluar.vue` dengan tampilan menyerupai `SuratMasuk.vue` (tanpa fitur disposisi).
+- [ ] Implementasikan DataTables server-side dengan filter rentang tanggal dan bagian seksi pemohon.
+- [ ] Implementasikan Modal Form Tambah dan Edit lengkap dengan upload file evidence.
+- [ ] Implementasikan Modal Detail & Preview file evidence.
+- [ ] Implementasikan konfirmasi hapus data dengan SweetAlert2.
+
+### Fase 3: Pengujian & Validasi
+- [ ] Uji tambah data surat keluar baru dengan & tanpa lampiran file.
+- [ ] Uji filter rentang tanggal pada tabel surat keluar.
+- [ ] Uji fitur pencarian global.
+- [ ] Uji edit data dan penggantian lampiran file.
+- [ ] Uji hapus data (soft delete) dan pastikan kolom `delete_at` & `delete_by` terisi.
+- [ ] Uji responsive layout pada layar handphone/mobile.
+- [ ] Jalankan build frontend `npm run build` untuk memastikan tidak ada error kompilasi.
+
+---
+
+## 6. Kriteria Keberhasilan (Acceptance Criteria)
+1. User dapat melihat daftar surat keluar dengan layout tabel modern yang rapi dan responsif.
+2. Filter rentang tanggal dan pencarian berfungsi cepat melalui server-side DataTables.
+3. User dapat menambahkan, memperbarui, melihat detail, dan menghapus data surat keluar.
+4. File evidence (PDF/Gambar) dapat diunggah, diunduh, dan dipratinjau langsung di aplikasi.
+5. Seluruh aktivitas pencatatan dan penghapusan data tercatat pada kolom Audit Trail (`created_by`, `updated_by`, `delete_by`).
+6. Tidak ada error build frontend maupun backend.
