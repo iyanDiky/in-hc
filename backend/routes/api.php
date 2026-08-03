@@ -92,5 +92,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update', [\App\Http\Controllers\SuratKeluarController::class, 'update']);
         Route::post('/delete', [\App\Http\Controllers\SuratKeluarController::class, 'delete']);
     });
+
+    // Dashboard Analytics
+    Route::prefix('dashboard')->group(function () {
+        Route::post('/summary', [\App\Http\Controllers\DashboardController::class, 'summary']);
+        Route::post('/chart-monthly', [\App\Http\Controllers\DashboardController::class, 'chartMonthly']);
+        Route::post('/chart-weekly', [\App\Http\Controllers\DashboardController::class, 'chartWeekly']);
+        Route::post('/chart-distribution', [\App\Http\Controllers\DashboardController::class, 'chartDistribution']);
+        Route::post('/recent-activities', [\App\Http\Controllers\DashboardController::class, 'recentActivities']);
+        Route::post('/recent-surat', [\App\Http\Controllers\DashboardController::class, 'recentSurat']);
+    });
 });
 

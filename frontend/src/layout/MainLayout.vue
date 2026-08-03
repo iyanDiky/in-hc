@@ -25,6 +25,16 @@
           <ul id="sidebarnav">
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item" :class="{ 'selected': route.path === '/' || route.path === '/dashboard' }">
+              <router-link class="sidebar-link" to="/" aria-expanded="false" @click="onMenuClick">
+                <span><i class="ti ti-layout-dashboard"></i></span>
+                <span class="hide-menu">Dashboard</span>
+              </router-link>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Master Data</span>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/jabatan' }">
