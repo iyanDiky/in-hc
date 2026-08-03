@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SuratMasuk;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasukDisposisi;
+use App\Models\Lamaran;
 use App\Models\BagianSeksi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -28,17 +29,20 @@ class DashboardController extends Controller
         $totalSuratMasuk = SuratMasuk::count();
         $totalSuratKeluar = SuratKeluar::count();
         $totalDisposisi = SuratMasukDisposisi::count();
+        $totalPelamar = Lamaran::count();
         $totalSurat = $totalSuratMasuk + $totalSuratKeluar;
 
         // Total Bulan Ini
         $suratMasukBulanIni = SuratMasuk::whereBetween('tanggal_surat', [$startThisMonth, $endThisMonth])->count();
         $suratKeluarBulanIni = SuratKeluar::whereBetween('tanggal_surat', [$startThisMonth, $endThisMonth])->count();
         $disposisiBulanIni = SuratMasukDisposisi::whereBetween('disposisi_waktu', [$startThisMonth . ' 00:00:00', $endThisMonth . ' 23:59:59'])->count();
+        $pelamarBulanIni = Lamaran::whereBetween('tanggal_diterima', [$startThisMonth, $endThisMonth])->count();
         $totalBulanIni = $suratMasukBulanIni + $suratKeluarBulanIni;
 
         // Total Bulan Lalu
         $suratMasukBulanLalu = SuratMasuk::whereBetween('tanggal_surat', [$startLastMonth, $endLastMonth])->count();
         $suratKeluarBulanLalu = SuratKeluar::whereBetween('tanggal_surat', [$startLastMonth, $endLastMonth])->count();
+        $pelamarBulanLalu = Lamaran::whereBetween('tanggal_diterima', [$startLastMonth, $endLastMonth])->count();
         $totalBulanLalu = $suratMasukBulanLalu + $suratKeluarBulanLalu;
 
         // Pertumbuhan vs Bulan Lalu
@@ -60,9 +64,11 @@ class DashboardController extends Controller
                 'total_surat_masuk' => $totalSuratMasuk,
                 'total_surat_keluar' => $totalSuratKeluar,
                 'total_disposisi' => $totalDisposisi,
+                'total_pelamar' => $totalPelamar,
                 'surat_masuk_bulan_ini' => $suratMasukBulanIni,
                 'surat_keluar_bulan_ini' => $suratKeluarBulanIni,
                 'disposisi_bulan_ini' => $disposisiBulanIni,
+                'pelamar_bulan_ini' => $pelamarBulanIni,
                 'total_bulan_ini' => $totalBulanIni,
                 'total_bulan_lalu' => $totalBulanLalu,
                 'growth_percentage' => $growthPercentage,
@@ -89,35 +95,50 @@ class DashboardController extends Controller
         $dataSuratMasuk = array_fill(1, 12, 0);
         $dataSuratKeluar = array_fill(1, 12, 0);
         $dataDisposisi = array_fill(1, 12, 0);
+        $dataPelamar = array_fill(1, 12, 0);
+
+        // Cek database driver (PostgreSQL vs MySQL/SQLite)
+        $driver = DB::connection()->getDriverName();
+        $monthExpr = $driver === 'pgsql' ? 'EXTRACT(MONTH FROM %s)::int' : 'MONTH(%s)';
 
         // Agregasi Surat Masuk
-        $suratMasukPerBulan = SuratMasuk::selectRaw('MONTH(tanggal_surat) as month, count(*) as total')
+        $suratMasukPerBulan = SuratMasuk::selectRaw(sprintf($monthExpr, 'tanggal_surat') . ' as month, count(*) as total')
             ->whereYear('tanggal_surat', $year)
-            ->groupBy(DB::raw('MONTH(tanggal_surat)'))
+            ->groupBy(DB::raw(sprintf($monthExpr, 'tanggal_surat')))
             ->pluck('total', 'month');
 
         foreach ($suratMasukPerBulan as $month => $total) {
-            $dataSuratMasuk[$month] = (int) $total;
+            $dataSuratMasuk[(int)$month] = (int) $total;
         }
 
         // Agregasi Surat Keluar
-        $suratKeluarPerBulan = SuratKeluar::selectRaw('MONTH(tanggal_surat) as month, count(*) as total')
+        $suratKeluarPerBulan = SuratKeluar::selectRaw(sprintf($monthExpr, 'tanggal_surat') . ' as month, count(*) as total')
             ->whereYear('tanggal_surat', $year)
-            ->groupBy(DB::raw('MONTH(tanggal_surat)'))
+            ->groupBy(DB::raw(sprintf($monthExpr, 'tanggal_surat')))
             ->pluck('total', 'month');
 
         foreach ($suratKeluarPerBulan as $month => $total) {
-            $dataSuratKeluar[$month] = (int) $total;
+            $dataSuratKeluar[(int)$month] = (int) $total;
         }
 
         // Agregasi Disposisi
-        $disposisiPerBulan = SuratMasukDisposisi::selectRaw('MONTH(disposisi_waktu) as month, count(*) as total')
+        $disposisiPerBulan = SuratMasukDisposisi::selectRaw(sprintf($monthExpr, 'disposisi_waktu') . ' as month, count(*) as total')
             ->whereYear('disposisi_waktu', $year)
-            ->groupBy(DB::raw('MONTH(disposisi_waktu)'))
+            ->groupBy(DB::raw(sprintf($monthExpr, 'disposisi_waktu')))
             ->pluck('total', 'month');
 
         foreach ($disposisiPerBulan as $month => $total) {
-            $dataDisposisi[$month] = (int) $total;
+            $dataDisposisi[(int)$month] = (int) $total;
+        }
+
+        // Agregasi Data Pelamar
+        $pelamarPerBulan = Lamaran::selectRaw(sprintf($monthExpr, 'tanggal_diterima') . ' as month, count(*) as total')
+            ->whereYear('tanggal_diterima', $year)
+            ->groupBy(DB::raw(sprintf($monthExpr, 'tanggal_diterima')))
+            ->pluck('total', 'month');
+
+        foreach ($pelamarPerBulan as $month => $total) {
+            $dataPelamar[(int)$month] = (int) $total;
         }
 
         return response()->json([
@@ -137,6 +158,10 @@ class DashboardController extends Controller
                     [
                         'name' => 'Disposisi Selesai',
                         'data' => array_values($dataDisposisi)
+                    ],
+                    [
+                        'name' => 'Data Pelamar',
+                        'data' => array_values($dataPelamar)
                     ]
                 ]
             ]
@@ -152,6 +177,7 @@ class DashboardController extends Controller
         $categories = [];
         $dataSuratMasuk = [];
         $dataSuratKeluar = [];
+        $dataPelamar = [];
         $dataTotal = [];
 
         // 7 hari terakhir mundur dari hari ini
@@ -164,10 +190,12 @@ class DashboardController extends Controller
 
             $countMasuk = SuratMasuk::whereDate('tanggal_surat', $dateStr)->count();
             $countKeluar = SuratKeluar::whereDate('tanggal_surat', $dateStr)->count();
+            $countPelamar = Lamaran::whereDate('tanggal_diterima', $dateStr)->count();
 
             $dataSuratMasuk[] = $countMasuk;
             $dataSuratKeluar[] = $countKeluar;
-            $dataTotal[] = $countMasuk + $countKeluar;
+            $dataPelamar[] = $countPelamar;
+            $dataTotal[] = $countMasuk + $countKeluar + $countPelamar;
         }
 
         return response()->json([
@@ -177,7 +205,7 @@ class DashboardController extends Controller
                 'total_weekly' => array_sum($dataTotal),
                 'series' => [
                     [
-                        'name' => 'Total Persuratan',
+                        'name' => 'Total Aktivitas & Pelamar',
                         'data' => $dataTotal
                     ]
                 ]
@@ -242,7 +270,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * 5 Aktivitas Persuratan Terbaru
+     * Aktivitas Terkini (Surat Masuk, Keluar, Disposisi, dan Pelamar)
      */
     public function recentActivities(Request $request)
     {
@@ -251,7 +279,7 @@ class DashboardController extends Controller
         // 1. Surat Masuk Terbaru
         $latestSuratMasuk = SuratMasuk::with('userInput')
             ->latest('created_at')
-            ->limit(5)
+            ->limit(4)
             ->get();
 
         foreach ($latestSuratMasuk as $sm) {
@@ -271,7 +299,7 @@ class DashboardController extends Controller
         // 2. Surat Keluar Terbaru
         $latestSuratKeluar = SuratKeluar::with(['userInput', 'userRequest', 'bagianSeksiRequest'])
             ->latest('created_at')
-            ->limit(5)
+            ->limit(4)
             ->get();
 
         foreach ($latestSuratKeluar as $sk) {
@@ -291,7 +319,7 @@ class DashboardController extends Controller
         // 3. Disposisi Terbaru
         $latestDisposisi = SuratMasukDisposisi::with(['disposisiOleh', 'suratMasuk'])
             ->latest('created_at')
-            ->limit(5)
+            ->limit(4)
             ->get();
 
         foreach ($latestDisposisi as $disp) {
@@ -308,6 +336,26 @@ class DashboardController extends Controller
             ]);
         }
 
+        // 4. Data Pelamar Terbaru
+        $latestPelamar = Lamaran::with('userInput')
+            ->latest('created_at')
+            ->limit(4)
+            ->get();
+
+        foreach ($latestPelamar as $pel) {
+            $activities->push([
+                'id' => $pel->id,
+                'type' => 'pelamar',
+                'title' => 'Berkas Pelamar Baru',
+                'subtitle' => $pel->nama . ' (' . $pel->pendidikan . ' - ' . ($pel->institusi ?: 'Pelamar') . ')',
+                'user' => 'No. Lamaran: #' . $pel->nomor_lamaran,
+                'badge_color' => 'info',
+                'icon' => 'ti ti-user-check',
+                'created_at' => $pel->created_at ? $pel->created_at->toISOString() : null,
+                'date_formatted' => $pel->created_at ? $pel->created_at->format('H:i') : '-',
+            ]);
+        }
+
         // Urutkan gabungan aktivitas berdasarkan created_at descending dan ambil 6 teratas
         $sorted = $activities->sortByDesc('created_at')->values()->take(6);
 
@@ -318,7 +366,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Surat Masuk & Surat Keluar Terkini untuk Tabel Tabbed
+     * Data Terkini (Surat Masuk, Surat Keluar, & Pelamar) untuk Tabel Tabbed
      */
     public function recentSurat(Request $request)
     {
@@ -360,15 +408,35 @@ class DashboardController extends Controller
                 ];
             });
 
+        // 5 Data Pelamar Terkini
+        $pelamar = Lamaran::with('userInput')
+            ->latest('tanggal_diterima')
+            ->limit(5)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'type' => 'pelamar',
+                    'nomor_surat' => '#' . $item->nomor_lamaran,
+                    'perihal' => $item->nama,
+                    'pihak' => $item->institusi ? ($item->institusi . ($item->jurusan ? ' - ' . $item->jurusan : '')) : 'Pendidikan: ' . $item->pendidikan,
+                    'pihak_label' => 'Institusi / Jurusan',
+                    'tanggal_surat' => $item->tanggal_diterima,
+                    'status' => $item->pendidikan,
+                    'status_color' => 'primary',
+                ];
+            });
+
         // Gabungan semua untuk tab Semua
-        $all = $suratMasuk->concat($suratKeluar)->sortByDesc('tanggal_surat')->values()->take(6);
+        $all = $suratMasuk->concat($suratKeluar)->concat($pelamar)->sortByDesc('tanggal_surat')->values()->take(6);
 
         return response()->json([
             'success' => true,
             'data' => [
                 'all' => $all,
                 'surat_masuk' => $suratMasuk,
-                'surat_keluar' => $suratKeluar
+                'surat_keluar' => $suratKeluar,
+                'pelamar' => $pelamar
             ]
         ]);
     }

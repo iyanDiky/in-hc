@@ -24,10 +24,10 @@
               <h3 class="fw-semibold mb-1">
                 {{ greetingText }}, <span class="text-primary">{{ currentUser?.nama || 'Pengguna' }}</span> 👋
               </h3>
-              <span class="text-muted fs-3">Selamat datang di Sistem Informasi Persuratan IN-HC — {{ currentDateFormatted }}</span>
+              <span class="text-muted fs-3">Selamat datang di Sistem Informasi IN-HC — {{ currentDateFormatted }}</span>
             </div>
           </div>
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center flex-wrap gap-2">
             <router-link to="/surat-masuk" class="btn btn-light-primary text-primary fw-semibold d-flex align-items-center gap-1 shadow-none">
               <i class="ti ti-mail-plus fs-5"></i>
               <span>Surat Masuk</span>
@@ -35,6 +35,10 @@
             <router-link to="/surat-keluar" class="btn btn-primary fw-semibold d-flex align-items-center gap-1 shadow-none">
               <i class="ti ti-file-export fs-5"></i>
               <span>Surat Keluar</span>
+            </router-link>
+            <router-link to="/pelamar" class="btn btn-light-success text-success fw-semibold d-flex align-items-center gap-1 shadow-none">
+              <i class="ti ti-user-check fs-5"></i>
+              <span>Data Pelamar</span>
             </router-link>
           </div>
         </div>
@@ -50,7 +54,7 @@
               <!-- Left: Financial/Statistical Highlights -->
               <div class="col-lg-4 d-flex flex-column justify-content-between mb-4 mb-lg-0">
                 <div>
-                  <h5 class="card-title fw-semibold mb-1">Statistik & Tren Persuratan</h5>
+                  <h5 class="card-title fw-semibold mb-1">Statistik & Tren Layanan</h5>
                   <span class="text-muted fs-3">Akumulasi data tahun {{ selectedYear }}</span>
                 </div>
 
@@ -72,7 +76,7 @@
                   </div>
                   <h2 class="fw-bold mb-2">{{ summary.total_surat.toLocaleString('id-ID') }} <span class="fs-4 text-muted fw-normal">surat</span></h2>
                   <span class="text-muted fs-2">
-                    <i class="ti ti-info-circle me-1"></i>{{ summary.total_bulan_ini }} surat tercatat pada bulan ini
+                    <i class="ti ti-info-circle me-1"></i>{{ summary.total_bulan_ini }} surat & {{ summary.pelamar_bulan_ini || 0 }} berkas pelamar bulan ini
                   </span>
                 </div>
 
@@ -99,7 +103,7 @@
                 <div class="d-md-flex align-items-center justify-content-between mb-3">
                   <div>
                     <h6 class="fw-semibold mb-0">Tren Volume Bulanan</h6>
-                    <span class="fs-2 text-muted">Perbandingan Surat Masuk, Surat Keluar, & Disposisi</span>
+                    <span class="fs-2 text-muted">Perbandingan Surat Masuk, Surat Keluar, Disposisi, & Pelamar</span>
                   </div>
                   <div class="mt-2 mt-md-0" style="min-width: 140px;">
                     <select class="form-select form-select-sm" v-model="selectedYear" @change="fetchMonthlyChart">
@@ -119,10 +123,10 @@
             </div>
           </div>
 
-          <!-- Bottom 3 Columns Bordered Info -->
+          <!-- Bottom 4 Columns Bordered Info -->
           <div class="border-top">
             <div class="row gx-0">
-              <div class="col-md-4 border-end">
+              <div class="col-md-3 col-sm-6 border-end">
                 <div class="p-4 py-3">
                   <p class="fs-3 fw-semibold text-danger mb-1 d-flex align-items-center">
                     <span class="round-8 bg-danger rounded-circle d-inline-block me-2"></span>
@@ -132,7 +136,7 @@
                   <span class="fs-2 text-muted">{{ summary.surat_masuk_bulan_ini }} surat masuk bulan ini</span>
                 </div>
               </div>
-              <div class="col-md-4 border-end">
+              <div class="col-md-3 col-sm-6 border-end">
                 <div class="p-4 py-3">
                   <p class="fs-3 fw-semibold text-primary mb-1 d-flex align-items-center">
                     <span class="round-8 bg-primary rounded-circle d-inline-block me-2"></span>
@@ -142,7 +146,7 @@
                   <span class="fs-2 text-muted">{{ summary.surat_keluar_bulan_ini }} nomor surat keluar dibuat</span>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3 col-sm-6 border-end">
                 <div class="p-4 py-3">
                   <p class="fs-3 fw-semibold text-info mb-1 d-flex align-items-center">
                     <span class="round-8 bg-info rounded-circle d-inline-block me-2"></span>
@@ -150,6 +154,16 @@
                   </p>
                   <h3 class="fw-bold mb-0">{{ summary.total_disposisi.toLocaleString('id-ID') }}</h3>
                   <span class="fs-2 text-muted">{{ summary.disposisi_bulan_ini }} instruksi disposisi tercatat</span>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-6">
+                <div class="p-4 py-3">
+                  <p class="fs-3 fw-semibold text-success mb-1 d-flex align-items-center">
+                    <span class="round-8 bg-success rounded-circle d-inline-block me-2"></span>
+                    Data Pelamar
+                  </p>
+                  <h3 class="fw-bold mb-0">{{ (summary.total_pelamar || 0).toLocaleString('id-ID') }}</h3>
+                  <span class="fs-2 text-muted">{{ summary.pelamar_bulan_ini || 0 }} berkas pelamar bulan ini</span>
                 </div>
               </div>
             </div>
@@ -167,7 +181,7 @@
             <div class="d-flex align-items-center justify-content-between mb-4">
               <div>
                 <h5 class="card-title fw-semibold mb-1">Aktivitas Terkini</h5>
-                <p class="card-subtitle mb-0">Alur transaksi surat dan disposisi terbaru</p>
+                <p class="card-subtitle mb-0">Alur transaksi persuratan & berkas pelamar terbaru</p>
               </div>
               <router-link to="/surat-masuk" class="btn btn-sm btn-light-primary text-primary">
                 Semua
@@ -216,7 +230,7 @@
                 <h5 class="card-title fw-semibold mb-1">Aktivitas 7 Hari Terakhir</h5>
                 <div class="d-flex align-items-center gap-2 text-muted fs-2">
                   <span class="round-8 bg-primary rounded-circle d-inline-block"></span>
-                  <span>Total {{ weeklyTotal }} surat diproses dalam seminggu</span>
+                  <span>Total {{ weeklyTotal }} transaksi (surat & pelamar) seminggu terakhir</span>
                 </div>
               </div>
               <div>
@@ -231,15 +245,15 @@
       </div>
     </div>
 
-    <!-- Third Row: Recent Letters Tabbed Table (12 Cols) -->
+    <!-- Third Row: Recent Letters & Applicants Tabbed Table (12 Cols) -->
     <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
             <div class="d-md-flex align-items-center justify-content-between mb-4">
               <div>
-                <h5 class="card-title fw-semibold mb-1">Daftar Surat Terkini</h5>
-                <p class="card-subtitle mb-0">Rangkuman surat masuk dan nomor surat keluar yang baru dicatat</p>
+                <h5 class="card-title fw-semibold mb-1">Daftar Data Terkini</h5>
+                <p class="card-subtitle mb-0">Rangkuman surat masuk, surat keluar, dan berkas pelamar terbaru</p>
               </div>
               <div class="mt-3 mt-md-0">
                 <ul class="nav nav-pills" role="tablist">
@@ -249,7 +263,7 @@
                       :class="{ 'active': activeTab === 'all' }" 
                       @click="activeTab = 'all'"
                     >
-                      <span>Semua Surat</span>
+                      <span>Semua Data</span>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -270,6 +284,15 @@
                       <span>Surat Keluar</span>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a 
+                      class="nav-link px-3 py-2 cursor-pointer" 
+                      :class="{ 'active': activeTab === 'pelamar' }" 
+                      @click="activeTab = 'pelamar'"
+                    >
+                      <span>Data Pelamar</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -279,18 +302,18 @@
               <table class="table align-middle mb-0 text-nowrap">
                 <thead>
                   <tr class="text-muted fw-semibold">
-                    <th scope="col" class="ps-0">Perihal & Nomor Surat</th>
+                    <th scope="col" class="ps-0">Perihal / Nama & Nomor</th>
                     <th scope="col">Kategori</th>
-                    <th scope="col">Pengirim / Tujuan</th>
-                    <th scope="col">Tanggal Surat</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Pihak / Institusi</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Status / Keterangan</th>
                     <th scope="col" class="text-end pe-0">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-if="filteredLetters.length === 0">
                     <td colspan="6" class="text-center py-4 text-muted">
-                      Tidak ada data surat untuk ditampilkan
+                      Tidak ada data untuk ditampilkan
                     </td>
                   </tr>
                   <tr v-for="letter in filteredLetters" :key="letter.id">
@@ -298,10 +321,10 @@
                       <div class="d-flex align-items-center gap-3">
                         <div 
                           class="rounded-circle round d-flex align-items-center justify-content-center flex-shrink-0"
-                          :class="letter.type === 'surat_masuk' ? 'bg-light-danger text-danger' : 'bg-light-primary text-primary'"
+                          :class="getLetterIconClass(letter.type)"
                           style="width: 40px; height: 40px;"
                         >
-                          <i :class="letter.type === 'surat_masuk' ? 'ti ti-mail fs-5' : 'ti ti-file-export fs-5'"></i>
+                          <i :class="getLetterIcon(letter.type)"></i>
                         </div>
                         <div class="text-truncate" style="max-width: 320px;">
                           <h6 class="mb-0 fw-semibold text-truncate">{{ letter.perihal }}</h6>
@@ -312,14 +335,14 @@
                     <td>
                       <span 
                         class="badge rounded-pill"
-                        :class="letter.type === 'surat_masuk' ? 'bg-light-danger text-danger' : 'bg-light-primary text-primary'"
+                        :class="getLetterBadgeClass(letter.type)"
                       >
-                        {{ letter.type === 'surat_masuk' ? 'Surat Masuk' : 'Surat Keluar' }}
+                        {{ getLetterTypeLabel(letter.type) }}
                       </span>
                     </td>
                     <td>
                       <div class="d-flex flex-column">
-                        <span class="fw-semibold">{{ letter.pihak }}</span>
+                        <span class="fw-semibold text-truncate" style="max-width: 240px;" :title="letter.pihak">{{ letter.pihak }}</span>
                         <span class="fs-2 text-muted">{{ letter.pihak_label }}</span>
                       </div>
                     </td>
@@ -337,7 +360,7 @@
                     </td>
                     <td class="text-end pe-0">
                       <router-link 
-                        :to="letter.type === 'surat_masuk' ? `/surat-masuk/${letter.id}/detail` : '/surat-keluar'" 
+                        :to="getLetterDetailRoute(letter)" 
                         class="btn btn-sm btn-light text-primary shadow-none"
                       >
                         <i class="ti ti-eye me-1"></i>Detail
@@ -439,6 +462,17 @@
               <span class="fs-2 text-muted d-block">Penerbitan nomor surat otomatis berurutan per tahun beserta pengarsipan berkas lampiran.</span>
             </div>
 
+            <div class="py-3 border-bottom">
+              <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-light-info text-info">Rekrutmen</span>
+                <router-link to="/pelamar" class="fs-2 ms-auto text-info fw-semibold text-decoration-none">
+                  Buka Modul &rarr;
+                </router-link>
+              </div>
+              <h6 class="mb-1 fw-semibold">Pengelolaan Data Pelamar</h6>
+              <span class="fs-2 text-muted d-block">Pencatatan berkas pelamar, nomor urut lamaran per tahun, kualifikasi jenjang pendidikan, dan arsip CV.</span>
+            </div>
+
             <div class="pt-3">
               <div class="d-flex align-items-center mb-2">
                 <span class="badge bg-light-warning text-warning">Master Data</span>
@@ -493,9 +527,11 @@ const summary = ref({
   total_surat_masuk: 0,
   total_surat_keluar: 0,
   total_disposisi: 0,
+  total_pelamar: 0,
   surat_masuk_bulan_ini: 0,
   surat_keluar_bulan_ini: 0,
   disposisi_bulan_ini: 0,
+  pelamar_bulan_ini: 0,
   total_bulan_ini: 0,
   total_bulan_lalu: 0,
   growth_percentage: 0,
@@ -503,20 +539,57 @@ const summary = ref({
   persentase_disposisi: 0
 })
 
-// Activities & Recent Letters
+// Activities & Recent Items
 const activities = ref([])
 const activeTab = ref('all')
 const recentSurat = ref({
   all: [],
   surat_masuk: [],
-  surat_keluar: []
+  surat_keluar: [],
+  pelamar: []
 })
 
 const filteredLetters = computed(() => {
   if (activeTab.value === 'surat_masuk') return recentSurat.value.surat_masuk || []
   if (activeTab.value === 'surat_keluar') return recentSurat.value.surat_keluar || []
+  if (activeTab.value === 'pelamar') return recentSurat.value.pelamar || []
   return recentSurat.value.all || []
 })
+
+const getLetterIconClass = (type) => {
+  if (type === 'surat_masuk') return 'bg-light-danger text-danger'
+  if (type === 'surat_keluar') return 'bg-light-primary text-primary'
+  if (type === 'pelamar') return 'bg-light-success text-success'
+  return 'bg-light-info text-info'
+}
+
+const getLetterIcon = (type) => {
+  if (type === 'surat_masuk') return 'ti ti-mail fs-5'
+  if (type === 'surat_keluar') return 'ti ti-file-export fs-5'
+  if (type === 'pelamar') return 'ti ti-user-check fs-5'
+  return 'ti ti-file fs-5'
+}
+
+const getLetterBadgeClass = (type) => {
+  if (type === 'surat_masuk') return 'bg-light-danger text-danger'
+  if (type === 'surat_keluar') return 'bg-light-primary text-primary'
+  if (type === 'pelamar') return 'bg-light-success text-success'
+  return 'bg-light-info text-info'
+}
+
+const getLetterTypeLabel = (type) => {
+  if (type === 'surat_masuk') return 'Surat Masuk'
+  if (type === 'surat_keluar') return 'Surat Keluar'
+  if (type === 'pelamar') return 'Data Pelamar'
+  return 'Lainnya'
+}
+
+const getLetterDetailRoute = (letter) => {
+  if (letter.type === 'surat_masuk') return `/surat-masuk/${letter.id}/detail`
+  if (letter.type === 'surat_keluar') return '/surat-keluar'
+  if (letter.type === 'pelamar') return '/pelamar'
+  return '/'
+}
 
 // Weekly Total
 const weeklyTotal = ref(0)
@@ -643,7 +716,7 @@ const renderMonthlyChart = (data) => {
       toolbar: { show: false },
       zoom: { enabled: false }
     },
-    colors: ['#fa896b', '#615dff', '#3dd9eb'],
+    colors: ['#fa896b', '#615dff', '#3dd9eb', '#13deb9'],
     dataLabels: { enabled: false },
     stroke: {
       curve: 'smooth',
