@@ -51,6 +51,16 @@
             </li>
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+              <span class="hide-menu">Rekrutmen</span>
+            </li>
+            <li class="sidebar-item" :class="{ 'selected': route.path.startsWith('/pelamar') }">
+              <router-link class="sidebar-link" to="/pelamar" aria-expanded="false" @click="onMenuClick">
+                <span><i class="ti ti-user-check"></i></span>
+                <span class="hide-menu">Data Pelamar</span>
+              </router-link>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">Master Data</span>
             </li>
             <li class="sidebar-item" :class="{ 'selected': route.path === '/jabatan' }">

@@ -56,6 +56,11 @@ const routes = [
         path: 'surat-keluar',
         name: 'SuratKeluar',
         component: () => import('../views/SuratKeluar.vue')
+      },
+      {
+        path: 'pelamar',
+        name: 'Pelamar',
+        component: () => import('../views/Pelamar.vue')
       }
     ]
   }
