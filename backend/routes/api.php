@@ -102,5 +102,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/recent-activities', [\App\Http\Controllers\DashboardController::class, 'recentActivities']);
         Route::post('/recent-surat', [\App\Http\Controllers\DashboardController::class, 'recentSurat']);
     });
+
+    // Pengelolaan Data Pelamar (Lamaran)
+    Route::prefix('lamaran')->group(function () {
+        Route::post('/datatables', [\App\Http\Controllers\LamaranController::class, 'datatables']);
+        Route::post('/list', [\App\Http\Controllers\LamaranController::class, 'list']);
+        Route::post('/detail', [\App\Http\Controllers\LamaranController::class, 'detail']);
+        Route::post('/next-number', [\App\Http\Controllers\LamaranController::class, 'nextNumber']);
+        Route::post('/create', [\App\Http\Controllers\LamaranController::class, 'create']);
+        Route::post('/update', [\App\Http\Controllers\LamaranController::class, 'update']);
+        Route::post('/delete', [\App\Http\Controllers\LamaranController::class, 'delete']);
+    });
 });
 
