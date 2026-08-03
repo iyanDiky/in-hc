@@ -84,8 +84,8 @@
           <table id="suratKeluarTable" class="table align-middle text-nowrap mb-0 w-100">
             <thead>
               <tr>
-                <th scope="col" style="min-width: 130px;">No. Surat</th>
-                <th scope="col" style="min-width: 260px;">Perihal</th>
+                <th scope="col" style="width: 90px;">No. Surat</th>
+                <th scope="col" style="min-width: 280px;">Perihal</th>
                 <th scope="col">Tanggal Surat</th>
                 <th scope="col">Tujuan</th>
                 <th scope="col">Pemohon (Unit/Bagian)</th>
@@ -456,11 +456,12 @@ const initDataTable = () => {
     columns: [
       { 
         data: 'nomor_surat',
+        width: '90px',
         render: function(data, type, row) {
           const safeNomor = escapeHtml(row.nomor_surat !== null && row.nomor_surat !== undefined ? String(row.nomor_surat) : '-')
           return `
-            <div class="d-flex align-items-center">
-              <span class="badge bg-light-primary text-primary fw-bold fs-3 px-3 py-2 rounded-2">
+            <div class="d-inline-flex align-items-center">
+              <span class="badge bg-light-primary text-primary fw-bold fs-3 px-2 py-1 rounded-2">
                 <i class="ti ti-hash me-1"></i>${safeNomor}
               </span>
             </div>
