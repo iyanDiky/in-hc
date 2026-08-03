@@ -140,7 +140,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Tanggal Lahir</label>
-                <input type="text" class="form-control" v-model="form.tanggal_lahir" placeholder="Contoh: 15 Mei 1998 atau YYYY-MM-DD">
+                <input type="date" class="form-control" v-model="form.tanggal_lahir">
               </div>
               <div class="col-md-4 mb-3">
                 <label class="form-label">Jenjang Pendidikan <span class="text-danger">*</span></label>
@@ -371,10 +371,11 @@ const formatDateTime = (dateStr) => {
 }
 
 const formatBirth = (place, date) => {
-  if (!place && !date) return '-'
-  if (place && !date) return place
-  if (!place && date) return date
-  return `${place}, ${date}`
+  const formattedDate = date ? formatDate(date) : ''
+  if (!place && !formattedDate) return '-'
+  if (place && !formattedDate) return place
+  if (!place && formattedDate) return formattedDate
+  return `${place}, ${formattedDate}`
 }
 
 const getPendidikanBadgeClass = (pendidikan) => {
