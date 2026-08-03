@@ -52,16 +52,16 @@
         <div v-show="showFilter" class="card bg-light border-0 mb-4 p-3 rounded-3 shadow-none">
           <div class="row g-3 align-items-end">
             <div class="col-md-3 col-sm-6">
-              <label class="form-label fs-3 fw-semibold text-dark mb-1">Tanggal Awal</label>
-              <input type="date" class="form-control bg-white" v-model="filter.startDate" />
+              <label class="form-label fs-3 fw-semibold mb-1">Tanggal Awal</label>
+              <input type="date" class="form-control" v-model="filter.startDate" />
             </div>
             <div class="col-md-3 col-sm-6">
-              <label class="form-label fs-3 fw-semibold text-dark mb-1">Tanggal Akhir</label>
-              <input type="date" class="form-control bg-white" v-model="filter.endDate" />
+              <label class="form-label fs-3 fw-semibold mb-1">Tanggal Akhir</label>
+              <input type="date" class="form-control" v-model="filter.endDate" />
             </div>
             <div class="col-md-3 col-sm-6">
-              <label class="form-label fs-3 fw-semibold text-dark mb-1">Status Disposisi</label>
-              <select class="form-select bg-white" v-model="filter.statusDisposisi">
+              <label class="form-label fs-3 fw-semibold mb-1">Status Disposisi</label>
+              <select class="form-select" v-model="filter.statusDisposisi">
                 <option value="">Semua Status</option>
                 <option value="sudah">Sudah Disposisi</option>
                 <option value="belum">Belum Disposisi</option>
@@ -71,7 +71,7 @@
               <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-1" @click="applyFilter">
                 <i class="ti ti-check"></i> Terapkan
               </button>
-              <button class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-1" @click="resetFilter">
+              <button class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-1" @click="resetFilter">
                 <i class="ti ti-rotate-clockwise"></i> Reset
               </button>
             </div>
@@ -298,7 +298,7 @@ const initDataTable = () => {
       { 
         data: 'tanggal_surat',
         render: function(data) {
-          return `<p class="mb-0 text-dark fw-normal">${formatDate(data)}</p>`;
+          return `<p class="mb-0 fw-normal">${formatDate(data)}</p>`;
         }
       },
       {
@@ -325,7 +325,7 @@ const initDataTable = () => {
       { 
         data: 'pengirim',
         render: function(data) {
-          return `<h6 class="mb-0 fs-4 text-dark fw-medium">${escapeHtml(data || '-')}</h6>`;
+          return `<h6 class="mb-0 fs-4 fw-medium">${escapeHtml(data || '-')}</h6>`;
         }
       },
       { 
@@ -513,23 +513,51 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
 /* Hilangkan icon panah yang nabrak angka di select length */
-.dataTables_length .form-select {
-    background-image: none !important;
-    padding-right: 0.75rem !important;
-    padding-left: 0.75rem !important;
+:deep(.dataTables_length .form-select) {
+  background-image: none !important;
+  padding-right: 0.75rem !important;
+  padding-left: 0.75rem !important;
 }
 /* Matikan border & padding ganda dari class bawaan template pada elemen <li> */
-.table-responsive .dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 0 !important;
-    border: none !important;
+:deep(.table-responsive .dataTables_wrapper .dataTables_paginate .paginate_button) {
+  padding: 0 !important;
+  border: none !important;
 }
-.hover-bg:hover {
+:deep(.hover-bg:hover) {
   background-color: rgba(0, 0, 0, 0.05);
 }
 /* Pastikan dropdown menu tidak terpotong oleh overflow-x */
 .table-responsive {
   min-height: 220px;
+}
+
+:deep(.table th) {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--bs-heading-color, var(--bs-body-color, #2a3547));
+  padding: 14px 16px;
+  background-color: var(--bs-body-bg, #f8fafc);
+  border-bottom: 1px solid var(--bs-border-color, #ebf1f6);
+}
+
+:deep(.table td) {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--bs-border-color, #ebf1f6);
+}
+
+:deep([data-bs-theme="dark"]) .table th,
+:global([data-bs-theme="dark"]) .table th,
+:global(#main-wrapper[data-bs-theme="dark"]) .table th {
+  background-color: #202936 !important;
+  color: #fff !important;
+  border-bottom-color: #333F55 !important;
+}
+
+:deep([data-bs-theme="dark"]) .table td,
+:global([data-bs-theme="dark"]) .table td,
+:global(#main-wrapper[data-bs-theme="dark"]) .table td {
+  border-bottom-color: #333F55 !important;
 }
 </style>

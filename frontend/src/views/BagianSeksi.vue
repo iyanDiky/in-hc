@@ -24,7 +24,7 @@
       <div class="card-body p-4">
         <div class="table-responsive">
           <table id="bagianSeksiTable" class="table table-striped border table-bordered display" style="width: 100%">
-            <thead class="text-dark fs-4">
+            <thead class="fs-4">
               <tr>
                 <th><h6 class="fs-4 fw-semibold mb-0">Kode</h6></th>
                 <th><h6 class="fs-4 fw-semibold mb-0">Bagian Seksi</h6></th>
@@ -284,3 +284,17 @@ onMounted(() => {
   fetchUnitKerja()
 })
 </script>
+
+<style scoped>
+/* Hilangkan icon panah yang nabrak angka di select length */
+:deep(.dataTables_length .form-select) {
+  background-image: none !important;
+  padding-right: 0.75rem !important;
+  padding-left: 0.75rem !important;
+}
+/* Matikan border & padding ganda dari class bawaan template pada elemen <li> */
+:deep(.table-responsive .dataTables_wrapper .dataTables_paginate .paginate_button) {
+  padding: 0 !important;
+  border: none !important;
+}
+</style>

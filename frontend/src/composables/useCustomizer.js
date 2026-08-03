@@ -37,23 +37,20 @@ function applyThemeCss(mode, color) {
   const linkEl = document.getElementById('themeColors')
   if (!linkEl) return
 
-  // Template CSS naming convention: 
-  // Light: style.min.css (blue), style-aqua.min.css, style-purple.min.css, etc
-  // Dark: style-dark.min.css (blue), style-aqua-dark.min.css, etc.
-  
-  let colorName = color.replace('_theme', '')
-  if (colorName === 'blue') colorName = '' // blue is the default style
-  else colorName = `-${colorName}`
-
-  let modeSuffix = mode === 'dark' ? '-dark' : ''
-  
-  // Special case for default blue light theme which is just style.min.css
-  let cssFileName = `style${colorName}${modeSuffix}.min.css`
-  if (cssFileName === 'style.min.css' && mode === 'dark') {
-     cssFileName = 'style-dark.min.css'
+  let cssFileName = 'style.min.css'
+  if (mode === 'dark') {
+    cssFileName = 'style-dark.min.css'
+  } else {
+    let colorName = color ? color.replace('_theme', '') : ''
+    if (colorName && colorName !== 'blue') {
+      cssFileName = `style-${colorName}.min.css`
+    } else {
+      cssFileName = 'style.min.css'
+    }
   }
 
   linkEl.href = `/dist/css/${cssFileName}`
+  document.documentElement.setAttribute('data-bs-theme', mode)
 }
 
 export const useCustomizer = () => {
