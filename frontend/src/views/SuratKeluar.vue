@@ -110,15 +110,12 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-6 mb-3">
+              <div :class="isEdit ? 'col-md-6 mb-3' : 'col-md-12 mb-3'">
                 <label class="form-label">Tanggal Surat <span class="text-danger">*</span></label>
-                <input type="date" class="form-control" v-model="form.tanggal_surat" @change="onTanggalSuratChange" required>
+                <input type="date" class="form-control" v-model="form.tanggal_surat" required>
               </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label d-flex justify-content-between align-items-center">
-                  <span>Nomor Surat (Angka) <span class="text-danger">*</span></span>
-                  <span v-if="!isEdit" class="badge bg-light-primary text-primary fw-semibold fs-1">Otomatis (+1 per tahun)</span>
-                </label>
+              <div v-if="isEdit" class="col-md-6 mb-3">
+                <label class="form-label">Nomor Surat (Angka) <span class="text-danger">*</span></label>
                 <input 
                   type="number" 
                   min="1" 
@@ -127,7 +124,6 @@
                   placeholder="Nomor urut surat (angka)" 
                   required
                 >
-                <small class="text-muted">Nomor berupa bilangan bulat yang berurutan per tahun.</small>
               </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label">Tujuan Surat <span class="text-danger">*</span></label>
@@ -372,25 +368,6 @@ const onUserRequestChange = () => {
   }
 }
 
-const fetchNextNomor = async (tanggal) => {
-  try {
-    const res = await api.post('/surat-keluar/next-number', {
-      tanggal_surat: tanggal || form.value.tanggal_surat || new Date().toISOString().split('T')[0]
-    })
-    if (res.data && res.data.next_nomor) {
-      form.value.nomor_surat = res.data.next_nomor
-    }
-  } catch (error) {
-    console.error('Error fetching next nomor', error)
-  }
-}
-
-const onTanggalSuratChange = () => {
-  if (!isEdit.value && form.value.tanggal_surat) {
-    fetchNextNomor(form.value.tanggal_surat)
-  }
-}
-
 let dataTableInstance = null
 let searchTimeout = null
 
@@ -615,7 +592,6 @@ const openModal = () => {
   }
   evidenceFile.value = null
   showModal.value = true
-  fetchNextNomor(today)
 }
 
 const closeModal = () => {
@@ -667,11 +643,20 @@ const viewDetail = async (id) => {
 }
 
 const saveData = async () => {
-  if (!form.value.tanggal_surat || !form.value.nomor_surat || !form.value.tujuan || !form.value.perihal) {
+  if (!form.value.tanggal_surat || !form.value.tujuan || !form.value.perihal) {
     window.Swal.fire({
       icon: 'warning',
       title: 'Validasi',
-      text: 'Tanggal Surat, Nomor Surat (Angka), Tujuan, dan Perihal wajib diisi!'
+      text: 'Tanggal Surat, Tujuan, dan Perihal wajib diisi!'
+    })
+    return
+  }
+
+  if (isEdit.value && (!form.value.nomor_surat || form.value.nomor_surat < 1)) {
+    window.Swal.fire({
+      icon: 'warning',
+      title: 'Validasi',
+      text: 'Nomor Surat (Angka) wajib diisi!'
     })
     return
   }
@@ -679,7 +664,9 @@ const saveData = async () => {
   try {
     const formData = new FormData()
     formData.append('tanggal_surat', form.value.tanggal_surat)
-    formData.append('nomor_surat', form.value.nomor_surat)
+    if (isEdit.value && form.value.nomor_surat) {
+      formData.append('nomor_surat', form.value.nomor_surat)
+    }
     formData.append('tujuan', form.value.tujuan)
     formData.append('perihal', form.value.perihal)
     
@@ -709,15 +696,16 @@ const saveData = async () => {
         showConfirmButton: false
       })
     } else {
-      await api.post('/surat-keluar/create', formData, {
+      const res = await api.post('/surat-keluar/create', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
+      const createdNomor = res.data?.data?.nomor_surat
       window.Swal.fire({
         icon: 'success',
-        title: 'Berhasil',
-        text: 'Surat keluar berhasil ditambahkan!',
-        timer: 1500,
-        showConfirmButton: false
+        title: 'Surat Keluar Berhasil Ditambahkan!',
+        html: `Nomor Surat Keluar yang diterbitkan:<br><span class="badge bg-primary fs-5 mt-2 px-3 py-2">No. ${createdNomor}</span>`,
+        confirmButtonText: 'Selesai',
+        confirmButtonColor: '#5d87ff'
       })
     }
 
