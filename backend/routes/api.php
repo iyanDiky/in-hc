@@ -87,6 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/datatables', [\App\Http\Controllers\SuratKeluarController::class, 'datatables']);
         Route::post('/list', [\App\Http\Controllers\SuratKeluarController::class, 'list']);
         Route::post('/detail', [\App\Http\Controllers\SuratKeluarController::class, 'detail']);
+        Route::post('/next-number', [\App\Http\Controllers\SuratKeluarController::class, 'nextNumber']);
         Route::post('/create', [\App\Http\Controllers\SuratKeluarController::class, 'create']);
         Route::post('/update', [\App\Http\Controllers\SuratKeluarController::class, 'update']);
         Route::post('/delete', [\App\Http\Controllers\SuratKeluarController::class, 'delete']);

@@ -16,7 +16,7 @@ Berikut adalah struktur tabel yang akan dibuat melalui migrasi Laravel:
 | :--- | :--- | :--- |
 | `id` | `VARCHAR(36)` / UUID | **Primary Key**, UUIDv7, Not Null |
 | `tanggal_surat` | `DATE` | Tanggal resmi surat dikeluarkan |
-| `nomor_surat` | `VARCHAR(255)` | Nomor surat keluar |
+| `nomor_surat` | `INTEGER` | Nomor urut surat keluar (bilangan bulat, otomatis bertambah 1 dan reset per tahun) |
 | `tujuan` | `VARCHAR(255)` | Pihak/instansi/unit tujuan surat |
 | `perihal` | `VARCHAR(255)` | Perihal / subjek isi surat |
 | `evidence` | `VARCHAR(255)` | Path file berkas lampiran surat (PDF/Gambar), *Nullable* |

@@ -112,11 +112,22 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Tanggal Surat <span class="text-danger">*</span></label>
-                <input type="date" class="form-control" v-model="form.tanggal_surat" required>
+                <input type="date" class="form-control" v-model="form.tanggal_surat" @change="onTanggalSuratChange" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label">Nomor Surat <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" v-model="form.nomor_surat" placeholder="Masukkan nomor surat" required>
+                <label class="form-label d-flex justify-content-between align-items-center">
+                  <span>Nomor Surat (Angka) <span class="text-danger">*</span></span>
+                  <span v-if="!isEdit" class="badge bg-light-primary text-primary fw-semibold fs-1">Otomatis (+1 per tahun)</span>
+                </label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  class="form-control" 
+                  v-model.number="form.nomor_surat" 
+                  placeholder="Nomor urut surat (angka)" 
+                  required
+                >
+                <small class="text-muted">Nomor berupa bilangan bulat yang berurutan per tahun.</small>
               </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label">Tujuan Surat <span class="text-danger">*</span></label>
@@ -174,7 +185,7 @@
           <div class="modal-header bg-light">
             <div>
               <h5 class="modal-title fw-semibold text-dark mb-0">Detail Surat Keluar</h5>
-              <span class="text-muted fs-2">{{ detailItem?.nomor_surat || '-' }}</span>
+              <span class="badge bg-primary text-white fs-2 mt-1">Nomor Surat: {{ detailItem?.nomor_surat ? `No. ${detailItem.nomor_surat}` : '-' }}</span>
             </div>
             <button type="button" class="btn-close" @click="showDetailModal = false"></button>
           </div>
@@ -361,6 +372,25 @@ const onUserRequestChange = () => {
   }
 }
 
+const fetchNextNomor = async (tanggal) => {
+  try {
+    const res = await api.post('/surat-keluar/next-number', {
+      tanggal_surat: tanggal || form.value.tanggal_surat || new Date().toISOString().split('T')[0]
+    })
+    if (res.data && res.data.next_nomor) {
+      form.value.nomor_surat = res.data.next_nomor
+    }
+  } catch (error) {
+    console.error('Error fetching next nomor', error)
+  }
+}
+
+const onTanggalSuratChange = () => {
+  if (!isEdit.value && form.value.tanggal_surat) {
+    fetchNextNomor(form.value.tanggal_surat)
+  }
+}
+
 let dataTableInstance = null
 let searchTimeout = null
 
@@ -449,7 +479,7 @@ const initDataTable = () => {
         data: 'perihal',
         render: function(data, type, row) {
           const safePerihal = escapeHtml(row.perihal || '-')
-          const safeNomor = escapeHtml(row.nomor_surat || '-')
+          const safeNomor = escapeHtml(row.nomor_surat !== null && row.nomor_surat !== undefined ? String(row.nomor_surat) : '-')
           return `
             <div class="d-flex align-items-center">
               <div class="rounded-2 p-2 bg-light-info text-info me-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
@@ -457,7 +487,9 @@ const initDataTable = () => {
               </div>
               <div>
                 <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 320px;" title="${safePerihal}">${safePerihal}</h6>
-                <p class="mb-0 text-muted fs-3">${safeNomor}</p>
+                <div class="d-flex align-items-center gap-1 mt-1">
+                  <span class="badge bg-light-primary text-primary fw-bold fs-2">No. ${safeNomor}</span>
+                </div>
               </div>
             </div>
           `;
@@ -569,9 +601,10 @@ const initDataTable = () => {
 
 const openModal = () => {
   isEdit.value = false
+  const today = new Date().toISOString().split('T')[0]
   form.value = { 
     id: '', 
-    tanggal_surat: new Date().toISOString().split('T')[0], 
+    tanggal_surat: today, 
     nomor_surat: '', 
     tujuan: '', 
     perihal: '', 
@@ -582,6 +615,7 @@ const openModal = () => {
   }
   evidenceFile.value = null
   showModal.value = true
+  fetchNextNomor(today)
 }
 
 const closeModal = () => {
@@ -596,7 +630,7 @@ const editItem = async (id) => {
     form.value = {
       id: data.id,
       tanggal_surat: data.tanggal_surat ? data.tanggal_surat.split('T')[0] : '',
-      nomor_surat: data.nomor_surat || '',
+      nomor_surat: data.nomor_surat !== null && data.nomor_surat !== undefined ? data.nomor_surat : '',
       tujuan: data.tujuan || '',
       perihal: data.perihal || '',
       user_request: data.user_request || '',
@@ -637,7 +671,7 @@ const saveData = async () => {
     window.Swal.fire({
       icon: 'warning',
       title: 'Validasi',
-      text: 'Tanggal Surat, Nomor Surat, Tujuan, dan Perihal wajib diisi!'
+      text: 'Tanggal Surat, Nomor Surat (Angka), Tujuan, dan Perihal wajib diisi!'
     })
     return
   }

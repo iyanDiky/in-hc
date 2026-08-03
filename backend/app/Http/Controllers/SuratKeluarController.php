@@ -37,7 +37,7 @@ class SuratKeluarController extends Controller
         if (!empty($searchValue)) {
             $search = strtolower($searchValue);
             $query->where(function($q) use ($search) {
-                $q->whereRaw('LOWER(nomor_surat) LIKE ?', ["%{$search}%"])
+                $q->whereRaw('CAST(nomor_surat AS TEXT) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"])
                   ->orWhereHas('userRequest', function($uq) use ($search) {
@@ -67,7 +67,7 @@ class SuratKeluarController extends Controller
                 }
             }
         } else {
-            $query->orderBy('tanggal_surat', 'desc');
+            $query->orderBy('tanggal_surat', 'desc')->orderBy('nomor_surat', 'desc');
         }
 
         // 5. Pagination
@@ -87,6 +87,19 @@ class SuratKeluarController extends Controller
         ]);
     }
 
+    public function nextNumber(Request $request)
+    {
+        $tanggalSurat = $request->input('tanggal_surat', date('Y-m-d'));
+        $year = date('Y', strtotime($tanggalSurat));
+        $maxNomor = SuratKeluar::whereYear('tanggal_surat', $year)->max('nomor_surat');
+        $nextNomor = ($maxNomor !== null) ? intval($maxNomor) + 1 : 1;
+
+        return response()->json([
+            'year' => intval($year),
+            'next_nomor' => $nextNomor
+        ]);
+    }
+
     public function list(Request $request)
     {
         $query = SuratKeluar::query()->with([
@@ -98,13 +111,13 @@ class SuratKeluarController extends Controller
         if ($request->has('search')) {
             $search = strtolower($request->search);
             $query->where(function($q) use ($search) {
-                $q->whereRaw('LOWER(nomor_surat) LIKE ?', ["%{$search}%"])
+                $q->whereRaw('CAST(nomor_surat AS TEXT) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
             });
         }
 
-        $query->orderBy('tanggal_surat', 'desc');
+        $query->orderBy('tanggal_surat', 'desc')->orderBy('nomor_surat', 'desc');
 
         $limit = $request->input('limit', 10);
         return response()->json($query->paginate($limit));
@@ -126,7 +139,7 @@ class SuratKeluarController extends Controller
     {
         $validated = $request->validate([
             'tanggal_surat' => 'required|date',
-            'nomor_surat' => 'required|string|max:255',
+            'nomor_surat' => 'nullable|integer|min:1',
             'tujuan' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'user_request' => 'nullable|uuid|exists:users,id',
@@ -134,6 +147,13 @@ class SuratKeluarController extends Controller
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'catatan' => 'nullable|string|max:255',
         ]);
+
+        // Auto increment nomor_surat per tahun
+        if (empty($validated['nomor_surat'])) {
+            $year = date('Y', strtotime($validated['tanggal_surat']));
+            $maxNomor = SuratKeluar::whereYear('tanggal_surat', $year)->max('nomor_surat');
+            $validated['nomor_surat'] = ($maxNomor !== null) ? intval($maxNomor) + 1 : 1;
+        }
 
         if ($request->hasFile('evidence')) {
             $file = $request->file('evidence');
@@ -159,7 +179,7 @@ class SuratKeluarController extends Controller
 
         $validated = $request->validate([
             'tanggal_surat' => 'required|date',
-            'nomor_surat' => 'required|string|max:255',
+            'nomor_surat' => 'required|integer|min:1',
             'tujuan' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'user_request' => 'nullable|uuid|exists:users,id',
