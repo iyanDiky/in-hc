@@ -84,7 +84,8 @@
           <table id="suratKeluarTable" class="table align-middle text-nowrap mb-0 w-100">
             <thead>
               <tr>
-                <th scope="col" style="min-width: 320px;">Perihal & Nomor Surat</th>
+                <th scope="col" style="min-width: 130px;">No. Surat</th>
+                <th scope="col" style="min-width: 260px;">Perihal</th>
                 <th scope="col">Tanggal Surat</th>
                 <th scope="col">Tujuan</th>
                 <th scope="col">Pemohon (Unit/Bagian)</th>
@@ -451,22 +452,32 @@ const initDataTable = () => {
         })
       }
     },
+    order: [[2, 'desc'], [0, 'desc']],
     columns: [
+      { 
+        data: 'nomor_surat',
+        render: function(data, type, row) {
+          const safeNomor = escapeHtml(row.nomor_surat !== null && row.nomor_surat !== undefined ? String(row.nomor_surat) : '-')
+          return `
+            <div class="d-flex align-items-center">
+              <span class="badge bg-light-primary text-primary fw-bold fs-3 px-3 py-2 rounded-2">
+                <i class="ti ti-hash me-1"></i>${safeNomor}
+              </span>
+            </div>
+          `;
+        }
+      },
       { 
         data: 'perihal',
         render: function(data, type, row) {
           const safePerihal = escapeHtml(row.perihal || '-')
-          const safeNomor = escapeHtml(row.nomor_surat !== null && row.nomor_surat !== undefined ? String(row.nomor_surat) : '-')
           return `
             <div class="d-flex align-items-center">
-              <div class="rounded-2 p-2 bg-light-info text-info me-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
-                <i class="ti ti-file-export fs-6"></i>
+              <div class="rounded-2 p-2 bg-light-info text-info me-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 36px; height: 36px;">
+                <i class="ti ti-file-text fs-5"></i>
               </div>
               <div>
-                <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 320px;" title="${safePerihal}">${safePerihal}</h6>
-                <div class="d-flex align-items-center gap-1 mt-1">
-                  <span class="badge bg-light-primary text-primary fw-bold fs-2">No. ${safeNomor}</span>
-                </div>
+                <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 280px;" title="${safePerihal}">${safePerihal}</h6>
               </div>
             </div>
           `;
