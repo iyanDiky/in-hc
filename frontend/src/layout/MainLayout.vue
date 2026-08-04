@@ -15,7 +15,20 @@
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <router-link to="/" class="text-nowrap logo-img" @click="onMenuClick">
-            <h2>IN-HC</h2>
+            <img 
+              v-if="customizerState.themeMode !== 'dark'" 
+              src="/dist/images/logos/dhc/dark-logo.png" 
+              class="dark-logo" 
+              alt="Logo" 
+              style="height: 38px; max-width: 175px; object-fit: contain;" 
+            />
+            <img 
+              v-else 
+              src="/dist/images/logos/dhc/light-logo.png" 
+              class="light-logo" 
+              alt="Logo" 
+              style="height: 38px; max-width: 175px; object-fit: contain;" 
+            />
           </router-link>
           <div class="close-btn d-lg-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse" @click="closeSidebar">
             <i class="ti ti-x fs-8 text-muted"></i>
@@ -117,56 +130,72 @@
             </li>
           </ul>
           <div class="d-block d-lg-none">
-            <span class="fw-bold fs-4 mb-0">IN-HC</span>
+            <img 
+              v-if="customizerState.themeMode !== 'dark'" 
+              src="/dist/images/logos/dhc/dark-logo.png" 
+              alt="Logo" 
+              style="height: 28px; max-width: 130px; object-fit: contain;" 
+            />
+            <img 
+              v-else 
+              src="/dist/images/logos/dhc/light-logo.png" 
+              alt="Logo" 
+              style="height: 28px; max-width: 130px; object-fit: contain;" 
+            />
           </div>
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <button class="navbar-toggler p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" :aria-expanded="isNavbarOpen" aria-label="Toggle navigation" @click="toggleNavbar">
+            <span class="p-2">
+              <i class="ti ti-dots fs-7"></i>
+            </span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav" :class="{ 'show': isNavbarOpen }">
             <div class="d-flex align-items-center justify-content-between">
               <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
                 <!-- Right: User Profile -->
                 <li class="nav-item dropdown">
-                  <a class="nav-link pe-0" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="d-flex align-items-center">
-                      <div class="d-none d-md-block text-end me-2 lh-sm">
-                        <span class="d-block fw-semibold fs-3">{{ user?.nama || 'User' }}</span>
-                        <span class="d-block text-muted fs-2">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
-                      </div>
-                      <div class="user-profile-img">
-                        <img src="/dist/images/profile/user-1.jpg" class="rounded-circle shadow-sm" width="35" height="35" alt="user" />
+                <a class="nav-link pe-0" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="d-flex align-items-center">
+                    <div class="d-none d-md-block text-end me-2 lh-sm">
+                      <span class="d-block fw-semibold fs-3">{{ user?.nama || 'User' }}</span>
+                      <span class="d-block text-muted fs-2">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
+                    </div>
+                    <div class="user-profile-img">
+                      <img src="/dist/images/profile/user-1.jpg" class="rounded-circle shadow-sm" width="35" height="35" alt="user" />
+                    </div>
+                  </div>
+                </a>
+                <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="profile-dropdown position-relative" data-simplebar>
+                    <div class="py-3 px-7 pb-0">
+                      <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
+                    </div>
+                    <div class="d-flex align-items-center py-9 mx-7 border-bottom">
+                      <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="70" height="70" alt="user" />
+                      <div class="ms-3">
+                        <h5 class="mb-1 fs-4 text-truncate" style="max-width: 170px;">{{ user?.nama || 'User' }}</h5>
+                        <span class="mb-1 d-block badge bg-light-primary text-primary fw-medium">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
+                        <p class="mb-0 d-flex text-muted align-items-center gap-1 fs-2">
+                          <i class="ti ti-id fs-3"></i> {{ user?.npp || '-' }}
+                        </p>
                       </div>
                     </div>
-                  </a>
-                  <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                    <div class="profile-dropdown position-relative" data-simplebar>
-                      <div class="py-3 px-7 pb-0">
-                        <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
-                      </div>
-                      <div class="d-flex align-items-center py-9 mx-7 border-bottom">
-                        <img src="/dist/images/profile/user-1.jpg" class="rounded-circle" width="70" height="70" alt="user" />
-                        <div class="ms-3">
-                          <h5 class="mb-1 fs-4 text-truncate" style="max-width: 170px;">{{ user?.nama || 'User' }}</h5>
-                          <span class="mb-1 d-block badge bg-light-primary text-primary fw-medium">{{ user?.level === 'admin' ? 'Administrator' : 'User' }}</span>
-                          <p class="mb-0 d-flex text-muted align-items-center gap-1 fs-2">
-                            <i class="ti ti-id fs-3"></i> {{ user?.npp || '-' }}
-                          </p>
-                        </div>
-                      </div>
-                      <div class="message-body">
-                        <div class="d-grid py-4 px-7 pt-6 gap-2">
-                          <button @click="showChangePasswordModal = true" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2">
-                            <i class="ti ti-key fs-4"></i> Ubah Password
-                          </button>
-                          <button @click="handleLogout" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center gap-2">
-                            <i class="ti ti-logout fs-4"></i> Log Out
-                          </button>
-                        </div>
+                    <div class="message-body">
+                      <div class="d-grid py-4 px-7 pt-6 gap-2">
+                        <button @click="showChangePasswordModal = true" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2">
+                          <i class="ti ti-key fs-4"></i> Ubah Password
+                        </button>
+                        <button @click="handleLogout" class="btn btn-danger btn-sm d-flex align-items-center justify-content-center gap-2">
+                          <i class="ti ti-logout fs-4"></i> Log Out
+                        </button>
                       </div>
                     </div>
                   </div>
-                </li>
-              </ul>
-            </div>
+                </div>
+              </li>
+            </ul>
           </div>
-        </nav>
+        </div>
+      </nav>
       </header>
       <!--  Header End -->
       
@@ -223,7 +252,12 @@ const user = ref(null)
 
 const { state: customizerState } = useCustomizer()
 const isSidebarShow = ref(false)
+const isNavbarOpen = ref(false)
 const isMobile = ref(false)
+
+const toggleNavbar = () => {
+  isNavbarOpen.value = !isNavbarOpen.value
+}
 
 const currentSidebarType = computed(() => {
   if (isMobile.value) {
@@ -261,10 +295,12 @@ const closeSidebar = () => {
 const onMenuClick = () => {
   if (isMobile.value) {
     closeSidebar()
+    isNavbarOpen.value = false
   }
 }
 
 watch(() => route.path, () => {
+  isNavbarOpen.value = false
   if (isMobile.value) {
     closeSidebar()
   }

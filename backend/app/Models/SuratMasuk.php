@@ -25,6 +25,12 @@ class SuratMasuk extends Model
                 $model->user_input = Auth::id();
             }
         });
+
+        static::deleting(function ($model) {
+            foreach ($model->disposisi()->get() as $disp) {
+                $disp->delete();
+            }
+        });
     }
 
     public function disposisi()

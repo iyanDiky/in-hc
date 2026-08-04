@@ -102,7 +102,7 @@
     </div>
 
     <!-- Modal Form Tambah / Edit -->
-    <div v-if="showModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
+    <div v-if="showModal" id="formModal" class="modal fade show" style="display: block; background: rgba(0,0,0,0.5)">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -136,8 +136,8 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Pegawai Pemohon (User Request)</label>
-                <select class="form-select" v-model="form.user_request" @change="onUserRequestChange">
-                  <option value="">-- Pilih Pegawai Pemohon --</option>
+                <select class="select2-user form-control" v-model="form.user_request" style="width: 100%; height: 36px">
+                  <option value="">Pilih Pegawai Pemohon...</option>
                   <option v-for="u in usersList" :key="u.id" :value="u.id">
                     {{ u.nama }} (NPP: {{ u.npp || '-' }})
                   </option>
@@ -145,8 +145,8 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Bagian / Seksi Pemohon</label>
-                <select class="form-select" v-model="form.bagian_seksi_request">
-                  <option value="">-- Pilih Bagian Seksi --</option>
+                <select class="select2-seksi form-control" v-model="form.bagian_seksi_request" style="width: 100%; height: 36px">
+                  <option value="">Pilih Bagian Seksi...</option>
                   <option v-for="bs in bagianSeksiList" :key="bs.id" :value="bs.id">
                     {{ bs.kode ? `[${bs.kode}] ` : '' }}{{ bs.bagian_seksi }}
                   </option>
@@ -275,7 +275,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import api from '../utils/api'
 
 const showModal = ref(false)
@@ -583,8 +583,42 @@ const initDataTable = () => {
   })
 }
 
-const openModal = () => {
+const initModalSelect2 = () => {
+  const $ = window.$
+  if (!$ || !$.fn.select2) return
+
+  // Inisialisasi Select2 Pegawai Pemohon
+  $('.select2-user').select2({
+    dropdownParent: $('#formModal')
+  })
+  $('.select2-user').val(form.value.user_request).trigger('change.select2')
+  $('.select2-user').on('change', function() {
+    const val = $(this).val()
+    form.value.user_request = val
+    if (val) {
+      const selectedUser = usersList.value.find(u => u.id === val)
+      if (selectedUser && selectedUser.bagian_seksi_id) {
+        form.value.bagian_seksi_request = selectedUser.bagian_seksi_id
+        $('.select2-seksi').val(selectedUser.bagian_seksi_id).trigger('change.select2')
+      }
+    }
+  })
+
+  // Inisialisasi Select2 Bagian Seksi Pemohon
+  $('.select2-seksi').select2({
+    dropdownParent: $('#formModal')
+  })
+  $('.select2-seksi').val(form.value.bagian_seksi_request).trigger('change.select2')
+  $('.select2-seksi').on('change', function() {
+    form.value.bagian_seksi_request = $(this).val()
+  })
+}
+
+const openModal = async () => {
   isEdit.value = false
+  if (usersList.value.length === 0 || bagianSeksiList.value.length === 0) {
+    await fetchOptions()
+  }
   const today = new Date().toISOString().split('T')[0]
   form.value = { 
     id: '', 
@@ -599,6 +633,11 @@ const openModal = () => {
   }
   evidenceFile.value = null
   showModal.value = true
+
+  await nextTick()
+  setTimeout(() => {
+    initModalSelect2()
+  }, 50)
 }
 
 const closeModal = () => {
@@ -608,6 +647,9 @@ const closeModal = () => {
 
 const editItem = async (id) => {
   try {
+    if (usersList.value.length === 0 || bagianSeksiList.value.length === 0) {
+      await fetchOptions()
+    }
     const res = await api.post('/surat-keluar/detail', { id })
     const data = res.data
     form.value = {
@@ -624,6 +666,11 @@ const editItem = async (id) => {
     isEdit.value = true
     evidenceFile.value = null
     showModal.value = true
+
+    await nextTick()
+    setTimeout(() => {
+      initModalSelect2()
+    }, 50)
   } catch (error) {
     console.error('Error fetching detail for edit', error)
     window.Swal.fire({

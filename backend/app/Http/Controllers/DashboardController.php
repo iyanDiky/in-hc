@@ -28,14 +28,14 @@ class DashboardController extends Controller
         // Total Keseluruhan (Aktif / Non-deleted)
         $totalSuratMasuk = SuratMasuk::count();
         $totalSuratKeluar = SuratKeluar::count();
-        $totalDisposisi = SuratMasukDisposisi::count();
+        $totalDisposisi = SuratMasukDisposisi::whereHas('suratMasuk')->count();
         $totalPelamar = Lamaran::count();
         $totalSurat = $totalSuratMasuk + $totalSuratKeluar;
 
         // Total Bulan Ini
         $suratMasukBulanIni = SuratMasuk::whereBetween('tanggal_surat', [$startThisMonth, $endThisMonth])->count();
         $suratKeluarBulanIni = SuratKeluar::whereBetween('tanggal_surat', [$startThisMonth, $endThisMonth])->count();
-        $disposisiBulanIni = SuratMasukDisposisi::whereBetween('disposisi_waktu', [$startThisMonth . ' 00:00:00', $endThisMonth . ' 23:59:59'])->count();
+        $disposisiBulanIni = SuratMasukDisposisi::whereHas('suratMasuk')->whereBetween('disposisi_waktu', [$startThisMonth . ' 00:00:00', $endThisMonth . ' 23:59:59'])->count();
         $pelamarBulanIni = Lamaran::whereBetween('tanggal_diterima', [$startThisMonth, $endThisMonth])->count();
         $totalBulanIni = $suratMasukBulanIni + $suratKeluarBulanIni;
 
@@ -122,7 +122,8 @@ class DashboardController extends Controller
         }
 
         // Agregasi Disposisi
-        $disposisiPerBulan = SuratMasukDisposisi::selectRaw(sprintf($monthExpr, 'disposisi_waktu') . ' as month, count(*) as total')
+        $disposisiPerBulan = SuratMasukDisposisi::whereHas('suratMasuk')
+            ->selectRaw(sprintf($monthExpr, 'disposisi_waktu') . ' as month, count(*) as total')
             ->whereYear('disposisi_waktu', $year)
             ->groupBy(DB::raw(sprintf($monthExpr, 'disposisi_waktu')))
             ->pluck('total', 'month');
@@ -253,7 +254,7 @@ class DashboardController extends Controller
         // Status Disposisi
         $totalMasuk = SuratMasuk::count();
         $disposisiDone = SuratMasuk::has('disposisi')->count();
-        $disposisiPending = $totalMasuk - $disposisiDone;
+        $disposisiPending = max(0, $totalMasuk - $disposisiDone);
         $persentaseSelesai = $totalMasuk > 0 ? round(($disposisiDone / $totalMasuk) * 100) : 0;
 
         return response()->json([
@@ -317,7 +318,8 @@ class DashboardController extends Controller
         }
 
         // 3. Disposisi Terbaru
-        $latestDisposisi = SuratMasukDisposisi::with(['disposisiOleh', 'suratMasuk'])
+        $latestDisposisi = SuratMasukDisposisi::whereHas('suratMasuk')
+            ->with(['disposisiOleh', 'suratMasuk'])
             ->latest('created_at')
             ->limit(4)
             ->get();

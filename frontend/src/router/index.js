@@ -74,6 +74,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  document.title = 'Human Capital'
   const isAuthenticated = !!localStorage.getItem('auth_token')
   
   if (to.meta.requiresAuth && !isAuthenticated) {
