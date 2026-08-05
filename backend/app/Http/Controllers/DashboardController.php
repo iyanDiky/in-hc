@@ -219,41 +219,29 @@ class DashboardController extends Controller
      */
     public function chartDistribution(Request $request)
     {
-        // Distribusi Surat Keluar per Bagian Seksi
-        $distribution = SuratKeluar::selectRaw('bagian_seksi_request, count(*) as total')
-            ->whereNotNull('bagian_seksi_request')
-            ->groupBy('bagian_seksi_request')
-            ->orderByDesc('total')
-            ->limit(4)
-            ->with('bagianSeksiRequest')
-            ->get();
+        // Ambil data semua bagian seksi yang ada di database (aktif / tidak terhapus)
+        $bagianSeksiList = BagianSeksi::orderBy('bagian_seksi', 'asc')->get();
 
         $labels = [];
         $series = [];
         $rawCounts = [];
 
+        // Hitung total surat keluar yang memiliki bagian_seksi_request valid
         $totalKeluar = SuratKeluar::whereNotNull('bagian_seksi_request')->count();
 
-        foreach ($distribution as $item) {
-            $nama = $item->bagianSeksiRequest ? $item->bagianSeksiRequest->bagian_seksi : 'Bagian / Seksi';
-            $count = (int) $item->total;
-            $percentage = $totalKeluar > 0 ? round(($count / $totalKeluar) * 100) : 0;
+        // Hitung jumlah surat keluar untuk masing-masing bagian seksi yang terdaftar di database
+        foreach ($bagianSeksiList as $bagian) {
+            $count = SuratKeluar::where('bagian_seksi_request', $bagian->id)->count();
+            $percentage = $totalKeluar > 0 ? round(($count / $totalKeluar) * 100, 1) : 0;
 
-            $labels[] = $nama;
+            $labels[] = $bagian->bagian_seksi;
             $series[] = $percentage;
             $rawCounts[] = $count;
         }
 
-        // Jika data kurang dari 4, fallback default label yang informatif
-        if (empty($labels)) {
-            $labels = ['Bagian Operasional', 'Bagian SDM', 'Bagian Keuangan', 'Bagian Umum'];
-            $series = [25, 25, 25, 25];
-            $rawCounts = [0, 0, 0, 0];
-        }
-
         // Status Disposisi
         $totalMasuk = SuratMasuk::count();
-        $disposisiDone = SuratMasuk::has('disposisi')->count();
+        $disposisiDone = SuratMasukDisposisi::whereHas('suratMasuk')->count();
         $disposisiPending = max(0, $totalMasuk - $disposisiDone);
         $persentaseSelesai = $totalMasuk > 0 ? round(($disposisiDone / $totalMasuk) * 100) : 0;
 

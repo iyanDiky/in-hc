@@ -393,7 +393,7 @@
                 <div id="distribution-radial-chart" ref="distributionChartEl" style="min-height: 280px;"></div>
               </div>
               <div class="col-md-5">
-                <div class="d-flex flex-column gap-3">
+                <div class="d-flex flex-column gap-2" style="max-height: 290px; overflow-y: auto;">
                   <div 
                     v-for="(label, idx) in distributionData.labels" 
                     :key="idx"
@@ -404,11 +404,14 @@
                         class="round-8 rounded-circle d-inline-block flex-shrink-0"
                         :style="{ backgroundColor: distributionColors[idx % distributionColors.length] }"
                       ></span>
-                      <span class="fs-2 fw-semibold text-truncate">{{ label }}</span>
+                      <span class="fs-2 fw-semibold text-truncate" :title="label">{{ label }}</span>
                     </div>
-                    <span class="badge bg-white text-dark shadow-sm fs-2 fw-bold">
+                    <span class="badge bg-white text-dark shadow-sm fs-2 fw-bold flex-shrink-0">
                       {{ distributionData.raw_counts[idx] || 0 }}
                     </span>
+                  </div>
+                  <div v-if="distributionData.labels.length === 0" class="text-center py-4 text-muted fs-2">
+                    Belum ada data bagian / seksi di database
                   </div>
                 </div>
               </div>
@@ -595,7 +598,7 @@ const getLetterDetailRoute = (letter) => {
 const weeklyTotal = ref(0)
 
 // Distribution Data
-const distributionColors = ['#615dff', '#fa896b', '#ffae1f', '#3dd9eb']
+const distributionColors = ['#5D87FF', '#49BEFF', '#13DEB9', '#FFAE1F', '#FA896B', '#7C5CFC', '#FF6692', '#36B37E', '#4E73DF', '#36B9CC', '#E83E8C', '#6F42C1']
 const distributionData = ref({
   labels: [],
   series: [],
@@ -844,36 +847,41 @@ const renderDistributionChart = (data) => {
 
   const isDark = customizerState.themeMode === 'dark'
 
+  const countUnits = data.labels.length
+  const seriesValues = data.series.length > 0 ? data.series : [0]
+  const labelNames = data.labels.length > 0 ? data.labels : ['Belum Ada Bagian']
+  const chartColors = labelNames.map((_, idx) => distributionColors[idx % distributionColors.length])
+
   const options = {
     chart: {
       type: 'radialBar',
       fontFamily: "'Plus Jakarta Sans', sans-serif",
       foreColor: '#adb0bb',
-      height: 300
+      height: 320
     },
-    series: data.series.length > 0 ? data.series : [25, 25, 25, 25],
-    colors: distributionColors,
+    series: seriesValues,
+    colors: chartColors,
     plotOptions: {
       radialBar: {
         hollow: {
-          margin: 10,
-          size: '40%'
+          margin: 8,
+          size: countUnits > 4 ? '25%' : '35%'
         },
         track: {
           background: isDark ? '#2a3447' : '#f2f6fa'
         },
         dataLabels: {
           name: {
-            fontSize: '13px'
+            fontSize: '12px'
           },
           value: {
-            fontSize: '14px',
+            fontSize: '13px',
             formatter: (val) => `${val}%`
           },
           total: {
             show: true,
-            label: 'Seksi',
-            formatter: () => `${data.labels.length} Unit`
+            label: 'Total Bagian',
+            formatter: () => `${countUnits} Unit`
           }
         }
       }
@@ -881,7 +889,7 @@ const renderDistributionChart = (data) => {
     stroke: {
       lineCap: 'round'
     },
-    labels: data.labels.length > 0 ? data.labels : ['Seksi A', 'Seksi B', 'Seksi C', 'Seksi D'],
+    labels: labelNames,
     tooltip: {
       enabled: true,
       theme: isDark ? 'dark' : 'light'
