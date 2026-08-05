@@ -207,7 +207,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import api from '../utils/api'
+import api, { getStorageUrl } from '../utils/api'
 
 const route = useRoute()
 const suratMasukId = route.params.id
@@ -253,7 +253,7 @@ const isPdf = (path) => {
 }
 
 const getFileUrl = (path) => {
-  return `http://localhost:8000/storage/${path}`
+  return getStorageUrl(path)
 }
 
 const formatDate = (dateStr) => {

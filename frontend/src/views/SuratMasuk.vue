@@ -155,7 +155,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import api from '../utils/api'
+import api, { getStorageUrl } from '../utils/api'
 
 const router = useRouter()
 
@@ -186,7 +186,7 @@ const form = ref({
 })
 
 const getFileUrl = (path) => {
-  return `http://localhost:8000/storage/${path}`
+  return getStorageUrl(path)
 }
 
 const escapeHtml = (unsafe) => {

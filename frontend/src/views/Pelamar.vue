@@ -301,7 +301,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import api from '../utils/api'
+import api, { getStorageUrl } from '../utils/api'
 
 const showModal = ref(false)
 const showDetailModal = ref(false)
@@ -338,7 +338,7 @@ const evidenceFile = ref(null)
 
 const getFileUrl = (path) => {
   if (!path) return ''
-  return `http://localhost:8000/storage/${path}`
+  return getStorageUrl(path)
 }
 
 const isPdf = (path) => {
