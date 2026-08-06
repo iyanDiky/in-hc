@@ -3,14 +3,20 @@
     <div class="card bg-light-info shadow-none position-relative overflow-hidden">
       <div class="card-body px-4 py-3">
         <div class="row align-items-center">
-          <div class="col-9">
+          <div class="col-8">
             <h4 class="fw-semibold mb-8">Detail Surat Masuk</h4>
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
+              <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><router-link to="/surat-masuk" class="text-muted">Surat Masuk</router-link></li>
                 <li class="breadcrumb-item" aria-current="page">Detail</li>
               </ol>
             </nav>
+          </div>
+          <div class="col-4 text-end">
+            <router-link to="/surat-masuk" class="btn btn-outline-primary d-inline-flex align-items-center gap-2">
+              <i class="ti ti-arrow-left fs-5"></i>
+              <span>Kembali</span>
+            </router-link>
           </div>
         </div>
       </div>
