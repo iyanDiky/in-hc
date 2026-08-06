@@ -19,6 +19,11 @@ class SuratKeluarController extends Controller
         // Total count before any filter
         $recordsTotal = SuratKeluar::count();
 
+        // 0. Tahun Filter
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggal_surat', $request->input('tahun'));
+        }
+
         // 1. Date Range Filter
         if ($request->filled('start_date')) {
             $query->whereDate('tanggal_surat', '>=', $request->input('start_date'));
@@ -67,7 +72,7 @@ class SuratKeluarController extends Controller
                 }
             }
         } else {
-            $query->orderBy('tanggal_surat', 'desc')->orderBy('nomor_surat', 'desc');
+            $query->orderBy('nomor_surat', 'desc')->orderBy('tanggal_surat', 'desc');
         }
 
         // 5. Pagination
@@ -85,6 +90,23 @@ class SuratKeluarController extends Controller
             'recordsFiltered' => $recordsFiltered,
             'data' => $data
         ]);
+    }
+
+    public function years()
+    {
+        $years = SuratKeluar::selectRaw('DISTINCT EXTRACT(YEAR FROM tanggal_surat)::integer as year')
+            ->whereNotNull('tanggal_surat')
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->toArray();
+
+        $currentYear = intval(date('Y'));
+        if (!in_array($currentYear, $years)) {
+            $years[] = $currentYear;
+            rsort($years);
+        }
+
+        return response()->json($years);
     }
 
     public function nextNumber(Request $request)

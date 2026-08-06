@@ -33,6 +33,15 @@
               />
               <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-muted ms-3"></i>
             </div>
+            <!-- Pilihan Tahun Filter -->
+            <div style="min-width: 140px;">
+              <select class="form-select py-2 fw-semibold text-primary" v-model="selectedYear" @change="onYearChange">
+                <option value="">Semua Tahun</option>
+                <option v-for="yr in availableYears" :key="yr" :value="String(yr)">
+                  Tahun {{ yr }}
+                </option>
+              </select>
+            </div>
             <button 
               class="btn d-flex align-items-center gap-2"
               :class="showFilter || isFilterActive ? 'btn-primary' : 'btn-outline-secondary'"
@@ -284,6 +293,10 @@ const isEdit = ref(false)
 const showFilter = ref(false)
 const searchQuery = ref('')
 
+const currentYear = new Date().getFullYear().toString()
+const selectedYear = ref(currentYear)
+const availableYears = ref([new Date().getFullYear()])
+
 const usersList = ref([])
 const bagianSeksiList = ref([])
 
@@ -376,6 +389,12 @@ const toggleFilter = () => {
   showFilter.value = !showFilter.value
 }
 
+const onYearChange = () => {
+  if (dataTableInstance) {
+    dataTableInstance.ajax.reload()
+  }
+}
+
 const onSearchInput = () => {
   clearTimeout(searchTimeout)
   searchTimeout = setTimeout(() => {
@@ -402,12 +421,16 @@ const resetFilter = () => {
 
 const fetchOptions = async () => {
   try {
-    const [usersRes, bsRes] = await Promise.all([
+    const [usersRes, bsRes, yearsRes] = await Promise.all([
       api.post('/users/list', { limit: 1000 }),
-      api.post('/bagian-seksi/list', { limit: 1000 })
+      api.post('/bagian-seksi/list', { limit: 1000 }),
+      api.post('/surat-keluar/years')
     ])
     usersList.value = usersRes.data.data || usersRes.data || []
     bagianSeksiList.value = bsRes.data.data || bsRes.data || []
+    if (Array.isArray(yearsRes.data) && yearsRes.data.length > 0) {
+      availableYears.value = yearsRes.data
+    }
   } catch (error) {
     console.error('Error fetching options for select', error)
   }
@@ -431,6 +454,7 @@ const initDataTable = () => {
       try {
         const payload = {
           ...data,
+          tahun: selectedYear.value || null,
           start_date: filter.value.startDate || null,
           end_date: filter.value.endDate || null,
           bagian_seksi_request: filter.value.bagianSeksiRequest || null
@@ -452,7 +476,7 @@ const initDataTable = () => {
         })
       }
     },
-    order: [[2, 'desc'], [0, 'desc']],
+    order: [[0, 'desc']],
     columns: [
       { 
         data: 'nomor_surat',
