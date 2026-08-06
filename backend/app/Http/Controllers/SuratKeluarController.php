@@ -72,7 +72,7 @@ class SuratKeluarController extends Controller
                 }
             }
         } else {
-            $query->orderBy('nomor_surat', 'desc')->orderBy('tanggal_surat', 'desc');
+            $query->orderBy('created_at', 'desc')->orderBy('nomor_surat', 'desc');
         }
 
         // 5. Pagination

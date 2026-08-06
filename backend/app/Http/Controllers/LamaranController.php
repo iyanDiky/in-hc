@@ -64,7 +64,7 @@ class LamaranController extends Controller
                 }
             }
         } else {
-            $query->orderBy('tanggal_diterima', 'desc')->orderBy('nomor_lamaran', 'desc');
+            $query->orderBy('created_at', 'desc')->orderBy('tanggal_diterima', 'desc');
         }
 
         // 5. Pagination

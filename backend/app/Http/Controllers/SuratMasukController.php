@@ -14,6 +14,11 @@ class SuratMasukController extends Controller
         // Total count before any filter
         $recordsTotal = SuratMasuk::count();
 
+        // 0. Tahun Filter
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggal_surat', $request->input('tahun'));
+        }
+
         // 1. Date Range Filter
         if ($request->filled('start_date')) {
             $query->whereDate('tanggal_surat', '>=', $request->input('start_date'));
@@ -60,7 +65,7 @@ class SuratMasukController extends Controller
                 }
             }
         } else {
-            $query->orderBy('created_at', 'desc');
+            $query->orderBy('created_at', 'desc')->orderBy('tanggal_surat', 'desc');
         }
 
         // 5. Pagination
@@ -80,6 +85,23 @@ class SuratMasukController extends Controller
         ]);
     }
 
+    public function years()
+    {
+        $years = SuratMasuk::selectRaw('DISTINCT EXTRACT(YEAR FROM tanggal_surat)::integer as year')
+            ->whereNotNull('tanggal_surat')
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->toArray();
+
+        $currentYear = intval(date('Y'));
+        if (!in_array($currentYear, $years)) {
+            $years[] = $currentYear;
+            rsort($years);
+        }
+
+        return response()->json($years);
+    }
+
     public function list(Request $request)
     {
         $query = SuratMasuk::query();
@@ -92,7 +114,7 @@ class SuratMasukController extends Controller
                   ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
         }
 
-        $query->orderBy('created_at', 'desc');
+        $query->orderBy('created_at', 'desc')->orderBy('tanggal_surat', 'desc');
 
         $limit = $request->input('limit', 10);
         return response()->json($query->paginate($limit));

@@ -16,7 +16,7 @@ class SuratKeluarSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::first();
+        $admin = User::where('nama', 'The Admin')->first() ?? User::where('username', 'admin')->first() ?? User::first();
         if ($admin) {
             Auth::login($admin);
         }
@@ -34,14 +34,19 @@ class SuratKeluarSeeder extends Seeder
         }
 
         $adminId = $admin ? $admin->id : null;
+        $adminBagianSeksiId = $admin ? $admin->bagian_seksi_id : null;
+        $baseCreatedAt = \Carbon\Carbon::parse('2025-09-01 08:00:00');
 
-        // Cache BagianSeksi by kode (e.g. 'PPH', 'KM', 'PPL')
         $bagianSeksiMap = BagianSeksi::all()->keyBy('kode');
 
-        foreach ($data as $item) {
+        foreach ($data as $index => $item) {
+            $createdAt = (clone $baseCreatedAt)->addMinutes($index * 5);
+
             $bagianSeksiId = null;
             if (!empty($item['bidang_kode']) && isset($bagianSeksiMap[$item['bidang_kode']])) {
                 $bagianSeksiId = $bagianSeksiMap[$item['bidang_kode']]->id;
+            } else {
+                $bagianSeksiId = $adminBagianSeksiId;
             }
 
             SuratKeluar::create([
@@ -54,6 +59,8 @@ class SuratKeluarSeeder extends Seeder
                 'user_input' => $adminId,
                 'user_request' => $adminId,
                 'bagian_seksi_request' => $bagianSeksiId,
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt,
             ]);
         }
 

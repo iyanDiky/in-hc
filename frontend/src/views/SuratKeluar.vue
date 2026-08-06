@@ -449,6 +449,7 @@ const initDataTable = () => {
   dataTableInstance = window.$('#suratKeluarTable').DataTable({
     serverSide: true,
     processing: true,
+    order: [],
     dom: 'rt<"d-flex align-items-center justify-content-between flex-wrap gap-2 p-3 border-top"lip>',
     ajax: async function (data, callback, settings) {
       try {

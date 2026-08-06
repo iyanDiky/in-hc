@@ -15,7 +15,7 @@ class LamaranSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::first();
+        $admin = User::where('nama', 'The Admin')->first() ?? User::where('username', 'admin')->first() ?? User::first();
         if ($admin) {
             Auth::login($admin);
         }
@@ -33,20 +33,30 @@ class LamaranSeeder extends Seeder
         }
 
         $adminId = $admin ? $admin->id : null;
+        $baseCreatedAt = \Carbon\Carbon::parse('2025-10-01 08:00:00');
 
-        foreach ($data as $item) {
-            Lamaran::create([
-                'nomor_lamaran' => $item['nomor_lamaran'],
-                'tanggal_diterima' => $item['tanggal_diterima'],
-                'nama' => $item['nama'],
-                'tempat_lahir' => $item['tempat_lahir'] ?? null,
-                'tanggal_lahir' => $item['tanggal_lahir'] ?? null,
-                'pendidikan' => $item['pendidikan'] ?? 'S1',
-                'institusi' => $item['institusi'] ?? 'Lainnya',
-                'jurusan' => $item['jurusan'] ?? null,
-                'catatan' => $item['catatan'] ?? null,
-                'user_input' => $adminId,
-            ]);
+        foreach ($data as $index => $item) {
+            $createdAt = (clone $baseCreatedAt)->addMinutes($index * 10);
+
+            Lamaran::updateOrCreate(
+                [
+                    'nomor_lamaran' => $item['nomor_lamaran'],
+                    'nama' => $item['nama'],
+                    'tanggal_diterima' => $item['tanggal_diterima'],
+                ],
+                [
+                    'tempat_lahir' => $item['tempat_lahir'] ?? null,
+                    'tanggal_lahir' => $item['tanggal_lahir'] ?? null,
+                    'pendidikan' => $item['pendidikan'] ?? 'LAINNYA',
+                    'institusi' => $item['institusi'] ?? 'Lainnya',
+                    'jurusan' => $item['jurusan'] ?? '-',
+                    'evidence' => null,
+                    'catatan' => null,
+                    'user_input' => $adminId,
+                    'created_at' => $createdAt,
+                    'updated_at' => $createdAt,
+                ]
+            );
         }
 
         $this->command->info('Seeding Lamaran berhasil: ' . count($data) . ' data dimasukkan.');

@@ -5,10 +5,11 @@
     "nama": "Muhammad Putera Anami",
     "tempat_lahir": "Kandangan",
     "tanggal_lahir": "1999-12-28",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Muhammadiyah Malang",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 2,
@@ -16,10 +17,11 @@
     "nama": "Chandra Putera",
     "tempat_lahir": "Berangas",
     "tanggal_lahir": "2004-01-16",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "Politeknik Negeri Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 3,
@@ -27,10 +29,11 @@
     "nama": "Dinda Febiola Setiawan Cahya Dewi",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2004-03-20",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Sekolah Tinggi Ilmu Ekonomi Nasional Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 4,
@@ -38,10 +41,11 @@
     "nama": "Faiha Zalfs",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-05-15",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 5,
@@ -49,10 +53,11 @@
     "nama": "Alifa Rahmah",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2003-04-09",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 6,
@@ -62,8 +67,9 @@
     "tanggal_lahir": "2004-12-21",
     "pendidikan": "SMA",
     "institusi": "SMAN 5 Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 7,
@@ -71,10 +77,11 @@
     "nama": "Norhidayah",
     "tempat_lahir": "Hulu Sungai Selatan",
     "tanggal_lahir": "2003-06-10",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UIN Antasari Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 8,
@@ -82,10 +89,11 @@
     "nama": "Syahduna Fadilla Maulana",
     "tempat_lahir": "Sekayu",
     "tanggal_lahir": "2003-05-13",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UIN Antasari Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 9,
@@ -93,10 +101,11 @@
     "nama": "Ferry Mailandi Aditya",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "1989-05-13",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Institut Teknologi Nasional Malang",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 10,
@@ -104,10 +113,11 @@
     "nama": "Tirta Rizky Ramadhini",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2003-10-27",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "Politeknik Negeri Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 11,
@@ -115,10 +125,11 @@
     "nama": "Nadia Nur Azizah",
     "tempat_lahir": "Samarinda",
     "tanggal_lahir": "2002-08-23",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Sekolah Tinggi Ilmu Hukum Sultan Adam",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 12,
@@ -128,8 +139,9 @@
     "tanggal_lahir": "2005-05-25",
     "pendidikan": "SMA",
     "institusi": "SMK Farmasi ISFI Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 13,
@@ -139,8 +151,9 @@
     "tanggal_lahir": "2006-11-08",
     "pendidikan": "SMA",
     "institusi": "SMAN 1 Alalak",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 14,
@@ -148,10 +161,11 @@
     "nama": "Shafa Putri Rany Aritonang",
     "tempat_lahir": "Banjarbaru",
     "tanggal_lahir": "2000-04-08",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UIN Yogyakarta",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 15,
@@ -159,10 +173,11 @@
     "nama": "Didha Kurnia Alamsyah",
     "tempat_lahir": "Kudus",
     "tanggal_lahir": "2000-08-12",
-    "pendidikan": "S1",
-    "institusi": "Universitas PGRI Yogyakarta",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "pendidikan": "LAINNYA",
+    "institusi": "Universitas PGRI Yogyakarta]",
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 16,
@@ -170,10 +185,11 @@
     "nama": "Tirta Rizky Ramadhini",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2023-10-27",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "Politeknik Negeri Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 17,
@@ -181,10 +197,11 @@
     "nama": "Muhammad Dika Wijaya",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2003-08-17",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "STMIK Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 1,
@@ -192,10 +209,11 @@
     "nama": "Salsabilla Anisa",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2001-06-30",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "Politeknik Negeri Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 2,
@@ -203,10 +221,11 @@
     "nama": "Ferlina Nur Aisyah",
     "tempat_lahir": "Banjarbaru",
     "tanggal_lahir": "2003-08-03",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 3,
@@ -214,10 +233,11 @@
     "nama": "Muhammad Fairuz Ayman",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-12-28",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 4,
@@ -225,10 +245,11 @@
     "nama": "Anita Dewi Aryani",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2004-03-27",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 5,
@@ -236,10 +257,11 @@
     "nama": "Anggi Aulia Salsabella",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2001-11-15",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 6,
@@ -247,10 +269,11 @@
     "nama": "Zahra Elena",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-12-24",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "Politeknik Negeri Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 7,
@@ -258,10 +281,11 @@
     "nama": "Alya Amalia",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-12-28",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 8,
@@ -269,10 +293,11 @@
     "nama": "M. Tristan Sandi Yudha. S",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2001-11-16",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 9,
@@ -280,10 +305,11 @@
     "nama": "Ramadani",
     "tempat_lahir": "Amuntai",
     "tanggal_lahir": "1987-07-18",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 10,
@@ -291,10 +317,11 @@
     "nama": "Arvynanda Pamungkas",
     "tempat_lahir": null,
     "tanggal_lahir": null,
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Telkom Surabaya",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 11,
@@ -302,10 +329,11 @@
     "nama": "Amalia Yunita",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "1997-03-17",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 12,
@@ -313,10 +341,11 @@
     "nama": "Sofyan Noor",
     "tempat_lahir": "Martapura",
     "tanggal_lahir": "1998-06-19",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 13,
@@ -324,10 +353,11 @@
     "nama": "Desy Ananda Yusmasari",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "1998-12-11",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universita Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 14,
@@ -335,10 +365,11 @@
     "nama": "Shofia Adilla Aziza",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2003-07-15",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 15,
@@ -346,10 +377,11 @@
     "nama": "Annisa Maulidya",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "1997-07-15",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Diponegoro",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 16,
@@ -357,10 +389,11 @@
     "nama": "Muhammad Naufal",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-02-10",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 17,
@@ -368,10 +401,11 @@
     "nama": "Salsa Winna Widya Parawangsa",
     "tempat_lahir": null,
     "tanggal_lahir": null,
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 18,
@@ -381,8 +415,9 @@
     "tanggal_lahir": "2002-05-20",
     "pendidikan": "SMA",
     "institusi": "SMA Negeri 2 Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 19,
@@ -390,10 +425,11 @@
     "nama": "Anugerah Putera",
     "tempat_lahir": "Negara",
     "tanggal_lahir": "1996-04-16",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Islam Negeri Antasari Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 20,
@@ -401,10 +437,11 @@
     "nama": "Siti Rahmah",
     "tempat_lahir": "Penda Katapi",
     "tanggal_lahir": "2003-04-30",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "ASMI CINUS Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 21,
@@ -412,10 +449,11 @@
     "nama": "Zahra Elena",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-12-24",
-    "pendidikan": "D3",
+    "pendidikan": "LAINNYA",
     "institusi": "Politeknik Negeri Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 22,
@@ -423,10 +461,11 @@
     "nama": "Abdul Hamid",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "1984-06-02",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 23,
@@ -436,8 +475,9 @@
     "tanggal_lahir": "2006-05-18",
     "pendidikan": "SMA",
     "institusi": "SMA Negeri 1 Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 24,
@@ -447,8 +487,9 @@
     "tanggal_lahir": "2008-04-07",
     "pendidikan": "SMA",
     "institusi": "SMA Negeri 7 Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 25,
@@ -456,54 +497,59 @@
     "nama": "Muhammad Aldi Alhafiz",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2000-03-28",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Institut Teknologi Nasional Malang",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 26,
-    "tanggal_diterima": "2026-08-06",
+    "tanggal_diterima": "2026-06-08",
     "nama": "Sopia",
     "tempat_lahir": "Sungai Pinang",
     "tanggal_lahir": "2004-04-17",
     "pendidikan": "SMA",
     "institusi": "SMKN 1 Sungai Tabuk",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 27,
-    "tanggal_diterima": "2026-09-06",
+    "tanggal_diterima": "2026-06-09",
     "nama": "Dea Amelia Oktarinda",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2001-10-21",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 28,
-    "tanggal_diterima": "2026-08-07",
+    "tanggal_diterima": "2026-07-08",
     "nama": "Sumariyadi",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2006-03-15",
     "pendidikan": "SMA",
     "institusi": "SMA Negeri 2 Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 29,
-    "tanggal_diterima": "2026-10-07",
+    "tanggal_diterima": "2026-07-10",
     "nama": "Muhammad Maulana Prasetio",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2008-03-29",
     "pendidikan": "SMA",
     "institusi": "SMK YPT Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 30,
@@ -511,10 +557,11 @@
     "nama": "Muhammad Taufik",
     "tempat_lahir": "Panagkalaan",
     "tanggal_lahir": "2001-07-27",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "UNISKA MAB Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 31,
@@ -522,10 +569,11 @@
     "nama": "M. Ahya Rizqi Firzada",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2003-06-01",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Muhammadiyah Malang",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 32,
@@ -535,8 +583,9 @@
     "tanggal_lahir": "2006-02-09",
     "pendidikan": "SMA",
     "institusi": "SMKN 3 Banjarmasin",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 33,
@@ -544,10 +593,11 @@
     "nama": "Alifa Salma Fadillah",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2002-09-12",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 34,
@@ -555,20 +605,22 @@
     "nama": "Muhammad Wahyu Syafitri",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "1999-11-13",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Muhammadiyah Malang",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   },
   {
     "nomor_lamaran": 35,
-    "tanggal_diterima": "2026-03-08",
+    "tanggal_diterima": "2026-08-03",
     "nama": "Roosya Najlavillia Putri",
     "tempat_lahir": "Banjarmasin",
     "tanggal_lahir": "2004-08-25",
-    "pendidikan": "S1",
+    "pendidikan": "LAINNYA",
     "institusi": "Universitas Lambung Mangkurat",
-    "jurusan": null,
-    "catatan": "Tujuan: PPHC"
+    "jurusan": "-",
+    "evidence": null,
+    "catatan": null
   }
 ]

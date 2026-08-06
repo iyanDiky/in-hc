@@ -33,6 +33,15 @@
               />
               <i class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-muted ms-3"></i>
             </div>
+            <!-- Pilihan Tahun Filter -->
+            <div style="min-width: 140px;">
+              <select class="form-select py-2 fw-semibold text-primary" v-model="selectedYear" @change="onYearChange">
+                <option value="">Semua Tahun</option>
+                <option v-for="yr in availableYears" :key="yr" :value="String(yr)">
+                  Tahun {{ yr }}
+                </option>
+              </select>
+            </div>
             <button 
               class="btn d-flex align-items-center gap-2"
               :class="showFilter || isFilterActive ? 'btn-primary' : 'btn-outline-secondary'"
@@ -205,6 +214,27 @@ const handleFileUpload = (event) => {
   evidenceFile.value = event.target.files[0]
 }
 
+const currentYear = new Date().getFullYear().toString()
+const selectedYear = ref(currentYear)
+const availableYears = ref([new Date().getFullYear()])
+
+const onYearChange = () => {
+  if (dataTableInstance) {
+    dataTableInstance.ajax.reload()
+  }
+}
+
+const fetchYears = async () => {
+  try {
+    const res = await api.post('/surat-masuk/years')
+    if (Array.isArray(res.data) && res.data.length > 0) {
+      availableYears.value = res.data
+    }
+  } catch (err) {
+    console.error('Failed to fetch years:', err)
+  }
+}
+
 let dataTableInstance = null
 let searchTimeout = null
 
@@ -256,6 +286,7 @@ const initDataTable = () => {
       try {
         const payload = {
           ...data,
+          tahun: selectedYear.value || null,
           start_date: filter.value.startDate || null,
           end_date: filter.value.endDate || null,
           status_disposisi: filter.value.statusDisposisi || null
@@ -510,6 +541,7 @@ const deleteItem = (id) => {
 }
 
 onMounted(() => {
+  fetchYears()
   fetchItems()
 })
 </script>

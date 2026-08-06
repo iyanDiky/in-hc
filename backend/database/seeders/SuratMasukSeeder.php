@@ -18,7 +18,7 @@ class SuratMasukSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::first();
+        $admin = User::where('nama', 'The Admin')->first() ?? User::where('username', 'admin')->first() ?? User::first();
         if ($admin) {
             Auth::login($admin);
         }
@@ -38,6 +38,7 @@ class SuratMasukSeeder extends Seeder
         $adminId = $admin ? $admin->id : null;
         $adminJabatanId = $admin ? $admin->jabatan_id : null;
         $adminBagianSeksiId = $admin ? $admin->bagian_seksi_id : null;
+        $baseCreatedAt = \Carbon\Carbon::parse('2025-08-25 08:00:00');
 
         // Cache BagianSeksi by kode (e.g. 'PPH', 'KM', 'PPL', etc.)
         $bagianSeksiMap = BagianSeksi::all()->keyBy('kode');
@@ -45,16 +46,20 @@ class SuratMasukSeeder extends Seeder
         $disposisiCount = 0;
         $tujuanCount = 0;
 
-        foreach ($data as $item) {
+        foreach ($data as $index => $item) {
+            $createdAt = (clone $baseCreatedAt)->addMinutes($index * 5);
+
             $suratMasuk = SuratMasuk::create([
-                'nomor_surat' => $item['nomor_surat'],
+                'nomor_surat' => $item['nomor_surat'] ?? '-',
                 'tanggal_surat' => $item['tanggal_surat'],
                 'pengirim' => $item['pengirim'] ?? '-',
                 'tujuan' => $item['tujuan'] ?? 'Bank Kalsel',
                 'perihal' => $item['perihal'] ?? '-',
-                'catatan' => $item['catatan'] ?? null,
                 'evidence' => null,
+                'catatan' => null,
                 'user_input' => $adminId,
+                'created_at' => $createdAt,
+                'updated_at' => $createdAt,
             ]);
 
             // Buat disposisi jika terdapat target disposisi
@@ -73,9 +78,11 @@ class SuratMasukSeeder extends Seeder
                         'disposisi_oleh' => $adminId,
                         'disposisi_oleh_jabatan' => $adminJabatanId,
                         'disposisi_oleh_bagian_seksi' => $adminBagianSeksiId,
-                        'disposisi_waktu' => $item['tanggal_surat'] . ' 08:00:00',
-                        'catatan' => 'Disposisi ke Bagian SDM - ' . implode(', ', $disposisiKodes),
+                        'disposisi_waktu' => $createdAt,
+                        'catatan' => 'Tindak Lanjut',
                         'evidence' => null,
+                        'created_at' => $createdAt,
+                        'updated_at' => $createdAt,
                     ]);
                     $disposisiCount++;
 
@@ -83,6 +90,8 @@ class SuratMasukSeeder extends Seeder
                         SuratMasukDisposisiTujuan::create([
                             'surat_masuk_disposisi_id' => $disposisi->id,
                             'tujuan_disposisi' => $bagianId,
+                            'created_at' => $createdAt,
+                            'updated_at' => $createdAt,
                         ]);
                         $tujuanCount++;
                     }

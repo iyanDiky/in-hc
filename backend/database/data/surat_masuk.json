@@ -1,2591 +1,3069 @@
 [
   {
-    "nomor_surat": "101",
+    "nomor_agenda": 101,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-08-27",
     "pengirim": "Akhmad Nur Irvansyah",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri : Turkiye",
-    "catatan": "No. Agenda: 101",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 102,
     "nomor_surat": "784 - 003/UN8.1.12",
     "tanggal_surat": "2025-09-09",
     "pengirim": "UNLAM",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengantar Magang : Wadia Annisa",
-    "catatan": "No. Agenda: 102",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 103,
     "nomor_surat": "UNISKA-FTI/M.6/VIII/2025",
     "tanggal_surat": "2025-09-09",
     "pengirim": "UNISKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Keterangan PKL : Haliza Sabila Halim",
-    "catatan": "No. Agenda: 103",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 104,
     "nomor_surat": "UNISKA-FTI/M.6/VIII/2025",
     "tanggal_surat": "2025-09-09",
     "pengirim": "UNISKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Keterangan PKL : GITA",
-    "catatan": "No. Agenda: 104",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 105,
     "nomor_surat": "1340/TRF/TRN/08/2025",
     "tanggal_surat": "2025-09-09",
     "pengirim": "SCR ACADEMY",
     "tujuan": "Bank Kalsel",
     "perihal": "Penawaran Pelatihan : Penawaran Program Pelatihan \"GARP SCR 2025 - Pathway to Global Certification\"",
-    "catatan": "No. Agenda: 105",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 106,
     "nomor_surat": "18/LBI/VIII/2025",
     "tanggal_surat": "2025-09-09",
     "pengirim": "Legal Business Institute",
     "tujuan": "Bank Kalsel",
     "perihal": "Legal & Banking Workshop Series Bulan September-Oktober 2025",
-    "catatan": "No. Agenda: 106",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 107,
     "nomor_surat": "18/IBF/VIII/2025",
     "tanggal_surat": "2025-09-09",
     "pengirim": "PT IBF INDONESIA",
     "tujuan": "Bank Kalsel",
     "perihal": "Penawaran Pelatihan dan Workshop Perbankan Periode Juli - Agustus 2025",
-    "catatan": "No. Agenda: 107",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 108,
     "nomor_surat": "006/DITC/SRP/XI/25",
     "tanggal_surat": "2025-09-09",
     "pengirim": "DE ART INSTITUE",
     "tujuan": "Bank Kalsel",
     "perihal": "Pengajuan Kerjasama Pengembangan SDM",
-    "catatan": "No. Agenda: 108",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "109",
+    "nomor_agenda": 109,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-09-15",
     "pengirim": "Ryan Helmady",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 109",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "110",
+    "nomor_agenda": 110,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-09-15",
     "pengirim": "M. Ramadhani Saputra",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Tidak Berhadir PKL",
-    "catatan": "No. Agenda: 110",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 111,
     "nomor_surat": "348 - 003/UN8..1.12/KM/2025",
     "tanggal_surat": "2025-09-16",
     "pengirim": "UNLAM",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Perpanjangan Masa Magang : Karina Junaedi",
-    "catatan": "No. Agenda: 111",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 112,
     "nomor_surat": "485/RMC/VIII/2025",
     "tanggal_surat": "2025-09-17",
     "pengirim": "RMC",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonan Audiensi  Program Pelatihan Berbasis Kompetensi",
-    "catatan": "No. Agenda: 112",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 113,
     "nomor_surat": "0413/MPR/Ext/IX/2025",
     "tanggal_surat": "2025-09-17",
     "pengirim": "UBAYA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Sosialisasi",
-    "catatan": "No. Agenda: 113",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "114",
+    "nomor_agenda": 114,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-09-18",
     "pengirim": "Aries Alfian",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Perjalanan Ke Luar Negeri Dalam Rangka Acara Keluarga",
-    "catatan": "No. Agenda: 114",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 115,
     "nomor_surat": "400.3.8/671/SMKN -3 Mrb/2025",
     "tanggal_surat": "2025-09-18",
     "pengirim": "SMKN 3 MRB",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Kerjasama Dengan Pasangan Isntitusi",
-    "catatan": "No. Agenda: 115",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 116,
     "nomor_surat": "006/DITC/SRP/XI/25",
     "tanggal_surat": "2025-09-22",
     "pengirim": "DE ART INSTITUE",
     "tujuan": "Bank Kalsel",
     "perihal": "Pengajuan Kerjasama Pengembangan SDM",
-    "catatan": "No. Agenda: 116",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "117",
+    "nomor_agenda": 117,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-09-22",
     "pengirim": "HAJI VINA MELINA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 117",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 118,
     "nomor_surat": "423.4/164.SMKM.3/Disdikbud/2025",
     "tanggal_surat": "2025-09-22",
     "pengirim": "SMK Muhammadiyah 3 BJM",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Tempat PKL : Fiona Aurelia Wulandari, Nazila Hanifa, Nur Rahman Bashar",
-    "catatan": "No. Agenda: 118",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "119",
+    "nomor_agenda": 119,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-09-23",
     "pengirim": "Yulianisa",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon ijin untuk ibadah Haji",
-    "catatan": "No. Agenda: 119",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 120,
     "nomor_surat": "243/PTS.11.3005.01.01/O/2025",
     "tanggal_surat": "2025-09-23",
     "pengirim": "STIENAS",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengantar PKM : Rauha Raihana Ni'ma Janata",
-    "catatan": "No. Agenda: 120",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 121,
     "nomor_surat": "018/DPP-AAI/Seminar/IX/2025",
     "tanggal_surat": "2025-09-23",
     "pengirim": "Asosiasi Auditor Internal",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Seminar sebagai Pemenuhan Kewajiban SKP",
-    "catatan": "No. Agenda: 121",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 122,
     "nomor_surat": "087/TOP HC/TopBusiness/MSI/IX/2025",
     "tanggal_surat": "2025-09-23",
     "pengirim": "MSI GROUP",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Wawancara Penjurian TOP Human Capital Awards 2025",
-    "catatan": "No. Agenda: 122",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 123,
     "nomor_surat": "080/S/SMK'M/IX/2025",
     "tanggal_surat": "2025-09-24",
     "pengirim": "SMK Maestro Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Penarikan Taruna(i) Prakerin",
-    "catatan": "No. Agenda: 123",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "124",
+    "nomor_agenda": 124,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-09-29",
     "pengirim": "Lilis Sulistiyani",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 124",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 125,
     "nomor_surat": "2337/B&P-AdMedika/Payor/X/2025",
     "tanggal_surat": "2025-10-03",
     "pengirim": "AdMedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran Top Up 4",
-    "catatan": "No. Agenda: 125",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 126,
     "nomor_surat": "902a/PL18.4/PG/2025",
     "tanggal_surat": "2025-10-09",
     "pengirim": "Politeknik Negeri Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Keterangan PKL",
-    "catatan": "No. Agenda: 126",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "127",
+    "nomor_agenda": 127,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-13",
     "pengirim": "Haris Fadillah",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Keluar Negeri",
-    "catatan": "No. Agenda: 127",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "128",
+    "nomor_agenda": 128,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-13",
     "pengirim": "Yulia Risnani",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Keluar Negeri",
-    "catatan": "No. Agenda: 128",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "129",
+    "nomor_agenda": 129,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-13",
     "pengirim": "Noval Jatikusuma",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Keluar Negeri",
-    "catatan": "No. Agenda: 129",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "130",
+    "nomor_agenda": 130,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-13",
     "pengirim": "Muhammad Fadillah",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Keluar Negeri",
-    "catatan": "No. Agenda: 130",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 131,
     "nomor_surat": "002/A/SM.DK2/UNISM/X/2025",
     "tanggal_surat": "2025-10-13",
     "pengirim": "Universitas Sari Mulia",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Kesediaan Menerima Mahasiswa Magang : Rahmatul Zannah, Atikah Juliani",
-    "catatan": "No. Agenda: 131",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "132",
+    "nomor_agenda": 132,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-14",
     "pengirim": "Rizky Noor Anita",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 132",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "133",
+    "nomor_agenda": 133,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-14",
     "pengirim": "Delsy Dhevania",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 133",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "134",
+    "nomor_agenda": 134,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-16",
     "pengirim": "Nizhar Saftaji",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Perjalanan Ke Luar Negeri Dalam Rangka Acara Keluarga",
-    "catatan": "No. Agenda: 134",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 135,
     "nomor_surat": "126/IHCBA/MSE/X/2025",
     "tanggal_surat": "2025-10-17",
     "pengirim": "IHCBA 2025",
     "tujuan": "Bank Kalsel",
     "perihal": "Penetapan Kandidat & Konfirmasi Kesediaan IHCBA 2025",
-    "catatan": "No. Agenda: 135",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "136",
+    "nomor_agenda": 136,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-17",
     "pengirim": "ADMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Invoice",
-    "catatan": "No. Agenda: 136",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 137,
     "nomor_surat": "5.646/INV/VII/25",
     "tanggal_surat": "2025-10-17",
     "pengirim": "ADMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Invoice",
-    "catatan": "No. Agenda: 137",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 138,
     "nomor_surat": "B/56931/102025",
     "tanggal_surat": "2025-10-20",
     "pengirim": "BPJS KETENAGAKERJAAN",
     "tujuan": "Bank Kalsel",
     "perihal": "Informasi Kelengkapan Data Tenaga Kerja",
-    "catatan": "No. Agenda: 138",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 139,
     "nomor_surat": "00005.BL.KL.GL.PND.1025",
     "tanggal_surat": "2025-10-20",
     "pengirim": "BNI",
     "tujuan": "Bank Kalsel",
     "perihal": "Pending Verifikasi Lanjutan Klaim Asuransi Optima Group Saving an. DWI DARINDA YENDRANOTO",
-    "catatan": "No. Agenda: 139",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 140,
     "nomor_surat": "2502/B&P-AdMedika/Payor/X/2025",
     "tanggal_surat": "2025-10-21",
     "pengirim": "AdMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran Top Up 5",
-    "catatan": "No. Agenda: 140",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 141,
     "nomor_surat": "032/Penawaran/9-MC/X/2025",
     "tanggal_surat": "2025-10-22",
     "pengirim": "Medina Consulting",
     "tujuan": "Bank Kalsel",
     "perihal": "Penawaran Pelatihan Kepemimpinan Transfoormasional",
-    "catatan": "No. Agenda: 141",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 143,
     "nomor_surat": "0148/GWTC-SN/X/2025",
     "tanggal_surat": "2025-10-22",
     "pengirim": "Garuda Wahana Training Centre",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Audiensi",
-    "catatan": "No. Agenda: 143",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 144,
     "nomor_surat": "161/SK-X/PMI/2025",
     "tanggal_surat": "2025-10-22",
     "pengirim": "Prospero Management",
     "tujuan": "Bank Kalsel",
     "perihal": "Browsur Workshop WORK SMART with  AI",
-    "catatan": "No. Agenda: 144",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 145,
     "nomor_surat": "10003/CIO/X/2025",
     "tanggal_surat": "2025-10-23",
     "pengirim": "AAFM",
     "tujuan": "Bank Kalsel",
     "perihal": "Workshop Crussial Indicators Of Organization",
-    "catatan": "No. Agenda: 145",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 146,
     "nomor_surat": "037/Pernawaran/6-MC/X/2025",
     "tanggal_surat": "2025-10-30",
     "pengirim": "Medina Consulting",
     "tujuan": "Bank Kalsel",
     "perihal": "Workshop Training : Pembiayaan Komersial: Analisis Laporan dan Rasio Keuangan Syariah",
-    "catatan": "No. Agenda: 146",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "147",
+    "nomor_agenda": 147,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-30",
     "pengirim": "Yanuar Puji Asyimi",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Berobat Radioterapi ke Luar Daerah",
-    "catatan": "No. Agenda: 147",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "148",
+    "nomor_agenda": 148,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-30",
     "pengirim": "Fina Amalia Hayati",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Rekomendasi Kacamata",
-    "catatan": "No. Agenda: 148",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "149",
+    "nomor_agenda": 149,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-30",
     "pengirim": "Muhammad Rayana Jaka Surya",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Data Pegawai",
-    "catatan": "No. Agenda: 149",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "150",
+    "nomor_agenda": 150,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-31",
     "pengirim": "Ayatullah Hasbi",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Melakukan Perjalanan Umroh",
-    "catatan": "No. Agenda: 150",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "151",
+    "nomor_agenda": 151,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-31",
     "pengirim": "Nelly Puspa Sari",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Melakukan Perjalanan Luar Negeri",
-    "catatan": "No. Agenda: 151",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "152",
+    "nomor_agenda": 152,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-10-31",
     "pengirim": "Fernia Mela Noverda",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Melakukan Perjalanan Luar Negeri",
-    "catatan": "No. Agenda: 152",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "153",
+    "nomor_agenda": 153,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-05",
     "pengirim": "Baikuniah",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 153",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 154,
     "nomor_surat": "434.4/125/SMK.01/PKL/2025",
     "tanggal_surat": "2025-11-05",
     "pengirim": "SMKN 1 Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonan PKL : Octavia Zahra",
-    "catatan": "No. Agenda: 154",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 155,
     "nomor_surat": "IRPA/Ketum/0321/X/2025",
     "tanggal_surat": "2025-11-05",
     "pengirim": "IRPA",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan & Dukungan Sponsorship pada Kegiatan \"IRPA Annual Risk Professional Summit 2025\"",
-    "catatan": "No. Agenda: 155",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "156",
+    "nomor_agenda": 156,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-05",
     "pengirim": "Ulfa Tsaniya",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pertimbangan Persentase Nilai Blokir Insentif",
-    "catatan": "No. Agenda: 156",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 157,
     "nomor_surat": "B-437/Un.14/III.5/PS.S1/PP.00.9/10.2025",
     "tanggal_surat": "2025-11-06",
     "pengirim": "UIN Antasari Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang : Rizka Ayu Alifah",
-    "catatan": "No. Agenda: 157",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 158,
     "nomor_surat": "B-437/Un.14/III.5/PS.S1/PP.00.9/10.2025",
     "tanggal_surat": "2025-11-06",
     "pengirim": "UIN Antasari Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang : Siti Nor Asiah",
-    "catatan": "No. Agenda: 158",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "159",
+    "nomor_agenda": 159,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-06",
     "pengirim": "Muhammad Rayana Jaka Surya",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Data Pegawai",
-    "catatan": "No. Agenda: 159",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 160,
     "nomor_surat": "024/SP/LSKPD-DATC/X/2025",
     "tanggal_surat": "2025-11-10",
     "pengirim": "LSKPD-DATC",
     "tujuan": "Bank Kalsel",
     "perihal": "Penawaran Bimbingan Teknis",
-    "catatan": "No. Agenda: 160",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 161,
     "nomor_surat": "2704/B&P-AdMedika/Payor/XI/2025",
     "tanggal_surat": "2025-11-11",
     "pengirim": "AdMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran TopUp",
-    "catatan": "No. Agenda: 161",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "162",
+    "nomor_agenda": 162,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-11",
     "pengirim": "Ratu Mashadiah BP",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri (Umroh)",
-    "catatan": "No. Agenda: 162",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 163,
     "nomor_surat": "B-448/Un.14/III.5/PS.S1/PP.00.9/11/2025",
     "tanggal_surat": "2025-11-13",
     "pengirim": "UIN Antasari Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang : Fatma Vinata Rosia, Siti Nor Rahima",
-    "catatan": "No. Agenda: 163",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 164,
     "nomor_surat": "039/Penawaran/6-MC/XI/2025",
     "tanggal_surat": "2025-11-13",
     "pengirim": "Medina Consulting",
     "tujuan": "Bank Kalsel",
     "perihal": "Penawaran Workshop : Aspek Hukum Pembiayaan Pemilikan Hunian / KPR dan Konstruksi Syariah",
-    "catatan": "No. Agenda: 164",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "165",
+    "nomor_agenda": 165,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-17",
     "pengirim": "Pratiwi Purnamasari",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri (Menikah)",
-    "catatan": "No. Agenda: 165",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 167,
     "nomor_surat": "416/kkp-DSP/KP/2025",
     "tanggal_surat": "2025-11-20",
     "pengirim": "Divisi Sekertaris Perusahaan",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Klaim Tiket",
-    "catatan": "No. Agenda: 167",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 168,
     "nomor_surat": "B/6172/112025",
     "tanggal_surat": "2025-11-24",
     "pengirim": "BPJS KETENAGAKERJAAN",
     "tujuan": "Bank Kalsel",
     "perihal": "Perihal Kemudahan Layanan dengan Aplikasi JMO (Jamsostek Mobile)",
-    "catatan": "No. Agenda: 168",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "169",
+    "nomor_agenda": 169,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-25",
     "pengirim": "Maria Pratiwi Lestari",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 169",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 170,
     "nomor_surat": "644/UNISKA.FE/A.15/XI/2025",
     "tanggal_surat": "2025-11-26",
     "pengirim": "UNISKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang: M. Rafi Ansyari",
-    "catatan": "No. Agenda: 170",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 171,
     "nomor_surat": "643/UNISKA.FE/A.15/XI/2025",
     "tanggal_surat": "2025-11-26",
     "pengirim": "UNISKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang: Ahmad Rizky Juli Ridhani",
-    "catatan": "No. Agenda: 171",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 172,
     "nomor_surat": "B- 437/Un.14/III.5/PS.S1/PP.00.9/10/2025",
     "tanggal_surat": "2025-11-26",
     "pengirim": "UIN Antasari Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang: Silvya Nur Amalia",
-    "catatan": "No. Agenda: 172",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 173,
     "nomor_surat": "B-M.010/Un.14/III.5/MBS.S1/PP.00.9/11/2025",
     "tanggal_surat": "2025-11-26",
     "pengirim": "UIN Antasari Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang: Dea Hayatun Nufus, Haifa Nafila, Kema Nur Kumala, Muhammad Haris Ridwan",
-    "catatan": "No. Agenda: 173",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 174,
     "nomor_surat": "1208/PL18.4/PG/2025",
     "tanggal_surat": "2025-11-26",
     "pengirim": "POLIBAN",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Perpanjangan Masa Magang : Fitriamawati, Nur Maulidah",
-    "catatan": "No. Agenda: 174",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 175,
     "nomor_surat": "2906/B&P-AdMedika/Payor/XI/2025",
     "tanggal_surat": "2025-11-27",
     "pengirim": "AdMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran Top Up 7",
-    "catatan": "No. Agenda: 175",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "176",
+    "nomor_agenda": 176,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-02",
     "pengirim": "Indri Lusi Jayanti",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembukaan Blokir Saldo Rekening",
-    "catatan": "No. Agenda: 176",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "177",
+    "nomor_agenda": 177,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-11-26",
     "pengirim": "Maulida Agustina",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 177",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "178",
+    "nomor_agenda": 178,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-04",
     "pengirim": "Angga Ginanjar Prasetya",
     "tujuan": "Bank Kalsel",
     "perihal": "Permintaan Surat Keterangan Bekerja",
-    "catatan": "No. Agenda: 178",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 179,
     "nomor_surat": "B- 466/Un.14/III.5/PS.S1/PP.00.9/12/2025",
     "tanggal_surat": "2025-12-04",
     "pengirim": "UIN Antasari Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang : Alya Safitri, Karniliya",
-    "catatan": "No. Agenda: 179",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "180",
+    "nomor_agenda": 180,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-04",
     "pengirim": "Lusy Dwi Oktaviani",
     "tujuan": "Bank Kalsel",
     "perihal": "Penyampaian Akta Perceraian",
-    "catatan": "No. Agenda: 180",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "181",
+    "nomor_agenda": 181,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-05",
     "pengirim": "Aisya Nur Khalida",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 181",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "182",
+    "nomor_agenda": 182,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-05",
     "pengirim": "Aulia Rahman",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 182",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "183",
+    "nomor_agenda": 183,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-05",
     "pengirim": "Noor Indah Apriliana",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 183",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "185",
+    "nomor_agenda": 185,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-05",
     "pengirim": "Widya Sari",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 185",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 186,
     "nomor_surat": "434.4/125/SMK.01/PKL/2025",
     "tanggal_surat": "2025-12-08",
     "pengirim": "SMKN 1 Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan PKL : M. Ridho Habibi",
-    "catatan": "No. Agenda: 186",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 187,
     "nomor_surat": "1263/PL 18.3/KL/2025",
     "tanggal_surat": "2025-12-08",
     "pengirim": "Politeknik Negeri Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonan PKL : Shafa Aziza",
-    "catatan": "No. Agenda: 187",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "188",
+    "nomor_agenda": 188,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-08",
     "pengirim": "Sri Septi Widyadha Irvana",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 188",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 189,
     "nomor_surat": "145/S/SMK'M/XII/2025",
     "tanggal_surat": "2025-12-09",
     "pengirim": "SMK Maestro Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Siswa PKL : Nadya Salsabila, Nisrina Alya Fadila, Silvi Aulia Rahma",
-    "catatan": "No. Agenda: 189",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "190",
+    "nomor_agenda": 190,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-09",
     "pengirim": "Angga Ginanjar Prasetya",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 190",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "191",
+    "nomor_agenda": 191,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-15",
     "pengirim": "Noor Zatiah Ekhfa",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 191",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "192",
+    "nomor_agenda": 192,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-15",
     "pengirim": "Fathonah",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Neger",
-    "catatan": "No. Agenda: 192",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 193,
     "nomor_surat": "B/6295/122025",
     "tanggal_surat": "2025-12-15",
     "pengirim": "BPJS KETENAGAKERJAAN",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Kegiatan Gathering BPJS Ketenagakerjaan",
-    "catatan": "No. Agenda: 193",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "194",
+    "nomor_agenda": 194,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-16",
     "pengirim": "Muhammad Fathurrazak",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 194",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "195",
+    "nomor_agenda": 195,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-22",
     "pengirim": "Haris Fadillah",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonan",
-    "catatan": "No. Agenda: 195",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 196,
     "nomor_surat": "00015.BL.KL.GL.PND.1225",
     "tanggal_surat": "2025-12-23",
     "pengirim": "BNI LIFE",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengajuan Klaim",
-    "catatan": "No. Agenda: 196",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "197",
+    "nomor_agenda": 197,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-23",
     "pengirim": "MAYANG MIRANTI",
     "tujuan": "Bank Kalsel",
     "perihal": "IZIN KELUAR NEGERI",
-    "catatan": "No. Agenda: 197",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "198",
+    "nomor_agenda": 198,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-23",
     "pengirim": "WIDYA HERLINA",
     "tujuan": "Bank Kalsel",
     "perihal": "PERMOHONAN IZIN MELAKSANAKAN PERJALANAN KELUAR NEGERI",
-    "catatan": "No. Agenda: 198",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "199",
+    "nomor_agenda": 199,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-23",
     "pengirim": "IRMA ERIYANI",
     "tujuan": "Bank Kalsel",
     "perihal": "IZIN PERJALANAN KE LUAR NEGERI",
-    "catatan": "No. Agenda: 199",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "200",
+    "nomor_agenda": 200,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-23",
     "pengirim": "M. ADITYA PERDANA PUTRA M",
     "tujuan": "Bank Kalsel",
     "perihal": "IZIN MELAKSANAKAN PERJALANAN KE LUAR NEGERI",
-    "catatan": "No. Agenda: 200",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 201,
     "nomor_surat": "1264/PL18.3/KL/2025",
     "tanggal_surat": "2025-12-22",
     "pengirim": "Muhammad Maulana Malik Ibrahim",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonan Magang",
-    "catatan": "No. Agenda: 201",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 202,
     "nomor_surat": "153/AdMedika-CS/BPDKS/XII/2025",
     "tanggal_surat": "2025-12-29",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Konfirmasi Pembayaran Klaim Reimbursement Peserta BANK KALSEL",
-    "catatan": "No. Agenda: 202",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "203",
+    "nomor_agenda": 203,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-30",
     "pengirim": "Deddy Setiawan",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin ke Luar Negeri",
-    "catatan": "No. Agenda: 203",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "204",
+    "nomor_agenda": 204,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-30",
     "pengirim": "Sufrianto",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin ke Luar Negeri",
-    "catatan": "No. Agenda: 204",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "205",
+    "nomor_agenda": 205,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-30",
     "pengirim": "Retna Hemilda Yanti",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 205",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "206",
+    "nomor_agenda": 206,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-30",
     "pengirim": "Novi Indrawan",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Neger",
-    "catatan": "No. Agenda: 206",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "207",
+    "nomor_agenda": 207,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-30",
     "pengirim": "Chiquita Adaora",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 207",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "208",
+    "nomor_agenda": 208,
+    "nomor_surat": "-",
     "tanggal_surat": "2025-12-24",
     "pengirim": "Ayu Sarifa",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 208",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "209",
+    "nomor_agenda": 209,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Sela Tia Astuti",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Ijin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 209",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "210",
+    "nomor_agenda": 210,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Suriadi",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melakukan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 210",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "211",
+    "nomor_agenda": 211,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Mustika Mayang",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 211",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "212",
+    "nomor_agenda": 212,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Shiska Ayu Kresna",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 212",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "213",
+    "nomor_agenda": 213,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Noorinsya Cecilia",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 213",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "214",
+    "nomor_agenda": 214,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Fathonah",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Neger",
-    "catatan": "No. Agenda: 214",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "215",
+    "nomor_agenda": 215,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Try Ayu Paramitha",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 215",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "216",
+    "nomor_agenda": 216,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Noor Rezki Amelia",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 216",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "217",
+    "nomor_agenda": 217,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Sartika Patria Sari",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 217",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "218",
+    "nomor_agenda": 218,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-07",
     "pengirim": "Elva Ruvyana",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Ijin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 218",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "219",
+    "nomor_agenda": 219,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-12",
     "pengirim": "Sari Hayati",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 219",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "220",
+    "nomor_agenda": 220,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-12",
     "pengirim": "Gusdita Rezky Amelia",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 220",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "221",
+    "nomor_agenda": 221,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-12",
     "pengirim": "Rizky Hamka",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Ijin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 221",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "222",
+    "nomor_agenda": 222,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-12",
     "pengirim": "Desita Arni",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 222",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "223",
+    "nomor_agenda": 223,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-13",
     "pengirim": "PT Prodia Widyahusada Tbk",
     "tujuan": "Bank Kalsel",
     "perihal": "Proposal Penawaran Kerja Sama Tahun 2026",
-    "catatan": "No. Agenda: 223",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "224",
+    "nomor_agenda": 224,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-15",
     "pengirim": "Muhammad Arif Billah",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Surat Pengalaman Kerja",
-    "catatan": "No. Agenda: 224",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "1",
+    "nomor_agenda": 1,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-15",
     "pengirim": "Agustina Fitriani",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Penggantian biaya untuk pengobatan",
-    "catatan": "No. Agenda: 1",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "2",
+    "nomor_agenda": 2,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-21",
     "pengirim": "M Alkautsar Anshari",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Melaksanakan Ibadah Umrah",
-    "catatan": "No. Agenda: 2",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "3",
+    "nomor_agenda": 3,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-21",
     "pengirim": "Adelia Rimadhina",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 3",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "4",
+    "nomor_agenda": 4,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-21",
     "pengirim": "Elvya Ruvyana",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Perubahan Tanggal Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 4",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "5",
+    "nomor_agenda": 5,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-21",
     "pengirim": "Ahmad Akbar Tanjung",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 5",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 6,
     "nomor_surat": "000.1.12/049/BPKD WIL I /2026",
     "tanggal_surat": "2026-01-21",
     "pengirim": "DISNAKER",
     "tujuan": "Bank Kalsel",
     "perihal": "PEMERIKSAAN KEPATUHAN BADAN USAHA",
-    "catatan": "No. Agenda: 6",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 7,
     "nomor_surat": "0153/B&P-ADMEDIKA/PAYOR/I/2026",
     "tanggal_surat": "2026-01-21",
     "pengirim": "ADMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "PERMOHONAN PEMBAYRAN TOP UP 8",
-    "catatan": "No. Agenda: 7",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 8,
     "nomor_surat": "19/Pph-HC/KP/2026",
     "tanggal_surat": "2026-01-22",
     "pengirim": "Bagian Penerimaan & Pengembangan HC",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 8",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "9",
+    "nomor_agenda": 9,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-22",
     "pengirim": "Gusti Suci Dian Saputri",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 9",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "10",
+    "nomor_agenda": 10,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-26",
     "pengirim": "Wahyu Widodo",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 10",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 11,
     "nomor_surat": "2/AKS/BBALL/I/2026",
     "tanggal_surat": "2026-01-27",
     "pengirim": "AKSEL BASKETBALL CLUB",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Pemain Basket",
-    "catatan": "No. Agenda: 11",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "12",
+    "nomor_agenda": 12,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-03",
     "pengirim": "Firmansyah",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Melaksanakan Perceraian",
-    "catatan": "No. Agenda: 12",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "13",
+    "nomor_agenda": 13,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-04",
     "pengirim": "Meida Aulia",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permintaan Izin Untuk Melakukan Perceraian",
-    "catatan": "No. Agenda: 13",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "14",
+    "nomor_agenda": 14,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-06",
     "pengirim": "Divisi Renja",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Ke Luar Negeri",
-    "catatan": "No. Agenda: 14",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "15",
+    "nomor_agenda": 15,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-06",
     "pengirim": "Rizky Imroni",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Ijin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 15",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "16",
+    "nomor_agenda": 16,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-06",
     "pengirim": "Aulia Rahman",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 16",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "17",
+    "nomor_agenda": 17,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-06",
     "pengirim": "Noor Ipansyah",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melakukan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 17",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "18",
+    "nomor_agenda": 18,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-09",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Top Up 9",
-    "catatan": "No. Agenda: 18",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "19",
+    "nomor_agenda": 19,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-09",
     "pengirim": "Helly Rozana",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Tidak Masuk Kerja Sebab Sakit",
-    "catatan": "No. Agenda: 19",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "20",
+    "nomor_agenda": 20,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-12",
     "pengirim": "Muhammad Syarif",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melakukan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 20",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "21",
+    "nomor_agenda": 21,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-12",
     "pengirim": "Fathonah",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 21",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "22",
+    "nomor_agenda": 22,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-18",
     "pengirim": "Auliya Rahman",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalana Ke Luar Negeri",
-    "catatan": "No. Agenda: 22",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "23",
+    "nomor_agenda": 23,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-18",
     "pengirim": "Aida Maulina Rahmah",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 23",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "24",
+    "nomor_agenda": 24,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-19",
     "pengirim": "Desi Puspita Sari",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonan Pengunduran Diri",
-    "catatan": "No. Agenda: 24",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "25",
+    "nomor_agenda": 25,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-19",
     "pengirim": "Mahyudin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 25",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "26",
+    "nomor_agenda": 26,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-19",
     "pengirim": "Noor Indah Apriliana",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 26",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 27,
     "nomor_surat": "308/MAXIMA-BJM/SP/II/2026",
     "tanggal_surat": "2026-02-20",
     "pengirim": "Maxima Klinik & Laboratorium",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Penawaran",
-    "catatan": "No. Agenda: 27",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "29",
+    "nomor_agenda": 29,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-23",
     "pengirim": "Reza Pahlevi",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 29",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "30",
+    "nomor_agenda": 30,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-23",
     "pengirim": "Haris Fadillah",
     "tujuan": "Bank Kalsel",
     "perihal": "z",
-    "catatan": "No. Agenda: 30",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "31",
+    "nomor_agenda": 31,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-02-25",
     "pengirim": "Yulianisa",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 31",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "32",
+    "nomor_agenda": 32,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-23",
     "pengirim": "Muhammad Aswat",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melangsungkan Pernikahan An. Muhammad Aswat",
-    "catatan": "No. Agenda: 32",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "33",
+    "nomor_agenda": 33,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-01-23",
     "pengirim": "Isfa Nur Amalia Zulkifli",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melangsungkan Pernikahan An. Isfa Nur Amalia Zulkifli",
-    "catatan": "No. Agenda: 33",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "34",
+    "nomor_agenda": 34,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-02",
     "pengirim": "Nur Arinda",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 34",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "35",
+    "nomor_agenda": 35,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-02",
     "pengirim": "Yuanita Evayanthi",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 35",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 36,
     "nomor_surat": "B/1042/022026",
     "tanggal_surat": "2026-03-02",
     "pengirim": "BPJS KETENAGAKERJAAN",
     "tujuan": "Bank Kalsel",
     "perihal": "Informasi Besaran Manfaat dan Ketentuan Batas Upah Jaminan Pensiun Tahun 2026",
-    "catatan": "No. Agenda: 36",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 37,
     "nomor_surat": "1132/VII-04/0226",
     "tanggal_surat": "2026-02-25",
     "pengirim": "BPJS Kesehatan",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Gathering Badan Usaha dan Buka Bersama",
-    "catatan": "No. Agenda: 37",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "38",
+    "nomor_agenda": 38,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-02",
     "pengirim": "Setia Puteri",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Mengajukan Perceraian",
-    "catatan": "No. Agenda: 38",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 39,
     "nomor_surat": "0535/B&P-Admedika/Payor/II/2026",
     "tanggal_surat": "2026-02-27",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Top Up 10",
-    "catatan": "No. Agenda: 39",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 40,
     "nomor_surat": "0044/WDA/Dapen-BKS/II/2026",
     "tanggal_surat": "2026-02-25",
     "pengirim": "Dapen Bank Kalsel",
     "tujuan": "Bank Kalsel",
     "perihal": "Informasi Perencanaan dan Rekrutment Pegawai Bank Kalsel",
-    "catatan": "No. Agenda: 40",
-    "disposisi_target_kodes": [
-      "KM",
-      "PPL",
-      "PPH"
-    ]
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "41",
+    "nomor_agenda": 41,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-03",
     "pengirim": "Deasy Silvia Melani Elvandury",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 41",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "42",
+    "nomor_agenda": 42,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-03",
     "pengirim": "Laretna Annisa Rarastika",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin ke Luar Negeri dan Permohonan Surat Keterangan Bekerja untuk Visa",
-    "catatan": "No. Agenda: 42",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "43",
+    "nomor_agenda": 43,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-05",
     "pengirim": "Dea Lailatul Maspuroh",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 43",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "44",
+    "nomor_agenda": 44,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-05",
     "pengirim": "Arie Herdianto",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 44",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "45",
+    "nomor_agenda": 45,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-05",
     "pengirim": "Prima Rezeki Susanti",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 45",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "46",
+    "nomor_agenda": 46,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-05",
     "pengirim": "Gina Paulina Noor Kasih",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 46",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "47",
+    "nomor_agenda": 47,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-05",
     "pengirim": "Haji Vina Malini",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 47",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "48",
+    "nomor_agenda": 48,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-05",
     "pengirim": "Haris Fadillah",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 48",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "49",
+    "nomor_agenda": 49,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-09",
     "pengirim": "Sri Mahfuzah",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 49",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "50",
+    "nomor_agenda": 50,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-09",
     "pengirim": "Wimpi Aditama",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 50",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "51",
+    "nomor_agenda": 51,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-09",
     "pengirim": "Novie Karina",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 51",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "52",
+    "nomor_agenda": 52,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-10",
     "pengirim": "Tiara Nurrahma",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Keluar Negeri",
-    "catatan": "No. Agenda: 52",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "53",
+    "nomor_agenda": 53,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-11",
     "pengirim": "Inuk Wiwiek Widowati",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pengambilan Ijasah Asli",
-    "catatan": "No. Agenda: 53",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "54",
+    "nomor_agenda": 54,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-12",
     "pengirim": "Riadus Shaleha",
     "tujuan": "Bank Kalsel",
     "perihal": "Bukti",
-    "catatan": "No. Agenda: 54",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 55,
     "nomor_surat": "0740/B&P-Admedika/Payor/III/2026",
     "tanggal_surat": "2026-03-26",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran Top Up 11",
-    "catatan": "No. Agenda: 55",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "56",
+    "nomor_agenda": 56,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-30",
     "pengirim": "Alina Zainatur Rahmi Saidah",
     "tujuan": "Bank Kalsel",
     "perihal": "Bukti",
-    "catatan": "No. Agenda: 56",
     "disposisi_target_kodes": [
       "PPH"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "57",
+    "nomor_agenda": 57,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-30",
     "pengirim": "Anis Cholidah",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Perpanjangan Cuti Di Luar Tanggungan",
-    "catatan": "No. Agenda: 57",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "58",
+    "nomor_agenda": 58,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-30",
     "pengirim": "Ratu Mashadiah BP",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 58",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "59",
+    "nomor_agenda": 59,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-30",
     "pengirim": "Orika Destiana",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 59",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "60",
+    "nomor_agenda": 60,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-30",
     "pengirim": "Aisya Nur Khalida",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 60",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "61",
+    "nomor_agenda": 61,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-03-30",
     "pengirim": "Dinda Dwi Hari Murti",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 61",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 62,
     "nomor_surat": "259/DST/PL18.4/DT/2026",
     "tanggal_surat": "2026-04-02",
     "pengirim": "Politeknik Negeri Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Magang",
-    "catatan": "No. Agenda: 62",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "63",
+    "nomor_agenda": 63,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-06",
     "pengirim": "Nisa Maretha",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 63",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "64",
+    "nomor_agenda": 64,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-07",
     "pengirim": "Kartika Febi Afriany",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 64",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "65",
+    "nomor_agenda": 65,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-07",
     "pengirim": "Rezki Rosmawati",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 65",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "66",
+    "nomor_agenda": 66,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-07",
     "pengirim": "Sri Nita Mesdawati",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 66",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "67",
+    "nomor_agenda": 67,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-07",
     "pengirim": "Rengga Dinata Prayogie Putra",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Melaksanakan Ibadah Umrah",
-    "catatan": "No. Agenda: 67",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 68,
     "nomor_surat": "500.15.8.1/3/PPTK/DISKOPUM&NAKER/2026",
     "tanggal_surat": "2026-04-08",
     "pengirim": "Dinas Koperasi Usaha Mikro Dan Tenaga Kerja Kota Banjarbaru",
     "tujuan": "Bank Kalsel",
     "perihal": "Partisipasi Peserta Naker Fest 2026",
-    "catatan": "No. Agenda: 68",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "69",
+    "nomor_agenda": 69,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-13",
     "pengirim": "Muhammad Athanabil Andi F",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 69",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "70",
+    "nomor_agenda": 70,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-13",
     "pengirim": "Riswan Madiya",
     "tujuan": "Bank Kalsel",
     "perihal": "Biaya Pengobatan",
-    "catatan": "No. Agenda: 70",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "71",
+    "nomor_agenda": 71,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-13",
     "pengirim": "-",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 71",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 72,
     "nomor_surat": "0881/B&P-ADMEDIKA/PAYOR/IV/2026",
     "tanggal_surat": "2026-04-13",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran Topup 12",
-    "catatan": "No. Agenda: 72",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 73,
     "nomor_surat": "/Afi-MRA/KP/2026",
     "tanggal_surat": "2026-04-20",
     "pengirim": "Divisi MRA",
     "tujuan": "Bank Kalsel",
     "perihal": "Laporan atas pengaduan melalui kanal Whistleblowing System (WBS)",
-    "catatan": "No. Agenda: 73",
-    "disposisi_target_kodes": [
-      "KM",
-      "PPL",
-      "PPH"
-    ]
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "74",
+    "nomor_agenda": 74,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-21",
     "pengirim": "Ari Kurniawan",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 74",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "75",
+    "nomor_agenda": 75,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-21",
     "pengirim": "Fauzan Al Fitri",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Izin",
-    "catatan": "No. Agenda: 75",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "76",
+    "nomor_agenda": 76,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-22",
     "pengirim": "PT Prima Karya Sarana Sejahtera ()",
     "tujuan": "Bank Kalsel",
     "perihal": "proposal recruitment & assessment business",
-    "catatan": "No. Agenda: 76",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "77",
+    "nomor_agenda": 77,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-27",
     "pengirim": "Linda",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 77",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "78",
+    "nomor_agenda": 78,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-27",
     "pengirim": "Harry Aulia Rahman",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 78",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "79",
+    "nomor_agenda": 79,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-28",
     "pengirim": "Nurrahmat Idham Akmal Putra",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 79",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "80",
+    "nomor_agenda": 80,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-28",
     "pengirim": "Shiska Ayu Kresna",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 80",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "81",
+    "nomor_agenda": 81,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-04-28",
     "pengirim": "Yahdian Fajri",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melanjutkan pendidikan jenjang Strata 2 (S2)",
-    "catatan": "No. Agenda: 81",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "82",
-    "tanggal_surat": "2026-06-05",
+    "nomor_agenda": 82,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-05-06",
     "pengirim": "Jibril Cantona",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Melaksanakan Magang",
-    "catatan": "No. Agenda: 82",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "83",
-    "tanggal_surat": "2026-06-05",
+    "nomor_agenda": 83,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-05-06",
     "pengirim": "Gusti Meinar Girda Ariani",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Penelitian Disertasi",
-    "catatan": "No. Agenda: 83",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 84,
     "nomor_surat": "302/BBK/V/2026",
-    "tanggal_surat": "2026-12-05",
+    "tanggal_surat": "2026-05-12",
     "pengirim": "BBK",
     "tujuan": "Bank Kalsel",
     "perihal": "Penetapan Aturan Lembur Outsourching",
-    "catatan": "No. Agenda: 84",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "85",
+    "nomor_agenda": 85,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-05-18",
     "pengirim": "KCP Sebelimbingan",
     "tujuan": "Bank Kalsel",
     "perihal": "Laporan Keluhan Staf dan Pemohonan Peninjauan Kembali Jabatan Kepala KCP Sebelimbingan",
-    "catatan": "No. Agenda: 85",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 86,
     "nomor_surat": "B-238A/63710/SS.330/2026",
-    "tanggal_surat": "2026-12-05",
+    "tanggal_surat": "2026-05-12",
     "pengirim": "BPS Kota Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pengisian Data Sensus Ekonomi 2026",
-    "catatan": "No. Agenda: 86",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "87",
+    "nomor_agenda": 87,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-05-25",
     "pengirim": "Zyadh Hanna",
     "tujuan": "Bank Kalsel",
     "perihal": "Ijin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 87",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "88",
+    "nomor_agenda": 88,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-05-26",
     "pengirim": "Fernia Mela Noverda",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Perjalanan ke Luar Negeri",
-    "catatan": "No. Agenda: 88",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "89",
-    "tanggal_surat": "2026-03-06",
+    "nomor_agenda": 89,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-06-03",
     "pengirim": "Rukianto Stiawan",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan izin melakukan perceraian",
-    "catatan": "No. Agenda: 89",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 90,
     "nomor_surat": "003/SPB-MAB/VI/2026",
-    "tanggal_surat": "2026-05-06",
+    "tanggal_surat": "2026-06-05",
     "pengirim": "Muhammad Arif Billah",
     "tujuan": "Bank Kalsel",
     "perihal": "Permintaan Perundingan (Bipartit)",
-    "catatan": "No. Agenda: 90",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 91,
     "nomor_surat": "B-623.7/Un.02/TEB/PP.05.3/06/2026",
-    "tanggal_surat": "2026-05-06",
+    "tanggal_surat": "2026-06-05",
     "pengirim": "Ahmad Faris Mujahid",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Penelitian Tugas Akhir",
-    "catatan": "No. Agenda: 91",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "92",
-    "tanggal_surat": "2026-08-06",
+    "nomor_agenda": 92,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-06-08",
     "pengirim": "Anang Rifani",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melakukan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 92",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "93",
-    "tanggal_surat": "2026-08-06",
+    "nomor_agenda": 93,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-06-08",
     "pengirim": "Nurmaya",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melakukan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 93",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 94,
     "nomor_surat": "008/BJM/BnM-EKS/VI/26",
-    "tanggal_surat": "2026-12-06",
+    "tanggal_surat": "2026-06-12",
     "pengirim": "Prodia",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Temu Mitra Pelanggan Corporate Client",
-    "catatan": "No. Agenda: 94",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 95,
     "nomor_surat": "130/A.02/ME-FEB/Usakti/V/2026",
     "tanggal_surat": "2026-06-15",
     "pengirim": "Rahmah Hayati",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan data penilitian",
-    "catatan": "No. Agenda: 95",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 96,
     "nomor_surat": "306/UN8.2/PP/2026",
     "tanggal_surat": "2026-06-17",
     "pengirim": "Muhammad Alif",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Izin Kegiatan Penelitian",
-    "catatan": "No. Agenda: 96",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 97,
     "nomor_surat": "272/BCS-SBY/VI/2026",
     "tanggal_surat": "2026-06-17",
     "pengirim": "Frida Widayanti T S.H",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permohonana Kerja Sama",
-    "catatan": "No. Agenda: 97",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "98",
+    "nomor_agenda": 98,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-06-18",
     "pengirim": "Imam Mushlih Anugerah",
     "tujuan": "Bank Kalsel",
     "perihal": "Mohon Ijin Melaksanakan Ibadah Umroh",
-    "catatan": "No. Agenda: 98",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 99,
     "nomor_surat": "1526/B&P-Admedika/Payor/VI/2026",
     "tanggal_surat": "2026-06-22",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Top Up 15",
-    "catatan": "No. Agenda: 99",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "100",
+    "nomor_agenda": 100,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-06-22",
     "pengirim": "-",
     "tujuan": "Bank Kalsel",
     "perihal": "-",
-    "catatan": "No. Agenda: 100",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "101",
+    "nomor_agenda": 101,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-06-23",
     "pengirim": "BPJS Kesehatan",
     "tujuan": "Bank Kalsel",
     "perihal": "Informasi Tunggakan Iuran Peserta Mandiri Beralik Segmen Menjadi Pekerja",
-    "catatan": "No. Agenda: 101",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 102,
     "nomor_surat": "400.13/605/DPPPAKB/2026",
     "tanggal_surat": "2026-06-23",
     "pengirim": "DPPPAKB Prov Kalimantan Selatan",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Rapat Koordinasi Persiapan Peringatan Hari Keluarga Nasional Ke-33 Tahun 2026",
-    "catatan": "No. Agenda: 102",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "103",
+    "nomor_agenda": 103,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-06-30",
     "pengirim": "Muhammad Eko Toni",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 103",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 104,
     "nomor_surat": "B-1426A/Un.14/III.5/TL.00/06/2026",
     "tanggal_surat": "2026-06-30",
     "pengirim": "Denata Maulidina",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan izin riset",
-    "catatan": "No. Agenda: 104",
     "disposisi_target_kodes": [
       "PPL"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 105,
     "nomor_surat": "04/SPS/YSKI-WIL/KT/VII/2026",
     "tanggal_surat": "2026-06-30",
     "pengirim": "Yayasan Sosialisasi Kanker Indonesia",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Sosialisasi Kanker dan Tumor",
-    "catatan": "No. Agenda: 105",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "106",
-    "tanggal_surat": "2026-01-07",
+    "nomor_agenda": 106,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-07-01",
     "pengirim": "Renita Rizky Melviani",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengajuan Pengunduran Diri",
-    "catatan": "No. Agenda: 106",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 107,
     "nomor_surat": "28/446/Bjm/Srt/B",
-    "tanggal_surat": "2026-02-07",
+    "tanggal_surat": "2026-07-02",
     "pengirim": "Bank Indonesia",
     "tujuan": "Bank Kalsel",
     "perihal": "Perizinan Penugasan Perlombaan Content Creator Pada CBP Rupiah Championship Kalsel 2026",
-    "catatan": "No. Agenda: 107",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "108",
-    "tanggal_surat": "2026-02-07",
+    "nomor_agenda": 108,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-07-02",
     "pengirim": "Karina Amelia Aisyah Yusdie",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Pengunduran Diri",
-    "catatan": "No. Agenda: 108",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "109",
-    "tanggal_surat": "2026-03-07",
+    "nomor_agenda": 109,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-07-03",
     "pengirim": "Hana Adisty",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan PPDS Bank Kalsel",
-    "catatan": "No. Agenda: 109",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "110",
-    "tanggal_surat": "2026-08-07",
+    "nomor_agenda": 110,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-07-08",
     "pengirim": "Nelly Puspa Sari",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Ibadah Umroh Plus Yordania",
-    "catatan": "No. Agenda: 110",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "111",
+    "nomor_agenda": 111,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-07-15",
     "pengirim": "Zuri Express Hotel Banjarmasin",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Penawaran Kerja Sama",
-    "catatan": "No. Agenda: 111",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "112",
+    "nomor_agenda": 112,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-07-16",
     "pengirim": "Admedika",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Pembayaran Top Up 12",
-    "catatan": "No. Agenda: 112",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "113",
+    "nomor_agenda": 113,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-07-16",
     "pengirim": "Aisya Nur Khalida",
     "tujuan": "Bank Kalsel",
     "perihal": "Izin Keluar Negeri",
-    "catatan": "No. Agenda: 113",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 114,
     "nomor_surat": "072/DK-BKS/VII/2026",
     "tanggal_surat": "2026-07-17",
     "pengirim": "Komisaris Utama",
     "tujuan": "Bank Kalsel",
     "perihal": "MCU Dewan Komisaris Tahun 2026",
-    "catatan": "No. Agenda: 114",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "115",
+    "nomor_agenda": 115,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-07-21",
     "pengirim": "Tria Noorsyifa",
     "tujuan": "Bank Kalsel",
     "perihal": "Surat Permintaan Izin Untuk Melakukan Perceraian",
-    "catatan": "No. Agenda: 115",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 116,
     "nomor_surat": "567/BBK/VII/2026",
     "tanggal_surat": "2026-07-24",
     "pengirim": "PT. BBK",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Sosialisasi Penggunaan Jasa TAD PT.BBK Penempatan Bank Kalsel",
-    "catatan": "No. Agenda: 116",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 117,
     "nomor_surat": "568/BBk/VII/2026",
     "tanggal_surat": "2026-07-24",
     "pengirim": "PT. BBK",
     "tujuan": "Bank Kalsel",
     "perihal": "Undangan Rapat Koordinasi",
-    "catatan": "No. Agenda: 117",
-    "disposisi_target_kodes": []
+    "disposisi_target_kodes": [],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "118",
+    "nomor_agenda": 118,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-07-27",
     "pengirim": "Fandry Azhari",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 118",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "119",
+    "nomor_agenda": 119,
+    "nomor_surat": "-",
     "tanggal_surat": "2026-07-28",
     "pengirim": "Nur Suci Fitriana",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 119",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "120",
-    "tanggal_surat": "2026-05-08",
+    "nomor_agenda": 120,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-08-05",
     "pengirim": "Ry'an Helmady",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 120",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "121",
-    "tanggal_surat": "2026-05-08",
+    "nomor_agenda": 121,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-08-05",
     "pengirim": "Septy Farina Ayu",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Perjalanan Ke Luar Negeri",
-    "catatan": "No. Agenda: 121",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
+    "nomor_agenda": 122,
     "nomor_surat": "1966/B&P-ADMEDIKA/PAYOR/VIII/2026",
-    "tanggal_surat": "2026-03-08",
+    "tanggal_surat": "2026-08-03",
     "pengirim": "ADMEDIKA",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Topup 17",
-    "catatan": "No. Agenda: 122",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   },
   {
-    "nomor_surat": "123",
-    "tanggal_surat": "2026-05-08",
+    "nomor_agenda": 123,
+    "nomor_surat": "-",
+    "tanggal_surat": "2026-08-05",
     "pengirim": "Dea Lailatul M",
     "tujuan": "Bank Kalsel",
     "perihal": "Permohonan Izin Melaksanakan Perjalanan Keluar Negeri",
-    "catatan": "No. Agenda: 123",
     "disposisi_target_kodes": [
       "KM"
-    ]
+    ],
+    "evidence": null,
+    "catatan": null
   }
 ]
