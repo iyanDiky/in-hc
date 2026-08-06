@@ -60,7 +60,7 @@ class SuratMasukController extends Controller
                 }
             }
         } else {
-            $query->orderBy('tanggal_surat', 'desc');
+            $query->orderBy('created_at', 'desc');
         }
 
         // 5. Pagination
@@ -92,7 +92,7 @@ class SuratMasukController extends Controller
                   ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
         }
 
-        $query->orderBy('tanggal_surat', 'desc');
+        $query->orderBy('created_at', 'desc');
 
         $limit = $request->input('limit', 10);
         return response()->json($query->paginate($limit));
