@@ -1,0 +1,13 @@
+# Optional: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d frontend
+services:
+  frontend:
+    image: node:24-alpine
+    build: !reset null
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports: !override
+      - "5173:5173"
+    command: npm run dev -- --host
+    environment:
+      VITE_PROXY_TARGET: http://webserver

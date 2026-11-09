@@ -242,6 +242,7 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { RouterView, RouterLink, useRoute, useRouter } from 'vue-router'
 import api from '../utils/api'
+import { loadScript } from '../utils/scripts'
 import Customizer from '../components/Customizer.vue'
 import { useCustomizer } from '../composables/useCustomizer'
 
@@ -360,45 +361,14 @@ onMounted(() => {
   checkScreenSize()
   window.addEventListener('resize', checkScreenSize)
 
+  Promise.all([loadScript('/dist/js/app-style-switcher.js'), loadScript('/dist/js/custom.js')])
+    .catch(error => console.error('Gagal memuat script tampilan', error))
+
   // Load user data
   const userData = localStorage.getItem('user_data')
   if (userData) {
     user.value = JSON.parse(userData)
   }
-
-  const loadScript = (src) => {
-    return new Promise((resolve, reject) => {
-      if (document.querySelector(`script[src="${src}"]`)) {
-        resolve()
-        return
-      }
-      const script = document.createElement('script')
-      script.src = src
-      script.onload = resolve
-      script.onerror = reject
-      document.body.appendChild(script)
-    })
-  }
-
-  const loadScripts = async () => {
-    try {
-      await loadScript('/dist/libs/jquery/dist/jquery.min.js')
-      await loadScript('/dist/libs/simplebar/dist/simplebar.min.js')
-      await loadScript('/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js')
-      
-      // We skip app.min.js because we handle sidebar state natively in Vue now
-      await loadScript('/dist/js/app-style-switcher.js')
-      await loadScript('/dist/libs/select2/dist/js/select2.full.min.js')
-      await loadScript('/dist/libs/select2/dist/js/select2.min.js')
-      await loadScript('/dist/libs/datatables.net/js/jquery.dataTables.min.js')
-      await loadScript('/dist/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js')
-      await loadScript('/dist/js/custom.js')
-    } catch (e) {
-      console.error('Failed to load template scripts', e)
-    }
-  }
-
-  loadScripts()
 })
 
 onUnmounted(() => {

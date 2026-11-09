@@ -21,7 +21,9 @@ class SuratKeluarController extends Controller
 
         // 0. Tahun Filter
         if ($request->filled('tahun')) {
-            $query->whereYear('tanggal_surat', $request->input('tahun'));
+            $request->validate(['tahun' => 'integer|between:1900,9999']);
+            $year = (int) $request->input('tahun');
+            $query->whereBetween('tanggal_surat', ["{$year}-01-01", "{$year}-12-31"]);
         }
 
         // 1. Date Range Filter
@@ -76,8 +78,12 @@ class SuratKeluarController extends Controller
         }
 
         // 5. Pagination
-        $start = $request->input('start', 0);
-        $length = $request->input('length', 10);
+        $request->validate([
+            'start' => 'sometimes|integer|min:0',
+            'length' => 'sometimes|integer|min:1|max:100',
+        ]);
+        $start = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 10);
         if ($length > 0) {
             $query->offset($start)->limit($length);
         }

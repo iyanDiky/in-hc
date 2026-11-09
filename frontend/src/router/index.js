@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '../layout/MainLayout.vue'
+import { loadPagePlugins } from '../utils/scripts'
 
 const routes = [
   {
@@ -73,15 +74,24 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = 'Human Capital'
   const isAuthenticated = !!localStorage.getItem('auth_token')
   
   if (to.meta.requiresAuth && !isAuthenticated) {
     next({ name: 'Login' })
   } else if (to.name === 'Login' && isAuthenticated) {
-    next({ name: 'Home' })
+    next({ name: 'Dashboard' })
   } else {
+    if (to.meta.requiresAuth) {
+      try {
+        await loadPagePlugins(to.name)
+      } catch (error) {
+        window.Swal?.fire({ icon: 'error', title: 'Halaman gagal dimuat', text: 'Periksa koneksi lalu coba lagi.' })
+        next(false)
+        return
+      }
+    }
     next()
   }
 })

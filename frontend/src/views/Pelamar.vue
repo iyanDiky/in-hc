@@ -597,10 +597,6 @@ const initDataTable = () => {
     dataTableInstance.destroy()
   }
   
-  if (!window.$ || !window.$.fn.dataTable) {
-    setTimeout(initDataTable, 100)
-    return
-  }
 
   dataTableInstance = window.$('#pelamarTable').DataTable({
     serverSide: true,

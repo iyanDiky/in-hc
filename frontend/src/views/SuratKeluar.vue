@@ -441,10 +441,6 @@ const initDataTable = () => {
     dataTableInstance.destroy()
   }
   
-  if (!window.$ || !window.$.fn.dataTable) {
-    setTimeout(initDataTable, 100)
-    return
-  }
 
   dataTableInstance = window.$('#suratKeluarTable').DataTable({
     serverSide: true,

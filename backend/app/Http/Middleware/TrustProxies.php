@@ -12,7 +12,9 @@ class TrustProxies extends Middleware
      *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    // The API is exposed only through the frontend proxy (or host loopback).
+    // That proxy overwrites forwarded headers, preserving per-client rate limits.
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.

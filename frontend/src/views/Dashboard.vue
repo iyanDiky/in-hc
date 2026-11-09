@@ -504,7 +504,7 @@ const { state: customizerState } = useCustomizer()
 const currentUser = ref(null)
 const userProfileImg = ref('/dist/images/profile/user-1.jpg')
 const onImageError = () => {
-  userProfileImg.value = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(currentUser.value?.nama || 'User') + '&background=615dff&color=fff'
+  userProfileImg.value = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="#615dff"/><text x="40" y="50" text-anchor="middle" font-size="32" fill="white">HC</text></svg>')
 }
 
 // Current Year & Date

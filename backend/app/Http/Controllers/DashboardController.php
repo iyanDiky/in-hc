@@ -83,7 +83,10 @@ class DashboardController extends Controller
      */
     public function chartMonthly(Request $request)
     {
-        $year = $request->input('year', Carbon::now()->year);
+        $request->validate(['year' => 'sometimes|integer|between:1900,9999']);
+        $year = (int) $request->input('year', Carbon::now()->year);
+        $startOfYear = Carbon::create($year, 1, 1)->startOfDay();
+        $endOfYear = $startOfYear->copy()->addYear();
 
         $months = [
             1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr',
@@ -103,7 +106,7 @@ class DashboardController extends Controller
 
         // Agregasi Surat Masuk
         $suratMasukPerBulan = SuratMasuk::selectRaw(sprintf($monthExpr, 'tanggal_surat') . ' as month, count(*) as total')
-            ->whereYear('tanggal_surat', $year)
+            ->where('tanggal_surat', '>=', $startOfYear)->where('tanggal_surat', '<', $endOfYear)
             ->groupBy(DB::raw(sprintf($monthExpr, 'tanggal_surat')))
             ->pluck('total', 'month');
 
@@ -113,7 +116,7 @@ class DashboardController extends Controller
 
         // Agregasi Surat Keluar
         $suratKeluarPerBulan = SuratKeluar::selectRaw(sprintf($monthExpr, 'tanggal_surat') . ' as month, count(*) as total')
-            ->whereYear('tanggal_surat', $year)
+            ->where('tanggal_surat', '>=', $startOfYear)->where('tanggal_surat', '<', $endOfYear)
             ->groupBy(DB::raw(sprintf($monthExpr, 'tanggal_surat')))
             ->pluck('total', 'month');
 
@@ -124,7 +127,7 @@ class DashboardController extends Controller
         // Agregasi Disposisi
         $disposisiPerBulan = SuratMasukDisposisi::whereHas('suratMasuk')
             ->selectRaw(sprintf($monthExpr, 'disposisi_waktu') . ' as month, count(*) as total')
-            ->whereYear('disposisi_waktu', $year)
+            ->where('disposisi_waktu', '>=', $startOfYear)->where('disposisi_waktu', '<', $endOfYear)
             ->groupBy(DB::raw(sprintf($monthExpr, 'disposisi_waktu')))
             ->pluck('total', 'month');
 
@@ -134,7 +137,7 @@ class DashboardController extends Controller
 
         // Agregasi Data Pelamar
         $pelamarPerBulan = Lamaran::selectRaw(sprintf($monthExpr, 'tanggal_diterima') . ' as month, count(*) as total')
-            ->whereYear('tanggal_diterima', $year)
+            ->where('tanggal_diterima', '>=', $startOfYear)->where('tanggal_diterima', '<', $endOfYear)
             ->groupBy(DB::raw(sprintf($monthExpr, 'tanggal_diterima')))
             ->pluck('total', 'month');
 
@@ -174,7 +177,15 @@ class DashboardController extends Controller
      */
     public function chartWeekly(Request $request)
     {
-        $days = [];
+        $today = Carbon::today();
+        $start = $today->copy()->subDays(6)->toDateString();
+        $end = $today->toDateString();
+        $counts = [];
+        foreach ([SuratMasuk::class => 'tanggal_surat', SuratKeluar::class => 'tanggal_surat', Lamaran::class => 'tanggal_diterima'] as $model => $column) {
+            $counts[$model] = $model::whereBetween($column, [$start, $end])
+                ->selectRaw("{$column} as day, COUNT(*) as total")
+                ->groupBy($column)->pluck('total', 'day');
+        }
         $categories = [];
         $dataSuratMasuk = [];
         $dataSuratKeluar = [];
@@ -183,15 +194,15 @@ class DashboardController extends Controller
 
         // 7 hari terakhir mundur dari hari ini
         for ($i = 6; $i >= 0; $i--) {
-            $date = Carbon::now()->subDays($i);
+            $date = $today->copy()->subDays($i);
             $dateStr = $date->toDateString();
             $dayName = $date->locale('id')->isoFormat('ddd, D MMM');
             
             $categories[] = $dayName;
 
-            $countMasuk = SuratMasuk::whereDate('tanggal_surat', $dateStr)->count();
-            $countKeluar = SuratKeluar::whereDate('tanggal_surat', $dateStr)->count();
-            $countPelamar = Lamaran::whereDate('tanggal_diterima', $dateStr)->count();
+            $countMasuk = (int) ($counts[SuratMasuk::class][$dateStr] ?? 0);
+            $countKeluar = (int) ($counts[SuratKeluar::class][$dateStr] ?? 0);
+            $countPelamar = (int) ($counts[Lamaran::class][$dateStr] ?? 0);
 
             $dataSuratMasuk[] = $countMasuk;
             $dataSuratKeluar[] = $countKeluar;
@@ -229,9 +240,13 @@ class DashboardController extends Controller
         // Hitung total surat keluar yang memiliki bagian_seksi_request valid
         $totalKeluar = SuratKeluar::whereNotNull('bagian_seksi_request')->count();
 
+        $countsByBagian = SuratKeluar::selectRaw('bagian_seksi_request, COUNT(*) as total')
+            ->whereNotNull('bagian_seksi_request')->groupBy('bagian_seksi_request')
+            ->pluck('total', 'bagian_seksi_request');
+
         // Hitung jumlah surat keluar untuk masing-masing bagian seksi yang terdaftar di database
         foreach ($bagianSeksiList as $bagian) {
-            $count = SuratKeluar::where('bagian_seksi_request', $bagian->id)->count();
+            $count = (int) ($countsByBagian[$bagian->id] ?? 0);
             $percentage = $totalKeluar > 0 ? round(($count / $totalKeluar) * 100, 1) : 0;
 
             $labels[] = $bagian->bagian_seksi;

@@ -271,11 +271,6 @@ const initDataTable = () => {
     dataTableInstance.destroy()
   }
   
-  // Tunggu sampai jQuery dan DataTables ter-load
-  if (!window.$ || !window.$.fn.dataTable) {
-    setTimeout(initDataTable, 100)
-    return
-  }
 
   dataTableInstance = window.$('#suratMasukTable').DataTable({
     serverSide: true,

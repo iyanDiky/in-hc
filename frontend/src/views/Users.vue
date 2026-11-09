@@ -203,10 +203,6 @@ const initDataTable = () => {
     dataTableInstance.destroy()
   }
 
-  if (!window.$ || !window.$.fn.dataTable) {
-    setTimeout(initDataTable, 100)
-    return
-  }
 
   dataTableInstance = window.$('#usersTable').DataTable({
     serverSide: true,

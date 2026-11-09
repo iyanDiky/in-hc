@@ -2,10 +2,7 @@ import axios from 'axios'
 import router from '../router'
 
 export const getBackendHost = () => {
-  if (typeof window !== 'undefined' && window.location && window.location.hostname) {
-    return `http://${window.location.hostname}:8000`
-  }
-  return 'http://localhost:8000'
+  return typeof window !== 'undefined' ? window.location.origin : ''
 }
 
 export const getStorageUrl = (path) => {

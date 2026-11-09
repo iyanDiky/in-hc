@@ -1,0 +1,6 @@
+.git
+data_raw
+template_frontend
+frontend/node_modules
+frontend/dist
+backend
