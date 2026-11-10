@@ -106,6 +106,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Pengelolaan Data Pelamar (Lamaran)
+    Route::post('/institusi-pendidikan/search', [\App\Http\Controllers\InstitusiPendidikanController::class, 'search']);
     Route::prefix('lamaran')->group(function () {
         Route::post('/datatables', [\App\Http\Controllers\LamaranController::class, 'datatables']);
         Route::post('/list', [\App\Http\Controllers\LamaranController::class, 'list']);

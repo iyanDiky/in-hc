@@ -142,7 +142,11 @@
                 <label class="form-label">Tanggal Lahir</label>
                 <input type="date" class="form-control" v-model="form.tanggal_lahir">
               </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-12 mb-3">
+                <label class="form-label" for="institusi-pelamar">Nama Institusi / Universitas</label>
+                <InstitusiInput v-model="form.institusi" />
+              </div>
+              <div class="col-md-6 mb-3">
                 <label class="form-label">Jenjang Pendidikan <span class="text-danger">*</span></label>
                 <select class="form-select" v-model="form.pendidikan" required>
                   <option value="SMA">SMA / SMK / Sederajat</option>
@@ -154,11 +158,7 @@
                   <option value="LAINNYA">Lainnya</option>
                 </select>
               </div>
-              <div class="col-md-4 mb-3">
-                <label class="form-label">Nama Institusi / Universitas</label>
-                <input type="text" class="form-control" v-model="form.institusi" placeholder="Contoh: Universitas Indonesia">
-              </div>
-              <div class="col-md-4 mb-3">
+              <div class="col-md-6 mb-3">
                 <label class="form-label">Program Studi / Jurusan</label>
                 <input type="text" class="form-control" v-model="form.jurusan" placeholder="Contoh: Teknik Informatika">
               </div>
@@ -301,6 +301,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import InstitusiInput from '../components/InstitusiInput.vue'
 import api, { getStorageUrl } from '../utils/api'
 
 const showModal = ref(false)
@@ -543,7 +544,7 @@ const saveData = async () => {
   if (form.value.tempat_lahir) formData.append('tempat_lahir', form.value.tempat_lahir)
   if (form.value.tanggal_lahir) formData.append('tanggal_lahir', form.value.tanggal_lahir)
   formData.append('pendidikan', form.value.pendidikan)
-  if (form.value.institusi) formData.append('institusi', form.value.institusi)
+  formData.append('institusi', form.value.institusi)
   if (form.value.jurusan) formData.append('jurusan', form.value.jurusan)
   if (form.value.catatan) formData.append('catatan', form.value.catatan)
   if (evidenceFile.value) {

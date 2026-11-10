@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lamaran;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LamaranController extends Controller
 {
@@ -158,7 +159,7 @@ class LamaranController extends Controller
             $validated['evidence'] = $path;
         }
 
-        $lamaran = Lamaran::create($validated);
+        $lamaran = DB::transaction(fn () => Lamaran::create($validated));
         $lamaran->load([
             'userInput:id,nama,npp'
         ]);
@@ -193,7 +194,7 @@ class LamaranController extends Controller
             unset($validated['evidence']);
         }
 
-        $lamaran->update($validated);
+        DB::transaction(fn () => $lamaran->update($validated));
         $lamaran->load([
             'userInput:id,nama,npp'
         ]);

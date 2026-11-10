@@ -19,6 +19,13 @@ class Lamaran extends Model
 
     protected static function booted()
     {
+        static::saving(function ($model) {
+            if (!$model->exists || $model->isDirty('institusi')) {
+                $institution = InstitusiPendidikan::resolveName($model->institusi);
+                $model->institusi_pendidikan_id = $institution?->id;
+                $model->institusi = $institution?->nama;
+            }
+        });
         static::creating(function ($model) {
             if (!$model->user_input && Auth::check()) {
                 $model->user_input = Auth::id();
@@ -29,5 +36,10 @@ class Lamaran extends Model
     public function userInput()
     {
         return $this->belongsTo(User::class, 'user_input');
+    }
+
+    public function institusiPendidikan()
+    {
+        return $this->belongsTo(InstitusiPendidikan::class);
     }
 }

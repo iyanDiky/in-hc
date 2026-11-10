@@ -18,6 +18,12 @@ Perubahan frontend perlu build ulang melalui script di atas. Instalasi dependens
 
 Jangan menjalankan `docker compose down -v` jika ingin mempertahankan database. Memindahkan folder saja tidak memindahkan volume PostgreSQL: pindahkan database melalui backup/restore serta folder `backend/storage/app/public` untuk evidence.
 
+## Institusi pendidikan pada data pelamar
+
+Kolom institusi kini menampilkan maksimal 10 saran setelah minimal 2 karakter, dengan jeda pencarian 300 ms. Pilih saran menggunakan klik atau tombol panah dan Enter. Nama yang belum ada boleh tetap diketik; master institusi baru dibuat bersamaan dengan penyimpanan pelamar yang berhasil. Mengetik, membatalkan formulir, atau validasi formulir yang gagal tidak menambah master.
+
+Migrasi `2026_11_10_000001_create_institusi_pendidikan` mengambil nama institusi dari data lama dan menghubungkannya ke master tanpa mengubah nama pada catatan lama. Huruf besar/kecil dan spasi berlebih dianggap nama yang sama; singkatan dan variasi ejaan tetap dianggap berbeda. Nama institusi boleh dikosongkan dan master yang sudah ada tetap tersedia untuk pelamar lainnya. Jalankan script deployment di atas untuk menerapkan migrasi dan build frontend saat memperbarui aplikasi di PC kantor.
+
 ## Development opsional
 
 ```sh
