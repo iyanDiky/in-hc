@@ -643,6 +643,7 @@ const initDataTable = () => {
               </div>
               <div>
                 <h6 class="fw-semibold mb-0 fs-4 text-dark">${safeNama}</h6>
+              ${row.import_issues?.length ? `<span class="badge bg-light-warning text-warning mt-1" title="${escapeHtml(row.import_issues.join('; '))}">Perlu cek (${row.import_issues.length})</span>` : ''}
                 <span class="badge bg-light-secondary text-secondary fs-2 py-0 px-2 mt-1">
                   <i class="ti ti-hash me-1"></i>No. Lamaran: #${safeNomor}
                 </span>

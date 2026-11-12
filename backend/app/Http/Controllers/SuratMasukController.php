@@ -47,7 +47,8 @@ class SuratMasukController extends Controller
                 $q->whereRaw('LOWER(nomor_surat) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(pengirim) LIKE ?', ["%{$search}%"])
-                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
+                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(catatan) LIKE ?', ["%{$search}%"]);
             });
         }
 
@@ -60,15 +61,22 @@ class SuratMasukController extends Controller
         if (!empty($order) && !empty($columns)) {
             foreach ($order as $o) {
                 $columnIndex = $o['column'];
-                $dir = $o['dir'];
+                $dir = ($o['dir'] ?? '') === 'asc' ? 'asc' : 'desc';
                 $columnName = $columns[$columnIndex]['data'] ?? null;
                 if ($columnName && $columnName !== 'null' && in_array($columnName, ['tanggal_surat', 'nomor_surat', 'perihal', 'pengirim', 'tujuan', 'created_at'])) {
+                    if ($columnName === 'nomor_surat') {
+                        $query->orderByRaw("CASE WHEN nomor_surat ~ '^[0-9]+$' THEN CAST(nomor_surat AS BIGINT) END {$dir} NULLS LAST");
+                    }
                     $query->orderBy($columnName, $dir);
                 }
             }
         } else {
-            $query->orderBy('created_at', 'desc')->orderBy('tanggal_surat', 'desc');
+            $query->orderBy('tanggal_surat', 'desc');
         }
+        // Import timestamps can be identical. Resolve date ties using the numeric register number.
+        $query->orderBy('tanggal_surat', 'desc')
+            ->orderByRaw("CASE WHEN nomor_surat ~ '^[0-9]+$' THEN CAST(nomor_surat AS BIGINT) END DESC NULLS LAST")
+            ->orderBy('nomor_surat', 'desc')->orderBy('id', 'desc');
 
         // 5. Pagination
         $request->validate([
@@ -117,10 +125,13 @@ class SuratMasukController extends Controller
             $query->whereRaw('LOWER(nomor_surat) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(pengirim) LIKE ?', ["%{$search}%"])
-                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
+                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(catatan) LIKE ?', ["%{$search}%"]);
         }
 
-        $query->orderBy('created_at', 'desc')->orderBy('tanggal_surat', 'desc');
+        $query->orderBy('tanggal_surat', 'desc')
+            ->orderByRaw("CASE WHEN nomor_surat ~ '^[0-9]+$' THEN CAST(nomor_surat AS BIGINT) END DESC NULLS LAST")
+            ->orderBy('nomor_surat', 'desc')->orderBy('id', 'desc');
 
         $limit = $request->input('limit', 10);
         return response()->json($query->paginate($limit));
@@ -138,12 +149,12 @@ class SuratMasukController extends Controller
     {
         $validated = $request->validate([
             'tanggal_surat' => 'required|date',
-            'nomor_surat' => 'required|string|max:255',
+            'nomor_surat' => 'nullable|string|max:255',
             'pengirim' => 'required|string|max:255',
             'tujuan' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'catatan' => 'nullable|string|max:255',
+            'catatan' => 'nullable|string|max:10000',
         ]);
 
         if ($request->hasFile('evidence')) {
@@ -153,7 +164,7 @@ class SuratMasukController extends Controller
             $validated['evidence'] = $path;
         }
 
-        $suratMasuk = SuratMasuk::create($validated);
+        $suratMasuk = app(\App\Services\AnnualNumber::class)->create(SuratMasuk::class, 'nomor_surat', 'tanggal_surat', $validated);
 
         return response()->json(['message' => 'Created successfully', 'data' => $suratMasuk], 201);
     }
@@ -170,7 +181,7 @@ class SuratMasukController extends Controller
             'tujuan' => 'required|string|max:255',
             'perihal' => 'required|string|max:255',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'catatan' => 'nullable|string|max:255',
+            'catatan' => 'nullable|string|max:10000',
         ]);
 
         if ($request->hasFile('evidence')) {

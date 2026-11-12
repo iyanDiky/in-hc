@@ -1,3 +1,8 @@
 .DS_Store
 */.DS_Store
 ~$*.xlsx
+
+# Local database backups and import reports contain private data.
+/backups/
+/data_raw/import-output/
+/scripts/__pycache__/

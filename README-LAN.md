@@ -12,7 +12,7 @@ sh scripts/start-lan.sh
 
 Script membangun image, menyalakan layanan, menjalankan migrasi tambahan tanpa menghapus data, dan menyegarkan cache Laravel. Pada komputer lain, siapkan `backend/.env` dengan APP_KEY dan kredensial database yang benar. Backend memakai host database `db` dan port internal `5432`. Jika dependensi PHP belum tersedia, jalankan `docker compose run --rm backend composer install --no-interaction --optimize-autoloader` terlebih dahulu. Database baru kosong memerlukan setup data/akun terpisah; script tidak menjalankan seeder atau mereset password/data lama.
 
-Buka `http://localhost:5173` pada server atau `http://IP-KOMPUTER-SERVER:5173` dari perangkat di Wi-Fi yang sama. Izinkan port TCP 5173 pada firewall server bila diperlukan. IP server harus sesuai jaringan aktif; folder aplikasi tidak dapat mengubah pengaturan Wi-Fi/firewall komputer lain. Backend port 8000 dan database port 5436 hanya dibuka pada loopback server. Akses pengguna cukup melalui 5173.
+Buka `http://localhost:5173` pada server atau `http://IP-KOMPUTER-SERVER:5173` dari perangkat di Wi-Fi yang sama. Izinkan port TCP 5173 pada firewall server bila diperlukan. IP server harus sesuai jaringan aktif; folder aplikasi tidak dapat mengubah pengaturan Wi-Fi/firewall komputer lain. Backend port 8000 dan database port 5433 hanya dibuka pada loopback server. Akses pengguna cukup melalui 5173.
 
 Perubahan frontend perlu build ulang melalui script di atas. Instalasi dependensi saat build membutuhkan internet; penggunaan aplikasi setelah build tidak lagi mengambil font, ikon, atau avatar dari internet. Aset Vite ber-hash memakai cache satu tahun; HTML dan aset template tanpa hash direvalidasi dengan ETag agar versi terbaru dapat dimuat.
 
@@ -44,3 +44,7 @@ Vite diproksikan ke backend Docker untuk `/api` dan `/storage`. Backend tetap me
 Pengujian visual/interaksi browser belum selesai karena fasilitas browser pengujian tidak tersedia. Pengukuran Wi-Fi dan beban banyak pengguna tetap perlu dilakukan pada komputer ruangan. Jumlah worker PHP tidak dinaikkan tanpa pengukuran kapasitas RAM. Statistik tidak diberi cache agar tetap mencerminkan perubahan data terbaru.
 
 Build dependency yang ada juga melaporkan tujuh temuan npm berlevel high saat instalasi; pembaruan dependency untuk temuan tersebut belum termasuk perubahan performa ini.
+
+## Windows PowerShell
+
+Jalankan: `powershell -ExecutionPolicy Bypass -File .\scripts\start-lan.ps1`. Script berhenti jika perintah Docker gagal. Database lokal memakai port 5433; akses aplikasi LAN tetap melalui port 5173.

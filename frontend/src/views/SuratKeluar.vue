@@ -120,20 +120,24 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div :class="isEdit ? 'col-md-6 mb-3' : 'col-md-12 mb-3'">
+              <div class="col-md-6 mb-3">
                 <label class="form-label">Tanggal Surat <span class="text-danger">*</span></label>
-                <input type="date" class="form-control" v-model="form.tanggal_surat" required>
+                <input type="date" class="form-control" v-model="form.tanggal_surat" @change="fetchNextNumber" required>
               </div>
-              <div v-if="isEdit" class="col-md-6 mb-3">
+              <div class="col-md-6 mb-3">
                 <label class="form-label">Nomor Surat (Angka) <span class="text-danger">*</span></label>
                 <input 
                   type="number" 
                   min="1" 
                   class="form-control" 
                   v-model.number="form.nomor_surat" 
+                  @input="numberEdited = true"
                   placeholder="Nomor urut surat (angka)" 
                   required
                 >
+                <small v-if="!isEdit" class="d-block mt-1" :class="numberError ? 'text-danger' : 'text-muted'">
+                  {{ numberLoading ? 'Mengambil nomor berikutnya…' : numberError || 'Terisi otomatis sesuai tahun tanggal surat. Bisa diubah untuk surat bertanggal lampau.' }}
+                </small>
               </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label">Tujuan Surat <span class="text-danger">*</span></label>
@@ -178,7 +182,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-light" @click="closeModal()">Batal</button>
-            <button type="button" class="btn btn-primary" @click="saveData()">Simpan</button>
+            <button type="button" class="btn btn-primary" :disabled="numberLoading" @click="saveData()">Simpan</button>
           </div>
         </div>
       </div>
@@ -288,6 +292,35 @@ import { ref, computed, onMounted, nextTick } from 'vue'
 import api, { getStorageUrl } from '../utils/api'
 
 const showModal = ref(false)
+const numberEdited = ref(false)
+const numberLoading = ref(false)
+const numberError = ref('')
+let numberRequest = 0
+
+const fetchNextNumber = async () => {
+  if (isEdit.value || !showModal.value || numberEdited.value) return
+  const request = ++numberRequest
+  if (!form.value.tanggal_surat) {
+    form.value.nomor_surat = ''
+    numberLoading.value = false
+    return
+  }
+  numberLoading.value = true
+  numberError.value = ''
+  try {
+    const { data } = await api.post('/surat-keluar/next-number', { tanggal_surat: form.value.tanggal_surat })
+    if (request === numberRequest && showModal.value && !isEdit.value && !numberEdited.value) {
+      form.value.nomor_surat = data.next_nomor
+    }
+  } catch {
+    if (request === numberRequest && !numberEdited.value) {
+      form.value.nomor_surat = ''
+      numberError.value = 'Gagal mengambil nomor otomatis. Isi nomor secara manual.'
+    }
+  } finally {
+    if (request === numberRequest) numberLoading.value = false
+  }
+}
 const showDetailModal = ref(false)
 const isEdit = ref(false)
 const showFilter = ref(false)
@@ -496,6 +529,7 @@ const initDataTable = () => {
           return `
             <div>
               <h6 class="fw-semibold mb-0 fs-4 text-dark text-truncate" style="max-width: 320px;" title="${safePerihal}">${safePerihal}</h6>
+              ${row.import_issues?.length ? `<span class="badge bg-light-warning text-warning mt-1" title="${escapeHtml(row.import_issues.join('; '))}">Perlu cek (${row.import_issues.length})</span>` : ''}
             </div>
           `;
         }
@@ -640,7 +674,8 @@ const openModal = async () => {
   if (usersList.value.length === 0 || bagianSeksiList.value.length === 0) {
     await fetchOptions()
   }
-  const today = new Date().toISOString().split('T')[0]
+  const now = new Date()
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
   form.value = { 
     id: '', 
     tanggal_surat: today, 
@@ -654,6 +689,9 @@ const openModal = async () => {
   }
   evidenceFile.value = null
   showModal.value = true
+  numberEdited.value = false
+  numberError.value = ''
+  void fetchNextNumber()
 
   await nextTick()
   setTimeout(() => {
@@ -662,6 +700,8 @@ const openModal = async () => {
 }
 
 const closeModal = () => {
+  numberRequest++
+  numberLoading.value = false
   showModal.value = false
   evidenceFile.value = null
 }
@@ -727,7 +767,7 @@ const saveData = async () => {
     return
   }
 
-  if (isEdit.value && (!form.value.nomor_surat || form.value.nomor_surat < 1)) {
+  if (!Number.isInteger(form.value.nomor_surat) || form.value.nomor_surat < 1) {
     window.Swal.fire({
       icon: 'warning',
       title: 'Validasi',
@@ -739,7 +779,7 @@ const saveData = async () => {
   try {
     const formData = new FormData()
     formData.append('tanggal_surat', form.value.tanggal_surat)
-    if (isEdit.value && form.value.nomor_surat) {
+    if (form.value.nomor_surat) {
       formData.append('nomor_surat', form.value.nomor_surat)
     }
     formData.append('tujuan', form.value.tujuan)

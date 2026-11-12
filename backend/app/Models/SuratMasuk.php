@@ -18,6 +18,8 @@ class SuratMasuk extends Model
 
     protected $guarded = [];
 
+    protected $casts = ['import_issues' => 'array', 'import_source' => 'array'];
+
     protected static function booted()
     {
         static::creating(function ($model) {

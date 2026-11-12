@@ -87,10 +87,10 @@ class LamaranController extends Controller
 
     public function nextNumber(Request $request)
     {
-        $tanggalDiterima = $request->input('tanggal_diterima', date('Y-m-d'));
-        $year = date('Y', strtotime($tanggalDiterima));
-        $maxNomor = Lamaran::whereYear('tanggal_diterima', $year)->max('nomor_lamaran');
-        $nextNomor = ($maxNomor !== null) ? intval($maxNomor) + 1 : 1;
+        $request->validate(['tanggal_diterima' => 'sometimes|date']);
+        $date = $request->input('tanggal_diterima', date('Y-m-d'));
+        $year = \Carbon\Carbon::parse($date)->year;
+        $nextNomor = app(\App\Services\AnnualNumber::class)->next(Lamaran::class, 'nomor_lamaran', 'tanggal_diterima', $date);
 
         return response()->json([
             'year' => intval($year),
@@ -142,15 +142,8 @@ class LamaranController extends Controller
             'institusi' => 'nullable|string|max:255',
             'jurusan' => 'nullable|string|max:255',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'catatan' => 'nullable|string|max:255',
+            'catatan' => 'nullable|string|max:10000',
         ]);
-
-        // Auto increment nomor_lamaran per tahun
-        if (empty($validated['nomor_lamaran'])) {
-            $year = date('Y', strtotime($validated['tanggal_diterima']));
-            $maxNomor = Lamaran::whereYear('tanggal_diterima', $year)->max('nomor_lamaran');
-            $validated['nomor_lamaran'] = ($maxNomor !== null) ? intval($maxNomor) + 1 : 1;
-        }
 
         if ($request->hasFile('evidence')) {
             $file = $request->file('evidence');
@@ -159,7 +152,7 @@ class LamaranController extends Controller
             $validated['evidence'] = $path;
         }
 
-        $lamaran = DB::transaction(fn () => Lamaran::create($validated));
+        $lamaran = app(\App\Services\AnnualNumber::class)->create(Lamaran::class, 'nomor_lamaran', 'tanggal_diterima', $validated);
         $lamaran->load([
             'userInput:id,nama,npp'
         ]);
@@ -182,7 +175,7 @@ class LamaranController extends Controller
             'institusi' => 'nullable|string|max:255',
             'jurusan' => 'nullable|string|max:255',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'catatan' => 'nullable|string|max:255',
+            'catatan' => 'nullable|string|max:10000',
         ]);
 
         if ($request->hasFile('evidence')) {

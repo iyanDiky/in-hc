@@ -124,7 +124,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                 <label class="form-label">Nomor Surat <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" v-model="form.nomor_surat" placeholder="Masukkan nomor surat">
+                <input type="text" class="form-control" v-model="form.nomor_surat" :disabled="!isEdit" :placeholder="isEdit ? 'Nomor surat' : 'Otomatis berurutan per tahun saat disimpan'">
                 </div>
                 <div class="col-md-6 mb-3">
                 <label class="form-label">Pengirim <span class="text-danger">*</span></label>
@@ -275,7 +275,6 @@ const initDataTable = () => {
   dataTableInstance = window.$('#suratMasukTable').DataTable({
     serverSide: true,
     processing: true,
-    order: [],
     dom: 'rt<"d-flex align-items-center justify-content-between flex-wrap gap-2 p-3 border-top"lip>',
     ajax: async function (data, callback, settings) {
       try {
@@ -316,6 +315,7 @@ const initDataTable = () => {
               </div>
               <div>
                 <h6 class="fw-semibold mb-0 fs-4 text-truncate" style="max-width: 340px;" title="${safePerihal}">${safePerihal}</h6>
+              ${row.import_issues?.length ? `<span class="badge bg-light-warning text-warning mt-1" title="${escapeHtml(row.import_issues.join('; '))}">Perlu cek (${row.import_issues.length})</span>` : ''}
                 <p class="mb-0 text-muted fs-3">${safeNomor}</p>
               </div>
             </div>

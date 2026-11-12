@@ -23,7 +23,10 @@ class SuratKeluarController extends Controller
         if ($request->filled('tahun')) {
             $request->validate(['tahun' => 'integer|between:1900,9999']);
             $year = (int) $request->input('tahun');
-            $query->whereBetween('tanggal_surat', ["{$year}-01-01", "{$year}-12-31"]);
+            $query->where(function ($q) use ($year) {
+                $q->whereBetween('tanggal_surat', ["{$year}-01-01", "{$year}-12-31"])
+                  ->orWhere(fn ($missing) => $missing->whereNull('tanggal_surat')->where('tahun_arsip', $year));
+            });
         }
 
         // 1. Date Range Filter
@@ -47,6 +50,7 @@ class SuratKeluarController extends Controller
                 $q->whereRaw('CAST(nomor_surat AS TEXT) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(catatan) LIKE ?', ["%{$search}%"])
                   ->orWhereHas('userRequest', function($uq) use ($search) {
                       $uq->whereRaw('LOWER(nama) LIKE ?', ["%{$search}%"])
                          ->orWhereRaw('LOWER(npp) LIKE ?', ["%{$search}%"]);
@@ -117,10 +121,10 @@ class SuratKeluarController extends Controller
 
     public function nextNumber(Request $request)
     {
-        $tanggalSurat = $request->input('tanggal_surat', date('Y-m-d'));
-        $year = date('Y', strtotime($tanggalSurat));
-        $maxNomor = SuratKeluar::whereYear('tanggal_surat', $year)->max('nomor_surat');
-        $nextNomor = ($maxNomor !== null) ? intval($maxNomor) + 1 : 1;
+        $request->validate(['tanggal_surat' => 'sometimes|date']);
+        $date = $request->input('tanggal_surat', date('Y-m-d'));
+        $year = \Carbon\Carbon::parse($date)->year;
+        $nextNomor = app(\App\Services\AnnualNumber::class)->next(SuratKeluar::class, 'nomor_surat', 'tanggal_surat', $date);
 
         return response()->json([
             'year' => intval($year),
@@ -141,7 +145,8 @@ class SuratKeluarController extends Controller
             $query->where(function($q) use ($search) {
                 $q->whereRaw('CAST(nomor_surat AS TEXT) LIKE ?', ["%{$search}%"])
                   ->orWhereRaw('LOWER(perihal) LIKE ?', ["%{$search}%"])
-                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"]);
+                  ->orWhereRaw('LOWER(tujuan) LIKE ?', ["%{$search}%"])
+                  ->orWhereRaw('LOWER(catatan) LIKE ?', ["%{$search}%"]);
             });
         }
 
@@ -173,15 +178,8 @@ class SuratKeluarController extends Controller
             'user_request' => 'nullable|uuid|exists:users,id',
             'bagian_seksi_request' => 'nullable|uuid|exists:bagian_seksi,id',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'catatan' => 'nullable|string|max:255',
+            'catatan' => 'nullable|string|max:10000',
         ]);
-
-        // Auto increment nomor_surat per tahun
-        if (empty($validated['nomor_surat'])) {
-            $year = date('Y', strtotime($validated['tanggal_surat']));
-            $maxNomor = SuratKeluar::whereYear('tanggal_surat', $year)->max('nomor_surat');
-            $validated['nomor_surat'] = ($maxNomor !== null) ? intval($maxNomor) + 1 : 1;
-        }
 
         if ($request->hasFile('evidence')) {
             $file = $request->file('evidence');
@@ -190,7 +188,7 @@ class SuratKeluarController extends Controller
             $validated['evidence'] = $path;
         }
 
-        $suratKeluar = SuratKeluar::create($validated);
+        $suratKeluar = app(\App\Services\AnnualNumber::class)->create(SuratKeluar::class, 'nomor_surat', 'tanggal_surat', $validated);
         $suratKeluar->load([
             'userInput:id,nama,npp',
             'userRequest:id,nama,npp',
@@ -213,7 +211,7 @@ class SuratKeluarController extends Controller
             'user_request' => 'nullable|uuid|exists:users,id',
             'bagian_seksi_request' => 'nullable|uuid|exists:bagian_seksi,id',
             'evidence' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'catatan' => 'nullable|string|max:255',
+            'catatan' => 'nullable|string|max:10000',
         ]);
 
         if ($request->hasFile('evidence')) {
