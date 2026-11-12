@@ -23,8 +23,8 @@ class AnnualNumber
                 ->max(DB::raw('CAST(nomor_surat AS BIGINT)'));
             return max((int) $imported, (int) $issued) + 1;
         }
-        // Both letter registers follow active records. Applications retain their existing policy.
-        $query = $model === \App\Models\SuratKeluar::class ? $model::query() : $model::withTrashed();
+        // Outgoing letters and applications both continue the highest active number per year.
+        $query = $model::query();
         $query->where(function ($query) use ($model, $dateColumn, $year) {
             $query->whereYear($dateColumn, $year);
             if ($model === \App\Models\SuratKeluar::class) {
